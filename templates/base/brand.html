@@ -1,0 +1,41 @@
+{% extends 'base/header.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+
+
+
+{% for product in products_of_brand %}
+
+<div class="col-md-3 col-sm-6 col-xs-12">
+<br>
+<style>
+  img.card-img-top{
+  width:100%;
+  }
+</style>
+
+
+  <div class="card">
+    <a href="{{ product.get_absolute_url}}"><img class="card-img-top img-responsive" src="{{product.image.url}}" alt="Card image cap"></a>
+    <div class="card-body">
+      <hr>
+      <h6 class="text-center">{{product.name}}</h6>
+      <hr>
+      <p class="card-text" style="color: #a20c0c;">{{product.price}}, AZN</p>
+    </div>
+
+
+  </div>
+
+</div>
+ {%endfor%}
+</div>
+</div>
+
+
+
+{% endblock content %}
+
+{% include 'base/footer.html' %}

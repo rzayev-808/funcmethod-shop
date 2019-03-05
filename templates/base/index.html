@@ -1,0 +1,39 @@
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'assets/css/material-dashboard.min.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  </head>
+  <body>
+     <!-- <img src="{{ STATIC_PREFIX }}images/hi.jpg" alt="Hi!" />-->
+     <!-- <img src="{{ STATIC_PREFIX }}images/hi2.jpg" alt="Hello!" />-->
+                <!--  <script class="alert alert-danger" role="alert">alert('hello')</script>-->
+      <div class="container">
+          {% include 'base/navbar.html' %}
+          {% include 'base/corusel.html' %}
+          {% block content %}
+          <br>
+          <div class="alert alert-danger" role="alert">
+              Bu Beta versiyadir
+            </div>     
+            <div class="container" >
+              {% for brand in brands %}
+            <a href="{{brand.get_absolute_url}}" class="btn btn-primary btn-round" role="button" aria-disabled="true">{{brand.name}}</a>
+            {% endfor %}
+</div>
+{%endblock content%}
+            <div id="content">
+        {% include 'base/cards.html' %}
+        
+        
+    </div>
+    
+    {% include 'base/footer.html' %}

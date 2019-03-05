@@ -1,0 +1,56 @@
+
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+<div class="row">
+
+        {% for product in products %}
+        <div class="col-md-4">
+
+<div class="card card-nav-tabs text-center" style="width: 20rem;">
+        <a href="{{product.get_absolute_url}}">
+        <img class="card-img-top" src="{{product.image.url}}" alt="Card image cap" style="height: 250px;">
+        </a>
+        <br>
+        <div class="card-header card-header-danger">
+                <h6 class="text-center">Model: {{product.name}}  </h6>
+        </div>
+        <ul class="list-group list-group-flush center">
+          <li class="list-group-item">Marka: {{product.brand}}</li>
+          <li class="list-group-item">Qiymet: {{product.price}}.AZN</li>
+          <hr>
+          {% if not request.user.is_authenticated %}
+          <h6 style="color: rgb(240, 11, 11);">Sebete elave ucun <a href='{% url "login" %}' class="alert-link">Sisteme</a> daxil olun</h6>
+          {% else %}
+          <li class="list-group-item"><a href='#' class='add_to_cart' data-slug='{{ product.slug }}'><button class='btn btn-danger'>Sebete elave et</button></a></li>{% endif %}
+        </ul>
+    
+    
+       
+      </div>
+    </div>
+      {%endfor%}
+    </div>
+</div>
+</div>
+<script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+<script>
+$(document).ready(function(){
+	$('.add_to_cart').on('click', function(e){
+		e.preventDefault()
+		product_slug = $(this).attr('data-slug')
+		data = {
+			product_slug: product_slug
+		}
+		$.ajax({
+			type: "GET",
+			url: '{% url "add_to_cart" %}',
+			data: data,
+			success: function(data){
+				$("#cart_count").html(data.cart_total)
+			}
+		})
+	})
+})
+</script>

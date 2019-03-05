@@ -1,0 +1,30 @@
+{% include 'base/header.html' %}
+
+
+{% block content %}
+<h3 class='text-center'>Sifarishi tesdiqle</h3>
+<br>
+<table class='table'>
+<tr>
+	<td class='text-center'><strong>Mehsul</strong></td>
+	<td class='text-center'><strong>Sayi</strong></td>
+	<td class='text-center'><strong>Qiymet</strong></td>
+	<td class='text-center'></td>
+</tr>
+{% for item in cart.items.all %}
+<tr>
+	<td class='text-center'>{{ item.product.title }}</td>
+	<td class="text-center">{{ item.qty }}</td>
+	<td class='text-center'>{{ item.item_total }} Azn</td>
+	<td></td>
+</tr>
+{% endfor %}
+<tr>
+	<td></td>
+	<td class='text-center'> <strong>Cemi: </strong></td>
+	<td class='text-center'><strong>{{ cart.cart_total }} Azn</strong></td>
+	<td class='text-center'></td>
+</tr>
+</table>
+<a href='{% url "create_order" %}' class='pull-right'><button class='btn btn-success'>Tesdiqle</button></a>
+{% endblock content %}
