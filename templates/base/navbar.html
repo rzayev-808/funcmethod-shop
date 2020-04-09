@@ -44,6 +44,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
               <li><a class='nav-link' href='{% url "cart" %}'>Sebet <span class='badge' id='cart_count'>{% if not request.session.total %} 0 {% else %} {{ request.session.total }} {% endif %}</span></a></li>
+              <li><a class='nav-link' href=''>Fovaritlerim <span class='badge' id='cart_count'>{{fovarites.count}}</span></a></li>
             </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

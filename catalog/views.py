@@ -13,10 +13,16 @@ from django.views.generic import View
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
+from django.shortcuts import get_object_or_404 
+from django.shortcuts import redirect
+
 # Create your views here.
+from django.db.models import Q
 
 def index(request):
     try:
+        num_visits = request.session.get('num_visits', 0)
+        request.session['num_visits'] = num_visits + 1
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
         request.session['total'] = cart.items.count()
@@ -30,19 +36,26 @@ def index(request):
     categories = Category.objects.all()
     products = Product.objects.all()
     brands = Brand.objects.all()
+    fovarites = Fovarite.objects.all()
     
     context = {
         'categories': categories,
         'products': products,
         'brands': brands,
         'cart': cart,
-        "home_page": "active"
+        "home_page": "active",
+        'fovarites': fovarites
+        
     }
     return render(request, 'base/index.html', context)    
 
 
 def product_view(request, product_slug):
     try:
+        x = request.GET.get('id')
+        product_list = request.session.get('product_list', {})
+        product_list[product_slug] = x
+        request.session['product_list'] = product_list
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
         request.session['total'] = cart.items.count()
@@ -52,20 +65,37 @@ def product_view(request, product_slug):
         cart_id = cart.id
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
-   
+    his = {}
+    keys = []
+    
+    for key,values in product_list.items():
+        keys.append(key)
+    history = list(keys)
+    for n in history:
+        history_products = Product.objects.filter(Q(slug__icontains=n[0])|  Q(slug__icontains=n[5])| Q(slug__icontains=n[3]) | Q(slug__icontains=n[2])| Q(slug__icontains=n[1]))
+    #history = list(keys)
+    
+    #his['slug'] = keys
+    
     product = Product.objects.get(slug=product_slug)
     categories = Category.objects.all()
     context = {
         'product': product,
         'categories': categories,
         'cart': cart,
-        'product_page': "active"
+        'product_page': "active",
+        'product_list': product_list,
+        'history_products': history_products,
+        
     }
     return render(request, 'base/product.html', context)
 
-
-def category_view(request, category_slug):
+def product_history(request):
     try:
+        x = request.GET.get('id')
+        product_list = request.session.get('product_list', {})
+        product_list[product_slug] = x
+        request.session['product_list'] = product_list
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
         request.session['total'] = cart.items.count()
@@ -75,6 +105,17 @@ def category_view(request, category_slug):
         cart_id = cart.id
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
+    his = {}
+    keys = []
+    
+    for key,values in product_list.items():
+        keys.append(key)
+    history = list(keys)
+    for n in history:
+       pass
+
+def category_view(request, category_slug):
+
     
     category = Category.objects.get(slug=category_slug)
     price_filter_type = request.GET.get('price_filter_type')
@@ -83,10 +124,10 @@ def category_view(request, category_slug):
     context = {
         'category': category,
         'products_of_category': products_of_category,
-        'cart': cart,
+        #'cart': cart,
         'category_page': "active"
     }
-    return render(request, 'base/category.html', context)
+    return render(request, 'base/brand.html', context)
 
 
 
@@ -332,3 +373,26 @@ def login_view(request):
         'categories': categories
     }
     return render(request, 'project/login.html', context)
+
+def fovarite_update(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    fovarite = Fovarite()
+    fovarite.user = request.user
+    fovarite.save()
+    fovarite.fovarit.add(product)
+    #fovarite.fovarit.(product)
+    
+    
+    
+    return redirect('index')
+    
+
+def filters(request):
+    return render(request, 'sufre.html')
+
+
+def login(request):
+    return render(request, 'login.html')
+
+def details(request):
+    return render(request, 'product-detail.html')

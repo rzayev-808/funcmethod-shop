@@ -1,6 +1,11 @@
 from django.contrib import admin
-from .models import Category, Brand, Product, CartItem, Cart, Order
+from .models import *
+#from simple_history.admin import SimpleHistoryAdmin
 
+
+class ProductMultiImage(admin.TabularInline):
+    model = MultiImage
+    fields = ['image',]
 
 def make_payed(modeladmin, request, queryset):
     queryset.update(status='Odenilib')
@@ -12,12 +17,13 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-
+	inlines = [ProductMultiImage,]
 	list_display = ("category", "brand", "title",)
 	model = Product
 
 
-
+admin.site.register(MultiImage)
+admin.site.register(Fovarite)
 
 admin.site.register(Category)
 admin.site.register(Brand)

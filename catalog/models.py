@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from PIL import Image
 import os
 import glob
+#from simple_history.models import HistoricalRecords
 
 # Create your models here.
 
@@ -64,6 +65,8 @@ class Product(models.Model):
     data = models.DateField(auto_now_add=True)
     link = models.URLField(blank=True)
     slug = models.SlugField(max_length=75, blank=True)
+    #history = HistoricalRecords()
+    #fovarite = models.BooleanField(default=False)
 
     def save (self, *args, **kwargs):
         if not self.id:
@@ -76,7 +79,9 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'product_slug': self.slug})
 
-
+class MultiImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(verbose_name='Image')
     
 class CartItem(models.Model):
 
@@ -148,3 +153,11 @@ class Order(models.Model):
 
     def  __str__(self):
         return "Muraciyet №{0}".format(str(self.id))
+
+
+class Fovarite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    fovarit = models.ManyToManyField(Product, blank=True, related_name='fovar')
+
+  
+    

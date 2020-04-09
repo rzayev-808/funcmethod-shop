@@ -17,6 +17,10 @@ from .views import (
 	registration_view,
 	login_view,
 	index,
+	fovarite_update,
+	filters,
+	login,
+	details
 )
 
 
@@ -26,6 +30,8 @@ urlpatterns = [
     path('brand/<brand_slug>/', brand_view, name='brand_detail'),	
 	path('category/<category_slug>/', category_view, name='category_detail'),
 	path('product/<product_slug>/', product_view, name='product_detail'),
+	
+	path('fovarite_update/<product_id>/', fovarite_update, name='fovarite_update'),
     path('add_to_cart', add_to_cart_view, name='add_to_cart'),
 	path('remove_from_cart/', remove_from_cart_view, name='remove_from_cart'),
 	path('change_item_qty/', change_item_qty, name='change_item_qty'),
@@ -39,7 +45,9 @@ urlpatterns = [
 	path('login/', login_view, name='login'),
 	path('logout/', LogoutView.as_view(next_page=reverse_lazy('index')), name='logout'),
 	path('', index, name='index'),
-
+    path('filters/', filters, name='filters'),
+    path('logins/', login, name='login'),
+    path('details/', details, name='detail'),
 
 	
 

@@ -1,0 +1,17 @@
+<svg id="pie-chart" xmlns="http://www.w3.org/2000/svg" width="16.005" height="15.307" viewBox="0 0 16.005 15.307">
+  <g id="Group_231" data-name="Group 231" transform="translate(3.827 1.331)">
+    <g id="Group_230" data-name="Group 230">
+      <path id="Path_116" data-name="Path 116" d="M118.422,49.723h-.333v6.821L113.231,61.4l.233.233a6.842,6.842,0,0,0,4.925,2.063,6.988,6.988,0,1,0,.033-13.976Zm-.033,13.31a6.227,6.227,0,0,1-4.226-1.63l4.559-4.559V50.388a6.327,6.327,0,0,1-.333,12.645Z" transform="translate(-113.231 -49.723)" fill="#fff"/>
+    </g>
+  </g>
+  <g id="Group_233" data-name="Group 233" transform="translate(0.033 7.886)">
+    <g id="Group_232" data-name="Group 232">
+      <path id="Path_117" data-name="Path 117" d="M.984,244.491l.033.333a6.9,6.9,0,0,0,2,4.259l.233.233,5.624-5.624Zm.7.6,5.357-.532-3.793,3.793A6.363,6.363,0,0,1,1.683,245.09Z" transform="translate(-0.984 -243.692)" fill="#fff"/>
+    </g>
+  </g>
+  <g id="Group_235" data-name="Group 235" transform="translate(0 0)">
+    <g id="Group_234" data-name="Group 234">
+      <path id="Path_118" data-name="Path 118" d="M6.988,10.338A6.987,6.987,0,0,0,0,17.326a4.912,4.912,0,0,0,.033.7l.033.333,7.254-.732V10.338Zm-.333,6.688-5.99.6v-.3A6.323,6.323,0,0,1,6.655,11Z" transform="translate(0 -10.338)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

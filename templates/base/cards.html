@@ -7,7 +7,7 @@
         <div class="col-md-4">
 
 <div class="card card-nav-tabs text-center" style="width: 20rem;">
-        <a href="{{product.get_absolute_url}}">
+        <a href="product/{{product.slug}}/?&id={{product.id}}/">
         <img class="card-img-top" src="{{product.image.url}}" alt="Card image cap" style="height: 250px;">
         </a>
         <br>
@@ -21,7 +21,10 @@
           {% if not request.user.is_authenticated %}
           <h6 style="color: rgb(240, 11, 11);">Sebete elave ucun <a href='{% url "login" %}' class="alert-link">Sisteme</a> daxil olun</h6>
           {% else %}
-          <li class="list-group-item"><a href='#' class='add_to_cart' data-slug='{{ product.slug }}'><button class='btn btn-danger'>Sebete elave et</button></a></li>{% endif %}
+          <li class="list-group-item"><a href='#' class='add_to_cart' data-slug='{{ product.slug }}'><button class='btn btn-danger'>Sebete elave et</button></a></li>
+          <li class="list-group-item"><a href='/fovarite_update/{{product.id}}/' class='add_to_fovarite'><button class='btn btn-danger'>Fovarite elave et</button></a></li>
+
+          {% endif %}
         </ul>
     
     
@@ -35,6 +38,7 @@
 <script src="{% static 'js/jquery.js' %}"></script>
 
     <!-- Bootstrap Core JavaScript -->
+
 <script>
 $(document).ready(function(){
 	$('.add_to_cart').on('click', function(e){
