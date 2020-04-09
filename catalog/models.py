@@ -17,7 +17,7 @@ import glob
 
 class Brand(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True)
 
     def __str__(self):
         return self.name
@@ -30,10 +30,15 @@ class Brand(models.Model):
         self.slug = slugify(self.name+str(self.name))
         super(Brand, self).save(*args, **kwargs)
     
-
+class SubCategory(models.Model):
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+    
 
 class Category(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand')
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=100)
     slug = models.SlugField()
     img = models.ImageField()
@@ -54,23 +59,35 @@ def gen_slug(s):
     return new_slug + '_' + str(int(time()))
 
 class Product(models.Model):
-    category = models.ForeignKey(Category,on_delete=models.CASCADE, verbose_name='Kategoriya')
+    category = models.ForeignKey(SubCategory,on_delete=models.CASCADE, verbose_name='Kategoriya')
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand')
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=1000, verbose_name='Mehsulun Adi')
+    code = models.CharField(max_length=100, verbose_name='Mehsulun Kodu')
     image = models.ImageField()
-    price = models.DecimalField(max_digits=9, decimal_places=2, default=0.00, verbose_name='Qiymeti')
+    price = models.DecimalField(max_digits=9, decimal_places=0, default=0, verbose_name='Qiymeti')
+    sale = models.DecimalField(max_digits=9, decimal_places=0, default=0,  verbose_name='Endirim Faizi', blank=True, null=True)
+    dicount = models.DecimalField(max_digits=9, decimal_places=0, verbose_name='Yekun Qiymeti', blank=True, null=True)
+    order_price = models.DecimalField(max_digits=9, decimal_places=2,  verbose_name='Catdirilma Qiymeti', blank=True, null=True)
+
     title = models.TextField()
-    phone = models.CharField(max_length=100, verbose_name="Elaqe normesi")
-    addres = models.CharField(max_length=200, verbose_name="Address")
+    description = models.TextField()
+    
     data = models.DateField(auto_now_add=True)
-    link = models.URLField(blank=True)
-    slug = models.SlugField(max_length=75, blank=True)
+    stock = models.BooleanField(default=True)
+    active = models.BooleanField(default=True)
+    promo_kod = models.CharField(max_length=200, blank=True)
+    slug = models.SlugField(max_length=200, blank=True)
+    material = models.CharField(max_length=200, blank=True, verbose_name='Material')
+    olcu = models.CharField(max_length=200, blank=True, verbose_name='Olculer')
     #history = HistoricalRecords()
     #fovarite = models.BooleanField(default=False)
+
 
     def save (self, *args, **kwargs):
         if not self.id:
             self.slug = gen_slug(self.name)
+        if not self.dicount:
+            self.dicount = self.price - (self.price * self.sale / 100)
         super().save(*args, **kwargs)
 
     def __str__(self):

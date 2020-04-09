@@ -18,7 +18,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
 	inlines = [ProductMultiImage,]
-	list_display = ("category", "brand", "title",)
+	list_display = ("category", "name", "active", "stock", "price", "sale", "dicount",)
 	model = Product
 
 
@@ -27,6 +27,8 @@ admin.site.register(Fovarite)
 
 admin.site.register(Category)
 admin.site.register(Brand)
+admin.site.register(SubCategory)
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(CartItem)
 admin.site.register(Cart)
