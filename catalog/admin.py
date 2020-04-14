@@ -24,6 +24,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(MultiImage)
 admin.site.register(Fovarite)
+admin.site.register(Color)
 
 admin.site.register(Category)
 admin.site.register(Brand)

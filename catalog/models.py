@@ -56,10 +56,20 @@ class Category(models.Model):
 
 def gen_slug(s):
     new_slug = slugify(s, allow_unicode=True)
+
     return new_slug + '_' + str(int(time()))
+
+
+class Color(models.Model):
+    name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
+    
+
 
 class Product(models.Model):
     category = models.ForeignKey(SubCategory,on_delete=models.CASCADE, verbose_name='Kategoriya')
+    colors = models.ForeignKey(Color,on_delete=models.CASCADE, verbose_name='Rengi', null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand')
     name = models.CharField(max_length=1000, verbose_name='Mehsulun Adi')
     code = models.CharField(max_length=100, verbose_name='Mehsulun Kodu')
