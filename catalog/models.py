@@ -69,7 +69,8 @@ class Color(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(SubCategory,on_delete=models.CASCADE, verbose_name='Kategoriya')
-    colors = models.ForeignKey(Color,on_delete=models.CASCADE, verbose_name='Rengi', null=True, blank=True)
+#    colors = models.ForeignKey(Color,on_delete=models.CASCADE, verbose_name='Rengi', null=True, blank=True)
+    colors = models.ManyToManyField(Color, verbose_name='Rengi', blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand')
     name = models.CharField(max_length=1000, verbose_name='Mehsulun Adi')
     code = models.CharField(max_length=100, verbose_name='Mehsulun Kodu')
