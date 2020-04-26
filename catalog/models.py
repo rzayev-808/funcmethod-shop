@@ -11,9 +11,57 @@ from django.contrib.auth.models import User
 from PIL import Image
 import os
 import glob
+from django.conf import settings
+from star_ratings.models import Rating
+
 #from simple_history.models import HistoricalRecords
 import math
+from django.contrib.auth.models import (
+  AbstractBaseUser,
+  BaseUserManager
+)
 # Create your models here.
+
+class ProductQuerySet(models.query.QuerySet):
+
+
+    def active(self):
+        return self.filter(active=True)
+
+    def featured(self):
+        return self.filter(featured=True, active=True)
+
+    def search(self, query):
+        lookups = (Q(title__icontains=query) | 
+                   Q(name__icontains=query) | 
+                   Q(description__icontains=query) |
+                   Q(price__icontains=query) |
+                   Q(tag__title__icontains=query)
+        )
+        return self.filter(lookups).distinct()
+
+
+class ProductManager(models.Manager):
+  def get_queryset(self):
+    return ProductQuerySet(self.model, using=self._db)
+  
+  def all(self):
+    return self.get_queryset().active()
+  
+  def featured(self):
+    return self.get_queryset().featured()
+
+  def get_by_id(self, id):
+    qs = self.get_queryset().filter(id=id)
+    if qs.count() == 1:
+      return qs.first()
+    return None
+
+  def search(self, query):
+    return self.get_queryset().active().search(query)
+
+
+
 
 class Brand(models.Model):
     name = models.CharField(max_length=100)
@@ -84,10 +132,10 @@ class Product(models.Model):
     sale = models.DecimalField(max_digits=9, decimal_places=0, default=0,  verbose_name='Endirim Faizi', blank=True, null=True)
     dicount = models.DecimalField(max_digits=9, decimal_places=0, verbose_name='Yekun Qiymeti', blank=True, null=True)
     order_price = models.DecimalField(max_digits=9, decimal_places=2,  verbose_name='Catdirilma Qiymeti', blank=True, null=True)
-
+    reting = models.IntegerField(verbose_name='Reyting', blank=True, null=True)
     title = models.TextField()
     description = models.TextField()
-    
+    featured = models.BooleanField(default=False)
     data = models.DateField(auto_now_add=True)
     stock = models.BooleanField(default=True)
     active = models.BooleanField(default=True)
@@ -97,9 +145,11 @@ class Product(models.Model):
     #promo_kod = models.CharField(max_length=200, blank=True)
     slug = models.SlugField(max_length=200, blank=True)
     material = models.CharField(max_length=200, blank=True, verbose_name='Material')
-   # olcu = models.CharField(max_length=200, blank=True, verbose_name='Olculer')
+    #olcu = models.CharField(max_length=200, blank=True, verbose_name='Olculer')
     #history = HistoricalRecords()
     #fovarite = models.BooleanField(default=False)
+    objects = ProductManager()
+
     def prome_code_in(self):
        return self.codes.all().count()
 
@@ -110,7 +160,7 @@ class Product(models.Model):
            return x
 
     def save (self, *args, **kwargs):
-        if not self.id:
+        if not self.slug:
             self.slug = gen_slug(self.name)
         if not self.dicount:
             self.dicount = self.price - (self.price * self.sale / 100)
@@ -170,13 +220,13 @@ class Kredit_18_ay(models.Model):
     
     
     
-    
 class Size(models.Model):
     products = models.ForeignKey(Product, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, verbose_name='Olculer')
 
     def __str__(self):
         return self.name
+    
 
 class PromoCode(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='codes')
@@ -255,10 +305,138 @@ class Order(models.Model):
         return "Muraciyet №{0}".format(str(self.id))
 
 
-class Fovarite(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    fovarit = models.ManyToManyField(Product, blank=True, related_name='fovar')
+#lass Fovarite(models.Model):
+    #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+   # fovarit = models.ManyToManyField(Product, blank=True, related_name='fovar')
 
   
     
+class Click(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=20)
+    name = models.CharField(max_length=100)
+    note = models.CharField(max_length=200, blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
+class UserManager(BaseUserManager):
+  def create_user(self, email, password=None, is_active=True, is_staff=False, is_admin=False):
+    if not email:
+      raise ValueError('Users must have an email address')
+    if not password:
+      raise ValueError('Users must have a password')
+    
+
+    user_obj = self.model(
+      email=self.normalize_email(email),
+    )
+    user_obj.set_password(password)
+    user_obj.staff = is_staff
+    user_obj.admin = is_admin
+    user_obj.is_active = is_active
+    user_obj.save(using=self._db)
+    return user_obj
+
+  def create_staffuser(self, email,  password):
+    user = self.create_user(
+      email,
+      password=password,
+      is_staff=True
+    )
+    user.staff = True
+    user.save(using=self._db)
+    return user
+
+  def create_superuser(self, email, password):
+    user = self.create_user(
+      email,
+      password=password,
+      is_staff=True,
+      is_admin=True
+    )
+    user.staff = True
+    user.admin = True
+    user.save(using=self._db)
+    return user
+
+class User(AbstractBaseUser):
+  email = models.EmailField(max_length=255, unique=True)
+  last_name = models.CharField(max_length=100, blank=True)
+  phone = models.IntegerField(blank=True, null=True)
+  brity = models.DateField(blank=True, null=True)
+  username = models.CharField(max_length=100, blank=True)
+  first_name = models.CharField(max_length=100, blank=True)
+  #full_name = models.CharField(max_length=255, blank=True, null=True)
+  is_active = models.BooleanField(default=True)
+  staff = models.BooleanField(default=False)
+  admin = models.BooleanField(default=False)
+  timestamp = models.DateTimeField(auto_now_add=True)
+
+  USERNAME_FIELD = 'email'
+
+  #REQUIRED_FIELDS = ['email']
+  
+  objects = UserManager()
+
+  def __str__(self):
+    return self.email
+
+  def get_username(self):
+    if not self.username:
+        x = self.username = self.email
+        return x
+    #return self.email
+
+  def get_short_name(self):
+    return self.email
+
+  def has_perm(self, perm, obj=None):
+    return True
+
+  def has_module_perms(self, app_label):
+    return True
+
+  @property
+  def is_staff(self):
+    if self.is_admin:
+      return True
+    return self.staff
+
+  @property
+  def is_admin(self):
+    return self.admin
+
+
+from django.db.models.signals import pre_save, post_save
+from django.urls import reverse
+
+from .utils import unique_slug_generator
+
+
+class Tag(models.Model):
+  title = models.CharField(max_length=120)
+  slug = models.SlugField(blank=True)
+  timestamp = models.DateTimeField(auto_now_add=True)
+  active = models.BooleanField(default=True)
+  products = models.ManyToManyField(Product, blank=True)
+
+  def __str__(self):
+    return self.title
+
+
+def tag_pre_save_receiver(sender, instance, *args, **kwargs):
+  if not instance.slug:
+    instance.slug = unique_slug_generator(instance)
+
+
+pre_save.connect(tag_pre_save_receiver, sender=Tag)
+
+
+class HistoryProducts(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True,null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='history')
+
+    def __str__(self):
+        return self.product.name
+    

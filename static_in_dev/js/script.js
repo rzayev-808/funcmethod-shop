@@ -6,6 +6,23 @@
 		
 		$this.toggleClass("open");
   })
+
+// open category on hover
+
+function openCategory(e) {
+
+  $('.nav-item.dropdown').removeClass('show')
+  $('.nav-item .dropdown-menu').removeClass('show')
+ $(e.target).parent().addClass('show')
+ $(e.target).parent().children('.dropdown-menu').addClass('show')
+}
+
+
+$('.navbar').on('mouseleave',function(){
+  $('.nav-item.dropdown').removeClass('show')
+  $('.nav-item .dropdown-menu').removeClass('show')
+})
+
   $('.nav-toggle').on('click', function(e) {
     $(this).toggleClass('nav-open');
     $(this).parent().children('.sidebar').toggleClass('active');
@@ -24,17 +41,14 @@ $('.navbar-toggler').on('click', function () {
 
   }
 })
-$('.products .fav').on('click', function (e) {
-  $(e.target).attr('src', 'static/images/icons/heart-a.svg')
-})
-
-
-
-// click category or sub category
-$('.sidebar .categories').on('click', function (e) {
+$('.fav').on('click', function (e) {
 
   $(e.target).toggleClass('active')
+  $(e.target).parent().toggleClass('active')
 })
+
+
+
 
 
 $('.sidebar .colors').on('click', function (e) {

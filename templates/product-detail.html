@@ -1,4 +1,5 @@
 {% load static %}
+{% load ratings %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,10 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#bd0523">
+    <meta name="theme-color" content="#ed1c24">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.ico' %}">
 
     <title>SCHAFER</title>
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -77,30 +79,37 @@
                 <div class="user-side d-flex justify-content-between">
                     <ul class="d-flex justify-content-between">
                         <li class="user">
-                            <a href="{% url 'login' %}">
+                            <a href="login.html">
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
                                     <g id="Group_29" data-name="Group 29" transform="translate(-2137.879 -366.88)">
                                         <rect id="Rectangle_28" data-name="Rectangle 28" width="23" height="23"
                                             transform="translate(2137.879 366.88)" fill="none" />
                                         <path id="Union_1" data-name="Union 1"
                                             d="M3.688,23.673A2.692,2.692,0,0,1,1,20.989a2.778,2.778,0,0,1,.058-.564,11.489,11.489,0,0,1,1.672-4c.01-.017.021-.035.032-.051a11.516,11.516,0,0,1,5.969-4.537A6.02,6.02,0,0,1,6.32,7.244h0V7.011a6.023,6.023,0,1,1,12.044-.145c0,.048,0,.1,0,.145q0,.122-.005.243v.1a.874.874,0,0,1-.008.116v0a.6.6,0,0,1-.007.087v.044h0v.055c0,.027-.006.053-.009.08V7.79h0l-.005.041h0l-.006.041h0l-.006.04v.011l-.034.045v.015l-.005.03v.005c-.007.043-.015.085-.023.127h0c-.025.13-.054.259-.087.386v.008l-.01.035v.008c-.041.154-.089.3-.142.454v.006L18,9.077v.01l-.011.031-.006.017-.01.024-.005.014-.01.027-.008.019-.009.022-.01.023-.017.014-.01.023-.007.018-.014.032v.007l-.015.035V9.4a6.056,6.056,0,0,1-1.925,2.438,11.516,11.516,0,0,1,5.969,4.537l.03.047a11.492,11.492,0,0,1,1.674,4,2.778,2.778,0,0,1,.058.564,2.692,2.692,0,0,1-2.693,2.685Zm-.708-2.11a.9.9,0,0,0,.708.338h17.3a.9.9,0,0,0,.708-.338.921.921,0,0,0,.208-.594.972.972,0,0,0-.02-.181,9.787,9.787,0,0,0-9.2-7.749h-.108c-.078,0-.156,0-.235,0s-.158,0-.235,0h-.108a9.787,9.787,0,0,0-9.2,7.749.972.972,0,0,0-.02.181A.921.921,0,0,0,2.98,21.563Zm9.143-10.3h.429c.081,0,.162-.01.242-.019h.027a4.25,4.25,0,1,0-.968,0h.027C11.96,11.252,12.041,11.258,12.123,11.262Z"
-                                            transform="translate(2137 366.087)" fill="#d01b2b" />
+                                            transform="translate(2137 366.087)" fill="#ed1c24" />
                                     </g>
                                 </svg>
+
                             </a>
                         </li>
                         <li class="heart">
+
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <g id="Group_28" data-name="Group 28" transform="translate(-2140 -404)">
                                     <rect id="Rectangle_26" data-name="Rectangle 26" width="24" height="24"
                                         transform="translate(2140 404)" fill="none" />
                                     <path id="heart"
                                         d="M12,21.132a1.416,1.416,0,0,1-.928-.345c-.97-.839-1.9-1.627-2.729-2.323l0,0A50.54,50.54,0,0,1,2.38,12.925,8.791,8.791,0,0,1,0,7.138a7.379,7.379,0,0,1,1.9-5.07A6.485,6.485,0,0,1,6.7,0a6.077,6.077,0,0,1,3.771,1.288A7.671,7.671,0,0,1,12,2.864a7.671,7.671,0,0,1,1.525-1.575A6.077,6.077,0,0,1,17.3,0a6.485,6.485,0,0,1,4.8,2.068A7.379,7.379,0,0,1,24,7.138a8.79,8.79,0,0,1-2.38,5.787,50.535,50.535,0,0,1-5.958,5.535c-.826.7-1.762,1.486-2.734,2.327a1.417,1.417,0,0,1-.928.345ZM6.7,1.391a5.088,5.088,0,0,0-3.767,1.62A6,6,0,0,0,1.406,7.138a7.4,7.4,0,0,0,2.057,4.9A49.737,49.737,0,0,0,9.251,17.4l0,0c.828.7,1.766,1.49,2.743,2.335.983-.847,1.922-1.64,2.752-2.339a49.75,49.75,0,0,0,5.788-5.364,7.4,7.4,0,0,0,2.057-4.9,6,6,0,0,0-1.532-4.127A5.088,5.088,0,0,0,17.3,1.391a4.694,4.694,0,0,0-2.911,1,6.771,6.771,0,0,0-1.622,1.858.892.892,0,0,1-1.525,0A6.764,6.764,0,0,0,9.615,2.389a4.694,4.694,0,0,0-2.911-1Zm0,0"
-                                        transform="translate(2140 405)" fill="#d01b2b" />
+                                        transform="translate(2140 405)" fill="#ed1c24" />
                                 </g>
                             </svg>
+                            <div class="notifications">
+                                <span>{{request.session.fovarites|length }}</span>
+                            </div>
                         </li>
                         <li class="cart">
+
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <g id="Group_27" data-name="Group 27" transform="translate(-2097 -403)">
                                     <rect id="Rectangle_27" data-name="Rectangle 27" width="24" height="24"
@@ -108,12 +117,14 @@
                                     <g id="shopping-cart" transform="translate(2098 403)">
                                         <path id="Path_14" data-name="Path 14"
                                             d="M23.516,15.8h13.14a2.72,2.72,0,0,0,2.705-2.723V7.457a.063.063,0,0,0,0-.03c0-.01,0-.025,0-.035s0-.02,0-.03a.314.314,0,0,1-.01-.035c0-.01,0-.02-.01-.03s0-.02-.01-.03a.241.241,0,0,1-.015-.035.108.108,0,0,0-.015-.025l-.015-.03c0-.01-.01-.015-.015-.025s-.015-.02-.02-.03a.087.087,0,0,0-.02-.025c0-.01-.015-.015-.02-.025s-.015-.015-.02-.025-.015-.015-.02-.02l-.025-.025c-.01,0-.015-.015-.024-.02s-.02-.015-.029-.02l-.025-.015a.1.1,0,0,1-.029-.02L39,6.919,38.97,6.9l-.029-.015c-.01,0-.02,0-.029-.01a.09.09,0,0,0-.034-.01.211.211,0,0,1-.025,0,.107.107,0,0,0-.039,0s-.01,0-.02,0L22.139,4.541V2.2a.305.305,0,0,0,0-.069.037.037,0,0,0,0-.02c0-.015,0-.03,0-.044s0-.025-.01-.039,0-.015,0-.025L22.1,1.962s0-.015,0-.02a.148.148,0,0,0-.02-.039s0-.015-.01-.02a.1.1,0,0,0-.02-.03c0-.01-.01-.015-.015-.025s-.01-.015-.015-.025-.015-.02-.02-.03l-.015-.015-.029-.03-.015-.015a.213.213,0,0,0-.034-.03s-.015-.01-.02-.015-.02-.015-.029-.025a.452.452,0,0,0-.039-.025s-.01,0-.015-.01l-.064-.03L18.12.053a.659.659,0,0,0-.868.355.667.667,0,0,0,.353.873l3.205,1.361v14.59a2.72,2.72,0,0,0,2.357,2.7,2.676,2.676,0,1,0,4.96,1.381,2.65,2.65,0,0,0-.368-1.356h5.95a2.666,2.666,0,1,0,2.3-1.332h-12.5a1.388,1.388,0,0,1-1.382-1.391V15.428A2.723,2.723,0,0,0,23.516,15.8Zm3.294,5.5a1.348,1.348,0,1,1-1.348-1.356A1.355,1.355,0,0,1,26.81,21.307Zm10.557,0a1.348,1.348,0,1,1-1.348-1.356A1.355,1.355,0,0,1,37.367,21.307Zm-.711-6.836H23.516a1.388,1.388,0,0,1-1.382-1.391v-7.2l15.9,2.2v4.987A1.389,1.389,0,0,1,36.657,14.471Z"
-                                            transform="translate(-17.2 0)" fill="#d01b2b" />
+                                            transform="translate(-17.2 0)" fill="#ed1c24" />
                                     </g>
                                 </g>
                             </svg>
+
                             <div class="notifications">
-                                <span>3</span>
+                                <a class='nav-link' style="    color: #fefcf4; font-size: 11px;" href='{% url "cart" %}'> <span id='cart_count'>{% if not request.session.total %} 0 {% else %} {{ request.session.total }} {% endif %}</span></a>
+                                   
                             </div>
                         </li>
 
@@ -138,21 +149,18 @@
                 <ul class="navbar-nav justify-content-between w-100 ">
                     <!-- endirimler -->
                     <li class="nav-item active">
-                        <a class="nav-link fm" href="#">ENDİRİMLƏR</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">ENDİRİMLƏR</a>
                     </li>
                     <!-- sufre -->
                     <li class="nav-item">
-                        <a class="nav-link fm" href="{% url 'filters' %}"> SÜFRƏ QRUPU</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="sufre.html"> SÜFRƏ QRUPU</a>
                     </li>
                     <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle fm" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a onmouseover="openCategory(event)" class="nav-link dropdown-toggle fm" href="#" data-index='1' id="navbarDropdown" role="button"
+                          >
                             BİŞİRMƏ QRUPU
                         </a>
-                        <ul class="dropdown-menu justify-content-around" aria-labelledby="navbarDropdown">
-
-
-
+                        <ul class="dropdown-menu justify-content-around mt-0" aria-labelledby="navbarDropdown">
                             <li class="dropdown-item">
                                 <!-- #first category name -->
                                 <a href="">
@@ -234,26 +242,106 @@
                     <!-- bisirme -->
 
                     <!-- kicik ev -->
-                    <li class="nav-item">
-                        <a class="nav-link fm" href="#">KİÇİK EV ALƏTLƏRİ</a>
+                    <li class="nav-item dropdown">
+                        <a onmouseover="openCategory(event)" class="nav-link fm dropdown-toggle" href="#">KİÇİK EV ALƏTLƏRİ</a>
+                        <ul class="dropdown-menu justify-content-around mt-0" aria-labelledby="navbarDropdown">
+
+
+
+                            <li class="dropdown-item">
+                                <!-- #first category name -->
+                                <a href="">
+                                    TEMEK TAKIMLARIw
+                                </a>
+                                <!-- ------------- -->
+
+                                <ul>
+
+                                    <li>
+                                        <a href="">
+                                            12 Kisilik yemek takimlari
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href=""> 6 Kisilik yemek takimlari</a>
+                                    </li>
+                                </ul>
+
+
+                            </li>
+
+
+                            <li class="dropdown-item">
+                                <a href="">
+                                    CATAL KASIK BICAK TAKIMLARI
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            12 Kisilik yemek takimlari
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <a href="">
+                                    6 Kisilik yemek takimlari
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            tekli catal bicak
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </li>
+
+
+
+                            <li class="dropdown-item">
+                                <a href="">
+                                    CAY PASTA TAKIMLARI
+                                </a>
+                                <ul>
+                                    <li> <a href="">cay fincanlari </a> </li>
+                                    <li> <a href=""> kahve fincanlari</a> </li>
+                                    <li> <a href=""> pasta fincanlari</a> </li>
+                                    <li> <a href="">cay setler </a> </li>
+                                    <li> <a href=""> kupalar</a> </li>
+                                    <li> <a href=""> pasta dunum servis seti</a> </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="">
+                                    KAHVALTI VE SERVIS TAKIMLARI
+                                </a>
+                                <ul>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                     <!-- metbex -->
                     <li class="nav-item ">
-                        <a class="nav-link fm" href="#">MƏTBƏX AKSESUARLARI</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">MƏTBƏX AKSESUARLARI</a>
                     </li>
                     <!-- digerleri -->
                     <li class="nav-item active">
-                        <a class="nav-link fm" href="#">DİGƏRLƏRİ</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">DİGƏRLƏRİ</a>
                     </li>
                     <!-- blog -->
                     <li class="nav-item active">
-                        <a class="nav-link fm" href="#">BLOG</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">BLOG</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header> <!-- header -->
-
 
 
     <section id="product">
@@ -278,7 +366,7 @@
                     <img src="./images/icons/arrow.svg" alt="">
                 </li>
                 <li>
-                    Məhsul
+                    {{product.name}}
                 </li>
             </ul>
         </div>
@@ -299,63 +387,60 @@
                 </li>
             </ul>
             <div class="main-image">
-                <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
+                <img class="img-bg" src="{{product.image.url}}" alt="">
             </div>
             <div class="product-information">
                 <div class="product-title fm">
-                    Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
+                    {{product.title}}
                 </div>
                 <div class="product-number">
-                    Mehsul kodu: 2662698003
+                    Mehsul kodu: {{product.code}}
                 </div>
-                <div class="product-rate">
-                    <ul class="stars d-flex ">
-                        <li class="star">
-                            <img src="{% static 'images/icons/star.svg' %}" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="{% static 'images/icons/star.svg' %}" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="{% static 'images/icons/star.svg' %}" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="{% static 'images/icons/star.svg' %}" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                        </li>
-
-                    </ul>
+                <div class="product-rate rating-widget">
+                   
+                    {% ratings product 28 28 %}
+                        
+               
+                     
                 </div>
+                
                 <div class="product-price d-flex ">
-                    <div class="new-price mr-2"> 295.95 ‎₼</div>
-                    <div class="old-price">295.95 ‎₼</div>
+                    {% if product.sale > 0 %}
+                    <div class="new-price mr-2">{{product.dicount}} ‎₼</div>
+                    <div class="old-price">{{product.price}} ‎₼</div>
+                     {% else %}
+                     <div class="new-price mr-2">{{product.price}} ‎₼</div>
+                     {% endif %}
                 </div>
 
                 <div class="buying">
-                    <div class="buy">
-                        <button class="btn-red">Almaq</button>
-                        <button class="fav">
-                            <img src="{% static 'images/icons/heart.svg' %}" alt="">
+                    <div class="buy" data-slug='{{ product.slug }}' >
+                       
+                        <button class="btn-red" type="submit">
+                           
+                            Almaq
                         </button>
-                        <button class="add-to-cart border-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775" height="30.078"
+                      
+                        <a href="" class="add_to_cart" data-slug='{{ product.slug }}'> <button class="add-to-cart border-0 " data-slug='{{ product.slug }}' href=''>
+                            <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart"  width="27.775" height="30.078"
                                 viewBox="0 0 27.775 30.078">
                                 <path id="Path_14" data-name="Path 14"
                                     d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
                                     transform="translate(-17.2 0)" fill="#fff" />
                             </svg>
-                        </button>
+                            
+                        </button></a>
                     </div>
                     <div class="pay">
-                        <button class="btn-grey">
+                        <button class="btn-grey" data-toggle="modal" data-target="#exampleModalCenter">
                             <img src="{% static 'images/icons/pie-chart.svg' %}" alt="">
                             Hissə-hissə al</button>
-                        <p>12 ay <span class="fm">20 ₼</span></p>
+                        
+                        
                     </div>
+                    
                     <div class="one-click">
-                        <button class="btn-grey">
+                        <button class="btn-grey" data-toggle="modal" data-target="#clickle_al">
                             <img src="{% static 'images/icons/tap.svg' %}" alt="">
                             Bir kliklə al</button>
                     </div>
@@ -378,7 +463,7 @@
         <!-- descriptions -->
         <div class="product-descriptions container  my-5">
             <div class="product-title">
-                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
+                {{product.description}}
             </div>
 
             <div class="desc-nav my-5">
@@ -540,6 +625,7 @@
                         </div>
 
                         <div class="row">
+                           {{history_products}}
                             <div class="col-lg-4 col-md-6 col-xs-12">
                                 <div class="product ">
                                     <div class="product-status">
@@ -591,109 +677,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-xs-12">
-                                <div class="product ">
-                                    <div class="product-status">
-                                        <p>ENDİRİMLİ
-                                            MƏHSUL</p>
-                                    </div>
-                                    <div class="product-photo">
-                                        <img class="img-bg" src="./images/products/1.jpg" alt="">
-                                    </div>
-                                    <div class="fav">
-                                        <img src="./images/icons/heart.svg" alt="">
-                                    </div>
-                                    <div class="product-info">
-                                        <div class="product-rate">
-                                            <ul class="stars d-flex ">
-                                                <li class="star">
-                                                    <img src="./images/icons/star.svg" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="./images/icons/star.svg" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="./images/icons/star.svg" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="./images/icons/star.svg" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="./images/icons/star-g.svg" alt="">
-                                                </li>
-
-                                            </ul>
-                                        </div>
-                                        <div class="product-title my-3">
-                                            Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                                        </div>
-                                        <div class="product-price d-flex">
-                                            <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                            <div class="old-price">295.95 ‎₼</div>
-                                        </div>
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                            height="30.078" viewBox="0 0 27.775 30.078">
-                                            <path id="Path_14" data-name="Path 14"
-                                                d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                                transform="translate(-17.2 0)" fill="#fff" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 col-xs-12">
-                                <div class="product ">
-                                    <div class="product-status">
-                                        <p>ENDİRİMLİ
-                                            MƏHSUL</p>
-                                    </div>
-                                    <div class="product-photo">
-                                        <img class="img-bg" src="./images/products/1.jpg" alt="">
-                                    </div>
-                                    <div class="fav">
-                                        <img src="./images/icons/heart.svg" alt="">
-                                    </div>
-                                    <div class="product-info">
-                                        <div class="product-rate">
-                                            <ul class="stars d-flex ">
-                                                <li class="star">
-                                                    <img src="./images/icons/star.svg" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="./images/icons/star.svg" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="./images/icons/star.svg" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="./images/icons/star.svg" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="./images/icons/star-g.svg" alt="">
-                                                </li>
-
-                                            </ul>
-                                        </div>
-                                        <div class="product-title my-3">
-                                            Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                                        </div>
-                                        <div class="product-price d-flex">
-                                            <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                            <div class="old-price">295.95 ‎₼</div>
-                                        </div>
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                            height="30.078" viewBox="0 0 27.775 30.078">
-                                            <path id="Path_14" data-name="Path 14"
-                                                d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                                transform="translate(-17.2 0)" fill="#fff" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
+                           
 
                         </div>
                     </div>
@@ -738,26 +722,7 @@
             <div class="add-comment text-center">
                 <div class="text-center">
   
-                    <form id="ratingForm">
-                      <div class="card border-0">
-                        <div class="card-body pb-0">
-                        
-                          
-                          <!-- Star Rating HTML -->
-                          <div class="starRating">
-                            <span><i class="fa fa-star-o fa-2x"></i><i class="fa fa-star fa-2x"></i></span>
-                            <span><i class="fa fa-star-o fa-2x"></i><i class="fa fa-star fa-2x"></i></span>
-                            <span><i class="fa fa-star-o fa-2x"></i><i class="fa fa-star fa-2x"></i></span>
-                            <span><i class="fa fa-star-o fa-2x"></i><i class="fa fa-star fa-2x"></i></span>
-                            <span><i class="fa fa-star-o fa-2x"></i><i class="fa fa-star fa-2x"></i></span>
-                          </div>
-                          
-                        </div>
-                      </div>
-                      
-                      <output id="currentRating"></output>
-                      
-                    </form>
+                    
                   </div>
                 <input type="email" placeholder="emailiniz">
                 <input type="text" placeholder="reyiniz">
@@ -893,71 +858,7 @@
                     </div>
 
                 </li>
-                <li class="comment">
-                    <!-- stars -->
-                    <ul class="stars d-flex ">
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star-g.svg" alt="">
-                        </li>
-
-                    </ul>
-                    <div class="text">çok iyi uygun fiyata aldım.</div>
-                    <div class="comment-info">
-                        Gulay Yildiz | 20 Mart 2020
-                    </div>
-                    <div class="comment-detail position-absolute">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="5" height="21" viewBox="0 0 5 21">
-                            <g id="Group_278" data-name="Group 278" transform="translate(-1266 -3079)">
-                              <circle id="Ellipse_14" data-name="Ellipse 14" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3079)" fill="#686868"/>
-                              <circle id="Ellipse_15" data-name="Ellipse 15" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3087)" fill="#686868"/>
-                              <circle id="Ellipse_16" data-name="Ellipse 16" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3095)" fill="#686868"/>
-                            </g>
-                          </svg>
-                          
-                    </div>
-                    <div class="comment-like position-absolute">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19.705" height="18.392"
-                            viewBox="0 0 19.705 18.392">
-                            <g id="like" transform="translate(-33.182 -99.007)">
-                                <g id="Group_275" data-name="Group 275" transform="translate(33.182 105.575)">
-                                    <g id="Group_274" data-name="Group 274" transform="translate(0 0)">
-                                        <path id="Path_203" data-name="Path 203"
-                                            d="M36.466,262.219H33.839a.657.657,0,0,0-.657.657v10.51a.657.657,0,0,0,.657.657h2.627a.657.657,0,0,0,.657-.657v-10.51A.657.657,0,0,0,36.466,262.219Z"
-                                            transform="translate(-33.182 -262.219)" fill="#a4a4a4" />
-                                    </g>
-                                </g>
-                                <g id="Group_277" data-name="Group 277" transform="translate(38.437 99.007)">
-                                    <g id="Group_276" data-name="Group 276" transform="translate(0 0)">
-                                        <path id="Path_204" data-name="Path 204"
-                                            d="M178.19,107.317a2.066,2.066,0,0,0-2.093-1.741h-5.121a11.341,11.341,0,0,0,.658-3.884,2.735,2.735,0,0,0-2.742-2.685h-.542a.657.657,0,0,0-.657.657c0,1.519-.591,4.261-1.707,5.376a7.275,7.275,0,0,1-2.234,1.443v9.856a15.344,15.344,0,0,0,5.418,1.059h4.3a2,2,0,0,0,1.97-2.7,1.971,1.971,0,0,0,1.314-2.627,1.972,1.972,0,0,0,.949-3.215A1.966,1.966,0,0,0,178.19,107.317Z"
-                                            transform="translate(-163.752 -99.007)" fill="#a4a4a4" />
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                        <span>
-                            Bəyən (1)
-
-                        </span>
-
-                    </div>
-
-                </li>
-                <li class="comment">
+              
                     <!-- stars -->
                     <ul class="stars d-flex ">
                         <li class="star">
@@ -1201,65 +1102,136 @@
                     <p>
                         Bizi izləyin
                     </p>
-                    <ul class="social-links d-flex flex-wrap ">
+                    <ul class="social-links d-flex ">
                         <li>
                             <a href="">
-                                <img src="{% static 'images/social/twitter.svg' %}" alt="">
+                                <img src="./images/social/twitter.svg" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="">
-                                <img src="{% static 'images/social/fb.svg' %}" alt="">
+                                <img src="./images/social/fb.svg" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="">
-                                <img src="{% static 'images/social/instagram.svg' %}" alt="">
+                                <img src="./images/social/instagram.svg" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="">
-                                <img src="{% static 'images/social/whatsapp.svg' %}" alt="">
+                                <img src="./images/social/whatsapp.svg" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="">
-                                <img src="{% static 'images/social/youtube.svg' %}" alt="">
+                                <img src="./images/social/youtube.svg" alt="">
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="payment-methods">
-                    <ul class="d-flex flex-wrap">
+                    <ul class="d-flex">
                         <li class="method">
-                            <img src="{% static 'images/methods/wallet.svg' %}" alt="">
+                            <img src="./images/methods/wallet.svg" alt="">
                         </li>
                         <li class="method">
-                            <img src="{% static 'images/methods/bitcoin.svg' %}" alt="">
+                            <img src="./images/methods/bitcoin.svg" alt="">
                         </li>
                         <li class="method">
-                            <img src="{% static 'images/methods/cash_on_delivery.svg' %}" alt="">
+                            <img src="./images/methods/cash_on_delivery.svg" alt="">
                         </li>
                         <li class="method">
-                            <img src="{% static 'images/methods/discover.svg' %}" alt="">
+                            <img src="./images/methods/discover.svg" alt="">
                         </li>
                         <li class="method">
-                            <img src="{% static 'images/methods/maestro.svg' %}" alt="">
+                            <img src="./images/methods/maestro.svg" alt="">
                         </li>
                         <li class="method">
-                            <img src="{% static 'images/methods/master_card.svg' %}" alt="">
+                            <img src="./images/methods/master_card.svg" alt="">
                         </li>
                         <li class="method">
-                            <img src="{% static 'images/methods/paypal.svg' %}" alt="">
+                            <img src="./images/methods/paypal.svg" alt="">
                         </li>
                         <li class="method">
-                            <img src="{% static 'images/methods/visa.svg' %}" alt="">
+                            <img src="./images/methods/visa.svg" alt="">
                         </li>
-        
+
                     </ul>
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Hisse-hisse al</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    
+                  6 ay  = Ayda - {{product.month_6}} ₼
+                  <br>
+                  <hr>
+                  12 ay  =  Ayda - {{product.month_12}} ‎₼
+                  <br> 
+                  <hr>
+                  18 ay  = Ayda - {{product.kredit.all.0.odenis}} ‎₼
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="clickle_al" tabindex="-1" role="dialog" aria-labelledby="clickle_al" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Bir klikle al</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    
+                <form action="{% url 'click_create'  %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="phone">Telefon</label>
+                      <input type="text" name="phone" maxlength="20" required="" id="id_phone" class="form-control">
+                      <select hidden name="product" id="">
+                          <option value="{{product.id}}">
+
+                          </option>
+                      </select>
+                      <small id="phone" class="form-text text-muted">Elaqe nomrenisi qeyd edin</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="name">Adiniz</label>
+                      <input type="text" name="name" maxlength="100" required="" id="id_name" class="form-control">
+                      <small id="name" class="form-text text-muted">Size nece muraciet edek?</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="note">Qeyd</label>
+                        <input type="text" name="note" maxlength="200"  id="id_note" class="form-control">
+                        <small id="text" class="form-text text-muted">Elave qeydler</small>
+
+                      </div>
+                    <div class="form-group form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Qebul edirem</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                </div>
+                
+                
+              </div>
+            </div>
+          </div>
         <div class="copyright text-center">
             <p>Copyright © 2020 "Ayshidesign" MMC. All rights reserved.
             </p>
@@ -1274,11 +1246,164 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <script src="{% static 'js/ranger.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.add_to_cart').on('click', function(e){
+                e.preventDefault()
+                product_slug = $(this).attr('data-slug')
+                data = {
+                    product_slug: product_slug
+                }
+                $.ajax({
+                    type: "GET",
+                    url: '/add_to_cart/',
+                    data: data,
+                    success: function(data){
+                        $("#cart_count").html(data.cart_total)
+                    }
+                })
+            })
+        })
+            
+            
+        </script>
+        <script>
+            function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+        </script>
+        <script>
+            $(document).ready(function(){
+                $('.buy').on('click', function(e){
+                    e.preventDefault()
+                    product_slug = $(this).attr('data-slug')
+                    data = {
+                        product_slug: product_slug
+                    }
+                    $.ajax({
+                        headers: { "X-CSRFToken": getCookie("csrftoken") },
+                        type: "GET",
+                        url: '{% url "buy" product.slug %}',
+                        data: data,
+                        success: function(data){
+                            if (data.code != 200) {
+                            top.location.href = '{% url "cart" %}';
+                                }
+                            $("#cart_count").html(data.cart_total)
+                        }
+                        
+                    })
+                })
+            })
+                
+                
+            </script>
+            <script>
+                $(document).ready(function(){
+          
+          /* 1. Visualizing things on Hover - See next part for action on click */
+          $('#stars li').on('mouseover', function(){
+            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+           
+            // Now highlight all the stars that's not after the current hovered star
+            $(this).parent().children('li.star').each(function(e){
+              if (e < onStar) {
+                $(this).addClass('hover');
+              }
+              else {
+                $(this).removeClass('hover');
+              }
+            });
+            
+          }).on('mouseout', function(){
+            $(this).parent().children('li.star').each(function(e){
+              $(this).removeClass('hover');
+            });
+          });
+          
+          
+          /* 2. Action to perform on click */
+          $('#stars li').on('click', function(){
+            var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+            var stars = $(this).parent().children('li.star');
+            
+            for (i = 0; i < stars.length; i++) {
+              $(stars[i]).removeClass('selected');
+            }
+            
+            for (i = 0; i < onStar; i++) {
+              $(stars[i]).addClass('selected');
+            }
+            
+            // JUST RESPONSE (Not needed)
+            var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+            var msg = "";
+            if (ratingValue > 1) {
+                msg = "Thanks! You rated this " + ratingValue + " stars.";
+            }
+            else {
+                msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+            }
+            responseMessage(msg);
+            
+          });
+          
+          
+        });
+        
+        
+        function responseMessage(msg) {
+          $('.success-box').fadeIn(200);  
+          $('.success-box div.text-message').html("<span>" + msg + "</span>");
+        }
+            </script>
+        <script>
+            $(document).ready(function(){
+            $('#form1').submit(ajax);
+        })
+        function ajax(){
+            data = {
+                        product_id : "{{product.id}}",
+                        user_id : "{{user.id}}",
+                        url_form : "{{ request.path }}"
+                    }
+                $.ajax({
+                    headers: { "X-CSRFToken": getCookie("csrftoken") },
+                    url: '{% url "products_history"  %}',
+                    type : 'POST',
+                
+                    data: data,
+                    success: function(data){
+                        if (data.code != 200) {
+                            break ajax;
+                                }
+                    }
+                });
+        }
+        window.onload=function(){
+            setTimeout(ajax, 3000);
+        }
+        </script>
 </body>
 
 </html>

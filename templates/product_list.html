@@ -1,0 +1,163 @@
+{% load static %}
+{% include 'header.html' %}
+    <!-- home -->
+    <section id="home">
+        <!-- topslider -->
+      
+
+        <!-- services --> 
+        <div class="services d-flex align-items-center">
+            <div class="row w-100">
+                <div class="col-md-4">
+                    <div class="free-cargo d-flex justify-content-center">
+                        <div class="icon">
+                            <img src="{% static 'images/icons/cargo.svg' %}" alt="">
+                        </div>
+                        <div class="content">
+                            <p>Ücretsiz kargo</p>
+                            <span>50 TL ve üzeri alışverişlerde</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="guarantee d-flex justify-content-center">
+                        <div class="icon">
+                            <img src="{% static 'images/icons/guar.svg' %}" alt="">
+                        </div>
+                        <div class="content">
+                            <p>İade ve değişim garantisi</p>
+                            <span>Kırık parça sigortası</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="safe-shopping d-flex justify-content-center">
+                        <div class="icon">
+                            <img src="{% static 'images/icons/safe.svg' %}" alt="">
+                        </div>
+                        <div class="content">
+                            <p>Güvenli alışveriş</p>
+                            <span>Kredi kartına 12 taksit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!---->
+
+        <!-- products -->
+        <div class="products  container mt-5 ">
+            <div class="row">
+                {% for obj in filter.qs %}
+                <div class="col-md-3">
+                    <div class="product new">
+                      {% if obj.sale > 0 %}
+                        <div class="product-status">
+                            <p>ENDİRİMLİ
+                                MƏHSUL</p>
+                        </div>
+                        {% else %}
+                        {%endif %}
+                        <div class="product-photo">
+                            <a href="{{obj.get_absolute_url}}">
+                                <img class="img-bg" src="{{obj.image.url}}" alt="">
+                            </a>
+                        </div>
+                        <div class="fav">
+                            <img src="{% static 'images/icons/heart.svg' %}" alt="">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-rate">
+                                <ul class="stars d-flex ">
+                                    <li class="star">
+                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
+                                    </li>
+                                    <li class="star">
+                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
+                                    </li>
+                                    <li class="star">
+                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
+                                    </li>
+                                    <li class="star">
+                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
+                                    </li>
+                                    <li class="star">
+                                        <img src="{% static 'images/icons/star-g.svg' %}" alt="">
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="product-title my-3">
+                                {{obj.title}}
+                            </div>
+                            <div class="product-price d-flex">
+                              {% if obj.sale > 0 %}
+                                <div class="new-price mr-2">{{obj.dicount}} ‎₼</div>
+                                <div class="old-price">{{obj.price}} ‎₼</div>
+                                {% else %}
+                                <div class="new-price mr-2">{{obj.price}} ‎₼</div>
+                                {%endif %}
+                            </div>
+                        </div>
+                        <a href="" class="add_to_cart" data-slug='{{ obj.slug }}'> <div class="add-to-cart">
+                            <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775" height="30.078"
+                                viewBox="0 0 27.775 30.078">
+                                <path id="Path_14" data-name="Path 14"
+                                    d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
+                                    transform="translate(-17.2 0)" fill="#fff" />
+                            </svg>
+                        </div></a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            </div>
+        </div>
+        <!---->
+        <!-- recommended products -->
+    
+        <div class="ads"></div>
+
+
+    </section> <!-- home -->
+
+
+    <!-- footer --><script type="text/javascript" src="https://kit.fontawesome.com/5a14b242ce.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+crossorigin="anonymous"></script>
+<script src="{% static 'js/ranger.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% include 'footer.html' %}
+<script src="{% static 'js/jquery.js' %}"></script>
+
+
+<script>
+  $(document).ready(function(){
+    $('.add_to_cart').on('click', function(e){
+      e.preventDefault()
+      product_slug = $(this).attr('data-slug')
+      data = {
+        product_slug: product_slug
+      }
+      $.ajax({
+        type: "GET",
+        url: '/add_to_cart/',
+        data: data,
+        success: function(data){
+          $("#cart_count").html(data.cart_total)
+        }
+      })
+    })
+  })
+      
+      
+  </script>
+</body>
+
+</html>

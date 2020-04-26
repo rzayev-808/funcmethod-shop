@@ -1,4 +1,5 @@
 {% load static %}
+{% load ratings %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,10 +8,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#bd0523">
+    <meta name="theme-color" content="#ed1c24">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.ico' %}">
 
     <title>SCHAFER</title>
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -22,7 +25,7 @@
     <header>
         <!-- top  -->
         <nav class="navbar navbar-expand-lg ">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="{% static 'images/logo.svg' %}" alt="">
             </a>
             <div class="nav-side d-flex flex-grow-1 justify-content-between">
@@ -79,29 +82,36 @@
                     <ul class="d-flex justify-content-between">
                         <li class="user">
                             <a href="login.html">
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
                                     <g id="Group_29" data-name="Group 29" transform="translate(-2137.879 -366.88)">
                                         <rect id="Rectangle_28" data-name="Rectangle 28" width="23" height="23"
                                             transform="translate(2137.879 366.88)" fill="none" />
                                         <path id="Union_1" data-name="Union 1"
                                             d="M3.688,23.673A2.692,2.692,0,0,1,1,20.989a2.778,2.778,0,0,1,.058-.564,11.489,11.489,0,0,1,1.672-4c.01-.017.021-.035.032-.051a11.516,11.516,0,0,1,5.969-4.537A6.02,6.02,0,0,1,6.32,7.244h0V7.011a6.023,6.023,0,1,1,12.044-.145c0,.048,0,.1,0,.145q0,.122-.005.243v.1a.874.874,0,0,1-.008.116v0a.6.6,0,0,1-.007.087v.044h0v.055c0,.027-.006.053-.009.08V7.79h0l-.005.041h0l-.006.041h0l-.006.04v.011l-.034.045v.015l-.005.03v.005c-.007.043-.015.085-.023.127h0c-.025.13-.054.259-.087.386v.008l-.01.035v.008c-.041.154-.089.3-.142.454v.006L18,9.077v.01l-.011.031-.006.017-.01.024-.005.014-.01.027-.008.019-.009.022-.01.023-.017.014-.01.023-.007.018-.014.032v.007l-.015.035V9.4a6.056,6.056,0,0,1-1.925,2.438,11.516,11.516,0,0,1,5.969,4.537l.03.047a11.492,11.492,0,0,1,1.674,4,2.778,2.778,0,0,1,.058.564,2.692,2.692,0,0,1-2.693,2.685Zm-.708-2.11a.9.9,0,0,0,.708.338h17.3a.9.9,0,0,0,.708-.338.921.921,0,0,0,.208-.594.972.972,0,0,0-.02-.181,9.787,9.787,0,0,0-9.2-7.749h-.108c-.078,0-.156,0-.235,0s-.158,0-.235,0h-.108a9.787,9.787,0,0,0-9.2,7.749.972.972,0,0,0-.02.181A.921.921,0,0,0,2.98,21.563Zm9.143-10.3h.429c.081,0,.162-.01.242-.019h.027a4.25,4.25,0,1,0-.968,0h.027C11.96,11.252,12.041,11.258,12.123,11.262Z"
-                                            transform="translate(2137 366.087)" fill="#d01b2b" />
+                                            transform="translate(2137 366.087)" fill="#ed1c24" />
                                     </g>
                                 </svg>
+
                             </a>
                         </li>
                         <li class="heart">
+
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <g id="Group_28" data-name="Group 28" transform="translate(-2140 -404)">
                                     <rect id="Rectangle_26" data-name="Rectangle 26" width="24" height="24"
                                         transform="translate(2140 404)" fill="none" />
                                     <path id="heart"
                                         d="M12,21.132a1.416,1.416,0,0,1-.928-.345c-.97-.839-1.9-1.627-2.729-2.323l0,0A50.54,50.54,0,0,1,2.38,12.925,8.791,8.791,0,0,1,0,7.138a7.379,7.379,0,0,1,1.9-5.07A6.485,6.485,0,0,1,6.7,0a6.077,6.077,0,0,1,3.771,1.288A7.671,7.671,0,0,1,12,2.864a7.671,7.671,0,0,1,1.525-1.575A6.077,6.077,0,0,1,17.3,0a6.485,6.485,0,0,1,4.8,2.068A7.379,7.379,0,0,1,24,7.138a8.79,8.79,0,0,1-2.38,5.787,50.535,50.535,0,0,1-5.958,5.535c-.826.7-1.762,1.486-2.734,2.327a1.417,1.417,0,0,1-.928.345ZM6.7,1.391a5.088,5.088,0,0,0-3.767,1.62A6,6,0,0,0,1.406,7.138a7.4,7.4,0,0,0,2.057,4.9A49.737,49.737,0,0,0,9.251,17.4l0,0c.828.7,1.766,1.49,2.743,2.335.983-.847,1.922-1.64,2.752-2.339a49.75,49.75,0,0,0,5.788-5.364,7.4,7.4,0,0,0,2.057-4.9,6,6,0,0,0-1.532-4.127A5.088,5.088,0,0,0,17.3,1.391a4.694,4.694,0,0,0-2.911,1,6.771,6.771,0,0,0-1.622,1.858.892.892,0,0,1-1.525,0A6.764,6.764,0,0,0,9.615,2.389a4.694,4.694,0,0,0-2.911-1Zm0,0"
-                                        transform="translate(2140 405)" fill="#d01b2b" />
+                                        transform="translate(2140 405)" fill="#ed1c24" />
                                 </g>
                             </svg>
+                            <div class="notifications">
+                                <span>{{request.session.fovarites|length }}</span>
+                            </div>
                         </li>
                         <li class="cart">
+
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <g id="Group_27" data-name="Group 27" transform="translate(-2097 -403)">
                                     <rect id="Rectangle_27" data-name="Rectangle 27" width="24" height="24"
@@ -109,12 +119,14 @@
                                     <g id="shopping-cart" transform="translate(2098 403)">
                                         <path id="Path_14" data-name="Path 14"
                                             d="M23.516,15.8h13.14a2.72,2.72,0,0,0,2.705-2.723V7.457a.063.063,0,0,0,0-.03c0-.01,0-.025,0-.035s0-.02,0-.03a.314.314,0,0,1-.01-.035c0-.01,0-.02-.01-.03s0-.02-.01-.03a.241.241,0,0,1-.015-.035.108.108,0,0,0-.015-.025l-.015-.03c0-.01-.01-.015-.015-.025s-.015-.02-.02-.03a.087.087,0,0,0-.02-.025c0-.01-.015-.015-.02-.025s-.015-.015-.02-.025-.015-.015-.02-.02l-.025-.025c-.01,0-.015-.015-.024-.02s-.02-.015-.029-.02l-.025-.015a.1.1,0,0,1-.029-.02L39,6.919,38.97,6.9l-.029-.015c-.01,0-.02,0-.029-.01a.09.09,0,0,0-.034-.01.211.211,0,0,1-.025,0,.107.107,0,0,0-.039,0s-.01,0-.02,0L22.139,4.541V2.2a.305.305,0,0,0,0-.069.037.037,0,0,0,0-.02c0-.015,0-.03,0-.044s0-.025-.01-.039,0-.015,0-.025L22.1,1.962s0-.015,0-.02a.148.148,0,0,0-.02-.039s0-.015-.01-.02a.1.1,0,0,0-.02-.03c0-.01-.01-.015-.015-.025s-.01-.015-.015-.025-.015-.02-.02-.03l-.015-.015-.029-.03-.015-.015a.213.213,0,0,0-.034-.03s-.015-.01-.02-.015-.02-.015-.029-.025a.452.452,0,0,0-.039-.025s-.01,0-.015-.01l-.064-.03L18.12.053a.659.659,0,0,0-.868.355.667.667,0,0,0,.353.873l3.205,1.361v14.59a2.72,2.72,0,0,0,2.357,2.7,2.676,2.676,0,1,0,4.96,1.381,2.65,2.65,0,0,0-.368-1.356h5.95a2.666,2.666,0,1,0,2.3-1.332h-12.5a1.388,1.388,0,0,1-1.382-1.391V15.428A2.723,2.723,0,0,0,23.516,15.8Zm3.294,5.5a1.348,1.348,0,1,1-1.348-1.356A1.355,1.355,0,0,1,26.81,21.307Zm10.557,0a1.348,1.348,0,1,1-1.348-1.356A1.355,1.355,0,0,1,37.367,21.307Zm-.711-6.836H23.516a1.388,1.388,0,0,1-1.382-1.391v-7.2l15.9,2.2v4.987A1.389,1.389,0,0,1,36.657,14.471Z"
-                                            transform="translate(-17.2 0)" fill="#d01b2b" />
+                                            transform="translate(-17.2 0)" fill="#ed1c24" />
                                     </g>
                                 </g>
                             </svg>
+
                             <div class="notifications">
-                                <span>3</span>
+                                <a class='nav-link' style="    color: #fefcf4; font-size: 11px;" href='{% url "cart" %}'> <span id='cart_count'>{% if not request.session.total %} 0 {% else %} {{ request.session.total }} {% endif %}</span></a>
+                                   
                             </div>
                         </li>
 
@@ -139,21 +151,18 @@
                 <ul class="navbar-nav justify-content-between w-100 ">
                     <!-- endirimler -->
                     <li class="nav-item active">
-                        <a class="nav-link fm" href="#">ENDİRİMLƏR</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">ENDİRİMLƏR</a>
                     </li>
                     <!-- sufre -->
                     <li class="nav-item">
-                        <a class="nav-link fm" href="sufre.html"> SÜFRƏ QRUPU</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="sufre.html"> SÜFRƏ QRUPU</a>
                     </li>
                     <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle fm" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a onmouseover="openCategory(event)" class="nav-link dropdown-toggle fm" href="#" data-index='1' id="navbarDropdown" role="button"
+                          >
                             BİŞİRMƏ QRUPU
                         </a>
-                        <ul class="dropdown-menu justify-content-around" aria-labelledby="navbarDropdown">
-
-
-
+                        <ul class="dropdown-menu justify-content-around mt-0" aria-labelledby="navbarDropdown">
                             <li class="dropdown-item">
                                 <!-- #first category name -->
                                 <a href="">
@@ -235,23 +244,117 @@
                     <!-- bisirme -->
 
                     <!-- kicik ev -->
-                    <li class="nav-item">
-                        <a class="nav-link fm" href="#">KİÇİK EV ALƏTLƏRİ</a>
+                    <li class="nav-item dropdown">
+                        <a onmouseover="openCategory(event)" class="nav-link fm dropdown-toggle" href="#">KİÇİK EV ALƏTLƏRİ</a>
+                        <ul class="dropdown-menu justify-content-around mt-0" aria-labelledby="navbarDropdown">
+
+
+
+                            <li class="dropdown-item">
+                                <!-- #first category name -->
+                                <a href="">
+                                    TEMEK TAKIMLARIw
+                                </a>
+                                <!-- ------------- -->
+
+                                <ul>
+
+                                    <li>
+                                        <a href="">
+                                            12 Kisilik yemek takimlari
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href=""> 6 Kisilik yemek takimlari</a>
+                                    </li>
+                                </ul>
+
+
+                            </li>
+
+
+                            <li class="dropdown-item">
+                                <a href="">
+                                    CATAL KASIK BICAK TAKIMLARI
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            12 Kisilik yemek takimlari
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <a href="">
+                                    6 Kisilik yemek takimlari
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            tekli catal bicak
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </li>
+
+
+
+                            <li class="dropdown-item">
+                                <a href="">
+                                    CAY PASTA TAKIMLARI
+                                </a>
+                                <ul>
+                                    <li> <a href="">cay fincanlari </a> </li>
+                                    <li> <a href=""> kahve fincanlari</a> </li>
+                                    <li> <a href=""> pasta fincanlari</a> </li>
+                                    <li> <a href="">cay setler </a> </li>
+                                    <li> <a href=""> kupalar</a> </li>
+                                    <li> <a href=""> pasta dunum servis seti</a> </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="">
+                                    KAHVALTI VE SERVIS TAKIMLARI
+                                </a>
+                                <ul>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                     <!-- metbex -->
                     <li class="nav-item ">
-                        <a class="nav-link fm" href="#">MƏTBƏX AKSESUARLARI</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">MƏTBƏX AKSESUARLARI</a>
                     </li>
                     <!-- digerleri -->
                     <li class="nav-item active">
-                        <a class="nav-link fm" href="#">DİGƏRLƏRİ</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">DİGƏRLƏRİ</a>
                     </li>
                     <!-- blog -->
                     <li class="nav-item active">
-                        <a class="nav-link fm" href="#">BLOG</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">BLOG</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header> <!-- header -->
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 
+    <script type="text/javascript" src="https://kit.fontawesome.com/5a14b242ce.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'js/ranger.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>

@@ -1,7 +1,21 @@
-{% include 'base/header.html' %}
+{% include 'header.html' %}
 {% load static %}
 
 {% block content %}
+<style>
+	.btn-danger {
+    color: #fff;
+    background-color: #bd2524;
+    border-color: #dc3545;
+}
+</style>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br><br>
+<br>
 <h3 class='text-center'>Sizin sebetiniz</h3>
 <br>
 {% if cart.items.count > 0 %}
@@ -22,7 +36,7 @@
 		</form>
 	</td>
 	<td class='text-center' id='cart-item-total-{{ item.id }}'>{{ item.item_total }} Azn</td>
-	<td class='text-center'><a href='#' class='remove_from_cart' data-slug='{{ item.product.slug }}' data-id='{{ item.product.id }}'><button class='btn btn-default'>Sebetden sil</button></a></td>
+	<td class='text-center'><a href='#' class='remove_from_cart' data-slug='{{ item.product.slug }}' data-id='{{ item.product.id }}'><button class='btn btn-danger'>Sebetden sil</button></a></td>
 </tr>
 {% endfor %}
 <tr>
@@ -33,12 +47,16 @@
 </tr>
 </table>
 <br>
-<a href='{% url "checkout" %}' class='pull-right'><button class='btn btn-info'>Tesdiqle</button></a>
+<hr>
+<h3 class="text-center">
+<a href='{% url "checkout" %}' class='pull-right'><button class='btn btn-danger'>Tesdiqle</button></a></h3>
 </div>
 <h3 class='cart-empty'></h3>
 {% else %}
-<h3 class='text-center'>Sebet boshdu</h3>
+<h3 class='text-center'>boshdu</h3>
 {% endif %}
+<br>
+{% include 'footer.html' %}
 <script src="{% static 'js/jquery.js' %}"></script>
 <script>
 $(document).ready(function(){
@@ -58,11 +76,11 @@ $(document).ready(function(){
 			success: function(data){
 				$("#cart_count").html(data.cart_total)
 				$('.cart-item-'+item_product_id).css('display', 'none')
-				$('#cart-total-price').html('<strong>' + parseFloat(data.cart_total_price).toFixed(2) + ' руб. </strong>')
+				$('#cart-total-price').html('<strong>' + parseFloat(data.cart_total_price).toFixed(2) + ' AZN. </strong>')
 				if(parseInt(data.cart_total) == 0){
 					$('.my-cart').css('display', 'none')
 					$('.cart-empty').css('display', 'block')
-					$('.cart-empty').html('<h3 class="text-center">Ваша корзина пуста</h3>')
+					$('.cart-empty').html('<h3 class="text-center">boshdu</h3>')
 				}
 			}
 		})
@@ -82,8 +100,8 @@ $(document).ready(function(){
 			url: '{% url "change_item_qty" %}',
 			data: data,
 			success: function(data){
-				$('#cart-item-total-'+item_id).html(parseFloat(data.item_total).toFixed(2) + ' руб.')
-				$('#cart-total-price').html('<strong>' + parseFloat(data.cart_total_price).toFixed(2) + ' руб. </strong>')
+				$('#cart-item-total-'+item_id).html(parseFloat(data.item_total).toFixed(2) + ' AZN.')
+				$('#cart-total-price').html('<strong>' + parseFloat(data.cart_total_price).toFixed(2) + ' AZN. </strong>')
 			}
 		})
 	})

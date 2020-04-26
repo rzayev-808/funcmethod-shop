@@ -39,8 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog',
     'crispy_forms',
+    'django_filters',
+    'star_ratings',
+    #'rest_framework',
+   # 'api',
+    #'favit',
     #'simple_history',
 ]
+AUTH_USER_MODEL = 'catalog.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -132,3 +138,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_in_dev'),
 )
+
+LOGIN_REDIRECT_URL = '/loginsc/'
+LOGIN_URL='/accounts/'
+
+STAR_RATINGS_RERATE = False
+STAR_RATINGS_ANONYMOUS = False
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    #'DEFAULT_CONTENT_NEGOTIATION_CLASS': 'api.negotiation.IgnoreClientContentNegotiation',
+}

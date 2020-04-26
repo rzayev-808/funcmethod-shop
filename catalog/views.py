@@ -5,7 +5,6 @@ from django.views.generic.edit import FormView
 from django.forms import ModelForm
 from django.shortcuts import render
 from decimal import Decimal
-from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.contrib.auth import login, authenticate
@@ -15,7 +14,19 @@ from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.shortcuts import get_object_or_404 
 from django.shortcuts import redirect
+from .filter import *
 
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView, FormView, DetailView, UpdateView, View,ListView,TemplateView
+from django.views.generic.edit import FormMixin
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
+from django.utils.http import is_safe_url
+from django.utils.safestring import mark_safe
+from django.urls import reverse_lazy
 # Create your views here.
 from django.db.models import Q
 
@@ -34,21 +45,29 @@ def index(request):
         cart = Cart.objects.get(id=cart_id)
     
     categories = Category.objects.all()
-    products = Product.objects.all()
+    products = Product.objects.all()[:4]
     brands = Brand.objects.all()
-    fovarites = Fovarite.objects.all()
-    
+    #x = len(request.session.get('fovarites'))
+    #fovarites = Fovarite.objects.all()
+
+    f = ProductFilter(request.GET, queryset=Product.objects.all())
     context = {
         'categories': categories,
         'products': products,
         'brands': brands,
         'cart': cart,
         "home_page": "active",
-        'fovarites': fovarites
+        #'fovarites': fovarites,
+        'filter': f,
+        'fovarites_list': request.session.get('fovarites')
         
     }
     return render(request, 'base/index.html', context)    
 
+def product_list(request):
+    
+    f = ProductFilter(request.GET, queryset=Product.objects.all())
+    return render(request, 'product_list.html', {'filter': f})
 
 def product_view(request, product_slug):
     try:
@@ -67,18 +86,32 @@ def product_view(request, product_slug):
         cart = Cart.objects.get(id=cart_id)
     his = {}
     keys = []
-    
+    #print(product_list)
     for key,values in product_list.items():
         keys.append(key)
     history = list(keys)
     for n in history:
-        history_products = Product.objects.filter(Q(slug__icontains=n[0])|  Q(slug__icontains=n[5])| Q(slug__icontains=n[3]) | Q(slug__icontains=n[2])| Q(slug__icontains=n[1]))
+        history_products = Product.objects.filter(slug__icontains=n[1]).order_by('-id')
     #history = list(keys)
     
     #his['slug'] = keys
-    
+    #print(history_products)
     product = Product.objects.get(slug=product_slug)
     categories = Category.objects.all()
+    if request.method == "POST":
+        form = HistoryForms(request.POST or None)
+        if form.is_valid():
+            new = form.save(commit=False)
+            product = request.POST.get('product')
+            new.user = request.user
+            #new.product = request.GET.get('id')
+
+            if  HistoryProducts.objects.filter(user=new.user).filter(product=request.POST.get('product')):
+                pass
+            else:
+                new.save()
+            return redirect(request.POST.get('url_form')) 
+
     context = {
         'product': product,
         'categories': categories,
@@ -88,31 +121,8 @@ def product_view(request, product_slug):
         'history_products': history_products,
         
     }
-    return render(request, 'base/product.html', context)
+    return render(request, 'product-detail.html', context)
 
-def product_history(request):
-    try:
-        x = request.GET.get('id')
-        product_list = request.session.get('product_list', {})
-        product_list[product_slug] = x
-        request.session['product_list'] = product_list
-        cart_id = request.session['cart_id']
-        cart = Cart.objects.get(id=cart_id)
-        request.session['total'] = cart.items.count()
-    except:
-        cart = Cart()
-        cart.save()
-        cart_id = cart.id
-        request.session['cart_id'] = cart_id
-        cart = Cart.objects.get(id=cart_id)
-    his = {}
-    keys = []
-    
-    for key,values in product_list.items():
-        keys.append(key)
-    history = list(keys)
-    for n in history:
-       pass
 
 def category_view(request, category_slug):
 
@@ -341,11 +351,16 @@ def registration_view(request):
         email = form.cleaned_data['email']
         first_name = form.cleaned_data['first_name']
         last_name = form.cleaned_data['last_name']
-        new_user.username = username
+        phone = form.cleaned_data['phone']
+        brity = form.cleaned_data['brity']
+        
         new_user.set_password(password)
         new_user.first_name = first_name
+        new_user.username = username
         new_user.last_name = last_name
         new_user.email = email
+        new_user.phone = phone
+        new_user.brity = brity
         new_user.save()
         login_user = authenticate(username=username, password=password)
         if login_user:
@@ -355,13 +370,13 @@ def registration_view(request):
         'form': form,
         'categories': categories
     }
-    return render(request, 'project/registration.html', context)
+    return render(request, 'register.html', context)
 
 
 def login_view(request):
-    form = LoginForm(request.POST or None)
+    forms = LoginForm(request.POST or None)
     categories = Category.objects.all()
-    if form.is_valid():
+    if forms.is_valid():
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
         login_user = authenticate(username=username, password=password)
@@ -369,10 +384,10 @@ def login_view(request):
             login(request, login_user)
             return HttpResponseRedirect(reverse('index'))
     context = {
-        'form': form,
+        'forms': forms,
         'categories': categories
     }
-    return render(request, 'project/login.html', context)
+    return render(request, 'login.html', context)
 
 def fovarite_update(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -396,3 +411,133 @@ def login(request):
 
 def details(request):
     return render(request, 'product-detail.html')
+
+def accounts(request):
+    return render(request, 'account.html')
+
+def buy(request, product_slug):
+    try:
+        cart_id = request.session['cart_id']
+        cart = Cart.objects.get(id=cart_id)
+        request.session['total'] = cart.items.count()
+    except:
+        cart = Cart()
+        cart.save()
+        cart_id = cart.id
+        request.session['cart_id'] = cart_id
+        cart = Cart.objects.get(id=cart_id)
+    product_slug = product_slug
+    product = Product.objects.get(slug=product_slug)
+    cart.add_to_cart(product.slug)
+    new_cart_total = 0.00
+    for item in cart.items.all():
+        new_cart_total += float(item.item_total)
+    cart.cart_total = new_cart_total
+    cart.save()
+    #return JsonResponse({'cart_total': cart.items.count(), 'cart_total_price': cart.cart_total})
+    return HttpResponseRedirect(reverse('cart'))
+
+from django.views import generic
+from django.urls import reverse_lazy
+
+
+class ClickCreateView(generic.CreateView):
+    model = ClickForms
+    form_class = ClickForms
+    # context_object_name = 'people'
+    template_name = 'elan/form.html'
+    success_url = reverse_lazy('thank_you')
+
+    
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        #obj.product = self.request.GET.get('id')
+        return super(ClickCreateView, self).form_valid(form)
+
+
+from .mixins import *
+
+class RegisterView(CreateView):
+  form_class = RegisterForm
+  template_name = 'register.html'
+  success_url = reverse_lazy('login')
+
+
+class LoginView(NextUrlMixin, RequestFormAttachMixin, FormView):
+  form_class = LoginsForm
+  template_name = 'login.html'
+  success_url = reverse_lazy('accounts')
+  default_next = reverse_lazy('accounts')
+
+  def form_valid(self, form):
+    next_path = self.get_next_url()
+    return redirect(next_path)
+
+
+class SearchProductView(ListView):
+  template_name = "search/view.html"
+
+  def get_context_data(self, *args, **kwargs):
+    context = super(SearchProductView, self).get_context_data(*args, **kwargs)
+    context['query'] = self.request.GET.get('q')
+    return context
+
+  def get_queryset(self, *args, **kwargs):
+    request = self.request
+    query = request.GET.get('q', None)
+    if query is not None:
+      return Product.objects.search(query)
+    return Product.objects.featured()
+
+def add_to_fovarite(request, id):
+    if request.method == "POST":
+        if not request.session.get('fovarites'):
+            request.session['fovarites'] = list()
+        else:
+            request.session['fovarites'] = list(request.session['fovarites'])
+        if not request.session.get('visits'):
+            request.session['visits'] = list()
+        else:
+            request.session['visits'] = list(request.session['visits'])
+    item_exist = next((item for item in request.session['fovarites'] if item['type'] == request.POST.get('type') and item['id'] == id), False)
+    #visit = 0
+    
+    
+    #count = visits + request.POST.get('visits')
+    add_data = {
+        'type': request.POST.get('type'),
+        'id': id,
+        #'visit': visit,
+    }
+    
+    if not item_exist:
+        request.session['fovarites'].append(add_data)
+        request.session.modified = True
+        #visit += 1
+        #visits = int(request.session.get('visits', '1')) + 1
+    return redirect(request.POST.get('url_form')) 
+
+def products_history(request):
+
+    if request.method == "POST":
+        form = HistoryForms(request.POST or None)
+        if form.is_valid():
+            new = form.save(commit=False)
+            new.product = request.POST.get('product_id')
+            new.user = request.POST.get('user_id')
+            #new.product = request.GET.get('id')
+
+            #if  HistoryProducts.objects.filter(user=new.user).filter(product=request.POST.get('product_id')):
+              #  pass
+           #else:
+            new.save()
+    a = HistoryProducts.objects.update_or_create(
+                user_id = request.POST.get('user_id'),
+                product_id=request.POST.get('product_id')
+            )
+    context = {
+        'a':a
+    }
+    return render(request, 'a.html', context)
+     

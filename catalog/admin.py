@@ -40,28 +40,31 @@ class OrderAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
 	inlines = [ProductMultiImage, ProductMultiPromoCode,Kredit_18Admin,ProductMultiSize]
 	extra = 1
-	list_display = ("category", "name", "active", "stock", "price", "sale", "dicount","prome_code_in","kredit_18",)
+	list_display = ("category", "slug" ,"name", "active", "stock", "price", "sale", "dicount","prome_code_in","kredit_18",)
 	model = Product
 	#extra = 2
 	list_filter = ('active','codes__name','company__name',)
-	readonly_fields = ['slug','month_6', 'month_12',]
+	readonly_fields = ['slug','month_6', 'month_12','reting',]
 	#fields = ['kredit',]
 	
 
 
 admin.site.register(MultiImage)
-admin.site.register(Fovarite)
+#Sadmin.site.register(Fovarite)
 admin.site.register(Color)
 admin.site.register(PromoCode)
-
 admin.site.register(CompanyPromoCode)
-
+admin.site.register(Click)
+admin.site.register(Tag)
 admin.site.register(Category)
 admin.site.register(Brand)
 admin.site.register(SubCategory)
 admin.site.register(Kredit_18_ay)
+admin.site.register(User)
 
+admin.site.register(HistoryProducts)
 
+admin.site.register(Size)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(CartItem)
 admin.site.register(Cart)

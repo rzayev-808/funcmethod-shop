@@ -286,13 +286,8 @@
                 <div class="col-xl-6 col-md-12 register  ">
     
                     <h2>Qeydiyyat</h2>
-                    <form action="">
-    
-                        <input class="form-input" placeholder="Ad" type="text">
-                        <input class="form-input" placeholder="Soyad" type="text">
-                        <input class="form-input" placeholder="E-mail" type="email">
-                        <input class="form-input" placeholder="Telefon nömrəsi" type="text">
-                        <input class="form-input birthday" placeholder="Doğum günü" type="text">
+                    
+                      
                         <ul class="sosial-links d-flex justify-content-center mt-5">
                             <li class="sosial-link google mr-3">
                                 <a href="">
@@ -312,15 +307,16 @@
                         <div class="submit-register w-100 text-center my-5 ">
                             <button type="submit" class="btn-red reg-btn px-4">Qeydiyyatdan keç</button>
                         </div>
-                    </form>
+                    
     
                 </div>
                 <div class="col-xl-6 col-md-12 login ">
                     <h2>Giriş</h2>
-                    <form action="">
+                    <form action='{% url "login" %}' method='POST'>
+                        {% csrf_token %}
 
-                        <input class="form-input" placeholder="E-mail" type="email">
-                        <input class="form-input" placeholder="Şifrə" type="password">
+                        <input class="form-input" placeholder="E-mail" name="email" type="email">
+                        <input class="form-input" placeholder="Şifrə" name="password" type="password">
                         
                         <div class="forgot-password mt-3 text-center">
                             <a href="">Şifrəni unutmuşunuz?</a>
@@ -340,7 +336,7 @@
                         </ul>
                         <p class="text-center">Sosial şəbəkələr vasitəsilə giriş</p>
                         
-                        <div class="submit-login w-100 text-center my-5 ">
+                        <div class="submit-login w-100 text-center my-5 " type="submit">
                             <button type="submit" class="btn-red lgn-btn px-4">Daxil ol</button>
                         </div>
                     </form>
