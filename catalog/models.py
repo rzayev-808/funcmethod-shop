@@ -133,8 +133,8 @@ class Product(models.Model):
     dicount = models.DecimalField(max_digits=9, decimal_places=0, verbose_name='Yekun Qiymeti', blank=True, null=True)
     order_price = models.DecimalField(max_digits=9, decimal_places=2,  verbose_name='Catdirilma Qiymeti', blank=True, null=True)
     reting = models.IntegerField(verbose_name='Reyting', blank=True, null=True)
-    title = models.TextField()
-    description = models.TextField()
+    title = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     featured = models.BooleanField(default=False)
     data = models.DateField(auto_now_add=True)
     stock = models.BooleanField(default=True)
@@ -436,6 +436,7 @@ pre_save.connect(tag_pre_save_receiver, sender=Tag)
 class HistoryProducts(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True,null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='history')
+    #date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         return self.product.name

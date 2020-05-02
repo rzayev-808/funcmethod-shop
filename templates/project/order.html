@@ -1,25 +1,38 @@
-{% include 'base/header.html' %}
+{% include 'header.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h3 class='text-center'>Sirfarisi tesdiqle</h3>
+<br>
+<br>
+
+<br>
+
+<br>
+
+<br>
+<br>
+<br>
+<div class="products  container ">
+	<div class="row">
+		<div class="col-sm-8">
+			<h3 class='text-center'>Sirfarisi tesdiqle</h3>
 <hr>
 <form action='{% url "make_order" %}' method="POST">
 {% csrf_token %}
-<div class='col-sm-4'>
+<div class='col-sm-8'>
 	{{ form.name|as_crispy_field }}
 </div>
-<div class='col-sm-4'>
+<div class='col-sm-8'>
 	{{ form.last_name|as_crispy_field }}
 </div>
-<div class='col-sm-4'>
+<div class='col-sm-8'>
 	{{ form.phone|as_crispy_field }}
 </div>
 {{ form.buying_type|as_crispy_field }}
 {{ form.address|as_crispy_field }}
 {{ form.date|as_crispy_field }}
 {{ form.comments|as_crispy_field }}
-<input type='submit' class='btn btn-success' value='Tesdiq et'>
+<input type='submit' class='btn btn-danger' value='Tesdiq et'>
 </form>
 <script src="{% static 'js/jquery.js' %}"></script>
 <script>
@@ -42,4 +55,13 @@
 	})
 
 </script>
+		</div>
+
+	</div>
+</div>
+<br><br>
+<br>
+
+{% include 'footer.html' %}
+
 {% endblock content %}

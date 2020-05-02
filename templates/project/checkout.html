@@ -1,7 +1,21 @@
-{% include 'base/header.html' %}
-
-
+{% include 'header.html' %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 {% block content %}
+<style>
+	.btn-danger {
+    color: #fff;
+    background-color: #e62f2d;
+    border-color: #dc3545;
+}
+</style>
+<div class='my-cart'>
 <h3 class='text-center'>Sifarishi tesdiqle</h3>
 <br>
 <table class='table'>
@@ -13,7 +27,7 @@
 </tr>
 {% for item in cart.items.all %}
 <tr>
-	<td class='text-center'>{{ item.product.title }}</td>
+	<td class='text-center'>{{ item.product.name }}</td>
 	<td class="text-center">{{ item.qty }}</td>
 	<td class='text-center'>{{ item.item_total }} Azn</td>
 	<td></td>
@@ -26,5 +40,7 @@
 	<td class='text-center'></td>
 </tr>
 </table>
-<a href='{% url "create_order" %}' class='pull-right'><button class='btn btn-success'>Tesdiqle</button></a>
+<h3 class="text-center">
+<a href='{% url "create_order" %}' class='pull-right'><button class='btn btn-danger'>Tesdiqle</button></a></h3>
+</div>
 {% endblock content %}

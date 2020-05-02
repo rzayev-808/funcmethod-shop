@@ -143,9 +143,8 @@ LOGIN_REDIRECT_URL = '/loginsc/'
 LOGIN_URL='/accounts/'
 
 STAR_RATINGS_RERATE = False
-STAR_RATINGS_ANONYMOUS = False
 
-
+STAR_RATINGS_ANONYMOUS = True
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.

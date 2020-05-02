@@ -105,7 +105,7 @@
                                 </g>
                             </svg>
                             <div class="notifications">
-                                <span>{{request.session.fovarites|length }}</span>
+                                <a href="{% url 'fovarite_list' %}" style="    color: #fefcf4;"><span>{{request.session.fovarites|length }}</span></a>
                             </div>
                         </li>
                         <li class="cart">
@@ -391,7 +391,7 @@
             </div>
             <div class="product-information">
                 <div class="product-title fm">
-                    {{product.title}}
+                    {{product.name}}
                 </div>
                 <div class="product-number">
                     Mehsul kodu: {{product.code}}
@@ -462,10 +462,12 @@
 
         <!-- descriptions -->
         <div class="product-descriptions container  my-5">
-            <div class="product-title">
+            <div class="product-description">
+                {{product.title}}
+            </div>
+            <div class="product-description">
                 {{product.description}}
             </div>
-
             <div class="desc-nav my-5">
                 <ul class="d-flex">
                     <li data-id='1' class="active ml-0">
@@ -1401,7 +1403,7 @@
                 });
         }
         window.onload=function(){
-            setTimeout(ajax, 3000);
+            setTimeout(ajax, 1000);
         }
         </script>
 </body>

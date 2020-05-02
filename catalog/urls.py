@@ -28,7 +28,8 @@ from .views import (
 	LoginView,
 	SearchProductView,
 	add_to_fovarite,
-	products_history
+	products_history,
+	fovarite_list
 	
 )
 
@@ -58,6 +59,8 @@ urlpatterns = [
     #path('logins/', login, name='login'),
 	path('accounts/', accounts, name='accounts'),
     path('details/', details, name='detail'),
+	path('fovarites/', fovarite_list, name='fovarite_list'),
+
 	path('buy/<product_slug>/', buy, name='buy'),
 	path('click/', ClickCreateView.as_view(), name='click_create'),
 	path('search/', SearchProductView.as_view(), name='query'),

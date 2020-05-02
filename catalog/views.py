@@ -45,8 +45,10 @@ def index(request):
         cart = Cart.objects.get(id=cart_id)
     
     categories = Category.objects.all()
-    products = Product.objects.all()[:4]
+    products = Product.objects.all().order_by('?')[:4]
     brands = Brand.objects.all()
+    w = Product.objects.all().order_by('?')[:8]
+    r = Product.objects.all().order_by('?')[:4]
     #x = len(request.session.get('fovarites'))
     #fovarites = Fovarite.objects.all()
 
@@ -59,7 +61,9 @@ def index(request):
         "home_page": "active",
         #'fovarites': fovarites,
         'filter': f,
-        'fovarites_list': request.session.get('fovarites')
+        'fovarites_list': request.session.get('fovarites'),
+        'w': w,
+        'r': r
         
     }
     return render(request, 'base/index.html', context)    
@@ -541,3 +545,20 @@ def products_history(request):
     }
     return render(request, 'a.html', context)
      
+
+def fovarite_list(request):
+    fovarites = request.session.get('fovarites')
+    pk = []
+    if not fovarites:
+        pass
+    else:
+        for x in fovarites:
+            pk.append(x['type'])
+        k = Product.objects.filter(id__in=pk)
+       
+        context = {
+            'f' : k
+        }
+  
+        return render(request, 'fovarites.html', context )
+    return render(request, 'fovarites.html')

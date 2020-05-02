@@ -5,7 +5,7 @@
 <style>
 	.btn-danger {
     color: #fff;
-    background-color: #bd2524;
+    background-color: #e62f2d;
     border-color: #dc3545;
 }
 </style>
@@ -22,6 +22,7 @@
 <div class='my-cart'>
 <table class='table'>
 <tr>
+	<td class='text-center'><strong>Shekil</strong></td>
 	<td class='text-center'><strong>Mehsul</strong></td>
 	<td class='text-center'><strong>Qederi</strong></td>
 	<td class='text-center'><strong>Umumi qiymet</strong></td>
@@ -29,7 +30,9 @@
 </tr>
 {% for item in cart.items.all %}
 <tr class='cart-item-{{ item.product.id }}'>
-	<td class='text-center'>{{ item.product.title }}</td>
+	<td class='text-center'><img style="    width: 50px;
+		height: 50px;" src="{{ item.product.image.url }}"></td>
+	<td class='text-center'>{{ item.product.name }}</td>
 	<td class="text-center">
 		<form action='' method='GET'>
 			<input type='number' name='qty' class='cart-item-qty' data-id='{{ item.id }}' value='{{ item.qty }}' min='1' style='width: 50px;'>

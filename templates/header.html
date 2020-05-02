@@ -107,7 +107,7 @@
                                 </g>
                             </svg>
                             <div class="notifications">
-                                <span>{{request.session.fovarites|length }}</span>
+                                <a href="{% url 'fovarite_list' %}" style="    color: #fefcf4;"><span>{{request.session.fovarites|length }}</span></a>
                             </div>
                         </li>
                         <li class="cart">
