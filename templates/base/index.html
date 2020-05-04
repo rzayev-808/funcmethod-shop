@@ -48,14 +48,14 @@
                         </div>
                         <div class="content">
                             <p>Güvenli alışveriş</p>
-                            <span>Kredi kartına 12 taksit</span>
+                            <span>Kredi kartına 12 taksit{% include 'filter.html' %}</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!---->
-
+        
         <!-- products -->
         <div class="products  container mt-5 ">
             <div class="row">
@@ -69,9 +69,10 @@
                         </div>
                         {% else %}
                         {%endif %}
+                       
                         <div class="product-photo">
                             <a href="{{x.get_absolute_url}}?id={{x.id}}">
-                                <img class="img-bg" src="{{x.image.url}}" alt="">
+                                <img class="img-bg" src="{{x.image.url}}" alt="{{x.name}}"/>
                             </a>
                         </div>
                         <div class="fav">
@@ -101,7 +102,14 @@
                             <div class="product-title mt-3">
                              {{x.brand}} - {{x.name}}
                             </div>
-                           
+                          
+                           {% for b in a %}
+                          
+                           {% if x.id == b.id %}
+                         
+                          {% endif %}
+                           {% endfor %}
+                          
                             <hr>
                             <div class="product-price d-flex">
                                 {% if x.sale > 0 %}
@@ -134,7 +142,7 @@
                     BU HƏFTƏNİN ƏN ÇOX SATILANLARI
                 </div>
                 <div class="more-products">
-                    Daha çox məhsul
+                    <a href="{% url 'posts' %}" >Daha çox məhsul</a>
                     <svg xmlns="http://www.w3.org/2000/svg" width="23.865" height="15.91" viewBox="0 0 23.865 15.91">
                         <g id="right" transform="translate(0 -85.333)">
                             <g id="Group_162" data-name="Group 162" transform="translate(0 85.333)">

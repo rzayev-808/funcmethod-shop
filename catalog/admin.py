@@ -43,7 +43,7 @@ class ProductAdmin(admin.ModelAdmin):
 	list_display = ("category", "slug" ,"name", "active", "stock", "price", "sale", "dicount","prome_code_in","kredit_18",)
 	model = Product
 	#extra = 2
-	list_filter = ('active','codes__name','company__name',)
+	list_filter = ('active','codes__name','company__name','brand',)
 	readonly_fields = ['slug','month_6', 'month_12','reting',]
 	#fields = ['kredit',]
 	

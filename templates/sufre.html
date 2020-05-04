@@ -1,4 +1,6 @@
 {% load static %}
+{% load ratings %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,10 +8,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#bd0523">
+    <meta name="theme-color" content="#ed1c24">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.ico' %}">
 
     <title>SCHAFER</title>
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -77,30 +81,37 @@
                 <div class="user-side d-flex justify-content-between">
                     <ul class="d-flex justify-content-between">
                         <li class="user">
-                            <a href="{% url 'login' %}">
+                            <a href="login.html">
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
                                     <g id="Group_29" data-name="Group 29" transform="translate(-2137.879 -366.88)">
                                         <rect id="Rectangle_28" data-name="Rectangle 28" width="23" height="23"
                                             transform="translate(2137.879 366.88)" fill="none" />
                                         <path id="Union_1" data-name="Union 1"
                                             d="M3.688,23.673A2.692,2.692,0,0,1,1,20.989a2.778,2.778,0,0,1,.058-.564,11.489,11.489,0,0,1,1.672-4c.01-.017.021-.035.032-.051a11.516,11.516,0,0,1,5.969-4.537A6.02,6.02,0,0,1,6.32,7.244h0V7.011a6.023,6.023,0,1,1,12.044-.145c0,.048,0,.1,0,.145q0,.122-.005.243v.1a.874.874,0,0,1-.008.116v0a.6.6,0,0,1-.007.087v.044h0v.055c0,.027-.006.053-.009.08V7.79h0l-.005.041h0l-.006.041h0l-.006.04v.011l-.034.045v.015l-.005.03v.005c-.007.043-.015.085-.023.127h0c-.025.13-.054.259-.087.386v.008l-.01.035v.008c-.041.154-.089.3-.142.454v.006L18,9.077v.01l-.011.031-.006.017-.01.024-.005.014-.01.027-.008.019-.009.022-.01.023-.017.014-.01.023-.007.018-.014.032v.007l-.015.035V9.4a6.056,6.056,0,0,1-1.925,2.438,11.516,11.516,0,0,1,5.969,4.537l.03.047a11.492,11.492,0,0,1,1.674,4,2.778,2.778,0,0,1,.058.564,2.692,2.692,0,0,1-2.693,2.685Zm-.708-2.11a.9.9,0,0,0,.708.338h17.3a.9.9,0,0,0,.708-.338.921.921,0,0,0,.208-.594.972.972,0,0,0-.02-.181,9.787,9.787,0,0,0-9.2-7.749h-.108c-.078,0-.156,0-.235,0s-.158,0-.235,0h-.108a9.787,9.787,0,0,0-9.2,7.749.972.972,0,0,0-.02.181A.921.921,0,0,0,2.98,21.563Zm9.143-10.3h.429c.081,0,.162-.01.242-.019h.027a4.25,4.25,0,1,0-.968,0h.027C11.96,11.252,12.041,11.258,12.123,11.262Z"
-                                            transform="translate(2137 366.087)" fill="#d01b2b" />
+                                            transform="translate(2137 366.087)" fill="#ed1c24" />
                                     </g>
                                 </svg>
+
                             </a>
                         </li>
                         <li class="heart">
+
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <g id="Group_28" data-name="Group 28" transform="translate(-2140 -404)">
                                     <rect id="Rectangle_26" data-name="Rectangle 26" width="24" height="24"
                                         transform="translate(2140 404)" fill="none" />
                                     <path id="heart"
                                         d="M12,21.132a1.416,1.416,0,0,1-.928-.345c-.97-.839-1.9-1.627-2.729-2.323l0,0A50.54,50.54,0,0,1,2.38,12.925,8.791,8.791,0,0,1,0,7.138a7.379,7.379,0,0,1,1.9-5.07A6.485,6.485,0,0,1,6.7,0a6.077,6.077,0,0,1,3.771,1.288A7.671,7.671,0,0,1,12,2.864a7.671,7.671,0,0,1,1.525-1.575A6.077,6.077,0,0,1,17.3,0a6.485,6.485,0,0,1,4.8,2.068A7.379,7.379,0,0,1,24,7.138a8.79,8.79,0,0,1-2.38,5.787,50.535,50.535,0,0,1-5.958,5.535c-.826.7-1.762,1.486-2.734,2.327a1.417,1.417,0,0,1-.928.345ZM6.7,1.391a5.088,5.088,0,0,0-3.767,1.62A6,6,0,0,0,1.406,7.138a7.4,7.4,0,0,0,2.057,4.9A49.737,49.737,0,0,0,9.251,17.4l0,0c.828.7,1.766,1.49,2.743,2.335.983-.847,1.922-1.64,2.752-2.339a49.75,49.75,0,0,0,5.788-5.364,7.4,7.4,0,0,0,2.057-4.9,6,6,0,0,0-1.532-4.127A5.088,5.088,0,0,0,17.3,1.391a4.694,4.694,0,0,0-2.911,1,6.771,6.771,0,0,0-1.622,1.858.892.892,0,0,1-1.525,0A6.764,6.764,0,0,0,9.615,2.389a4.694,4.694,0,0,0-2.911-1Zm0,0"
-                                        transform="translate(2140 405)" fill="#d01b2b" />
+                                        transform="translate(2140 405)" fill="#ed1c24" />
                                 </g>
                             </svg>
+                            <div class="notifications">
+                                <a href="{% url 'fovarite_list' %}" style="    color: #fefcf4;"><span>{{request.session.fovarites|length }}</span></a>
+                            </div>
                         </li>
                         <li class="cart">
+
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <g id="Group_27" data-name="Group 27" transform="translate(-2097 -403)">
                                     <rect id="Rectangle_27" data-name="Rectangle 27" width="24" height="24"
@@ -108,12 +119,14 @@
                                     <g id="shopping-cart" transform="translate(2098 403)">
                                         <path id="Path_14" data-name="Path 14"
                                             d="M23.516,15.8h13.14a2.72,2.72,0,0,0,2.705-2.723V7.457a.063.063,0,0,0,0-.03c0-.01,0-.025,0-.035s0-.02,0-.03a.314.314,0,0,1-.01-.035c0-.01,0-.02-.01-.03s0-.02-.01-.03a.241.241,0,0,1-.015-.035.108.108,0,0,0-.015-.025l-.015-.03c0-.01-.01-.015-.015-.025s-.015-.02-.02-.03a.087.087,0,0,0-.02-.025c0-.01-.015-.015-.02-.025s-.015-.015-.02-.025-.015-.015-.02-.02l-.025-.025c-.01,0-.015-.015-.024-.02s-.02-.015-.029-.02l-.025-.015a.1.1,0,0,1-.029-.02L39,6.919,38.97,6.9l-.029-.015c-.01,0-.02,0-.029-.01a.09.09,0,0,0-.034-.01.211.211,0,0,1-.025,0,.107.107,0,0,0-.039,0s-.01,0-.02,0L22.139,4.541V2.2a.305.305,0,0,0,0-.069.037.037,0,0,0,0-.02c0-.015,0-.03,0-.044s0-.025-.01-.039,0-.015,0-.025L22.1,1.962s0-.015,0-.02a.148.148,0,0,0-.02-.039s0-.015-.01-.02a.1.1,0,0,0-.02-.03c0-.01-.01-.015-.015-.025s-.01-.015-.015-.025-.015-.02-.02-.03l-.015-.015-.029-.03-.015-.015a.213.213,0,0,0-.034-.03s-.015-.01-.02-.015-.02-.015-.029-.025a.452.452,0,0,0-.039-.025s-.01,0-.015-.01l-.064-.03L18.12.053a.659.659,0,0,0-.868.355.667.667,0,0,0,.353.873l3.205,1.361v14.59a2.72,2.72,0,0,0,2.357,2.7,2.676,2.676,0,1,0,4.96,1.381,2.65,2.65,0,0,0-.368-1.356h5.95a2.666,2.666,0,1,0,2.3-1.332h-12.5a1.388,1.388,0,0,1-1.382-1.391V15.428A2.723,2.723,0,0,0,23.516,15.8Zm3.294,5.5a1.348,1.348,0,1,1-1.348-1.356A1.355,1.355,0,0,1,26.81,21.307Zm10.557,0a1.348,1.348,0,1,1-1.348-1.356A1.355,1.355,0,0,1,37.367,21.307Zm-.711-6.836H23.516a1.388,1.388,0,0,1-1.382-1.391v-7.2l15.9,2.2v4.987A1.389,1.389,0,0,1,36.657,14.471Z"
-                                            transform="translate(-17.2 0)" fill="#d01b2b" />
+                                            transform="translate(-17.2 0)" fill="#ed1c24" />
                                     </g>
                                 </g>
                             </svg>
+
                             <div class="notifications">
-                                <span>3</span>
+                                <a class='nav-link' style="    color: #fefcf4; font-size: 11px;" href='{% url "cart" %}'> <span id='cart_count'>{% if not request.session.total %} 0 {% else %} {{ request.session.total }} {% endif %}</span></a>
+                                   
                             </div>
                         </li>
 
@@ -138,21 +151,18 @@
                 <ul class="navbar-nav justify-content-between w-100 ">
                     <!-- endirimler -->
                     <li class="nav-item active">
-                        <a class="nav-link fm" href="#">ENDİRİMLƏR</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">ENDİRİMLƏR</a>
                     </li>
                     <!-- sufre -->
                     <li class="nav-item">
-                        <a class="nav-link fm" href="{% url 'filters' %}"> SÜFRƏ QRUPU</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="sufre.html"> SÜFRƏ QRUPU</a>
                     </li>
                     <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle fm" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a onmouseover="openCategory(event)" class="nav-link dropdown-toggle fm" href="#" data-index='1' id="navbarDropdown" role="button"
+                          >
                             BİŞİRMƏ QRUPU
                         </a>
-                        <ul class="dropdown-menu justify-content-around" aria-labelledby="navbarDropdown">
-
-
-
+                        <ul class="dropdown-menu justify-content-around mt-0" aria-labelledby="navbarDropdown">
                             <li class="dropdown-item">
                                 <!-- #first category name -->
                                 <a href="">
@@ -234,25 +244,173 @@
                     <!-- bisirme -->
 
                     <!-- kicik ev -->
-                    <li class="nav-item">
-                        <a class="nav-link fm" href="#">KİÇİK EV ALƏTLƏRİ</a>
+                    <li class="nav-item dropdown">
+                        <a onmouseover="openCategory(event)" class="nav-link fm dropdown-toggle" href="#">KİÇİK EV ALƏTLƏRİ</a>
+                        <ul class="dropdown-menu justify-content-around mt-0" aria-labelledby="navbarDropdown">
+
+
+
+                            <li class="dropdown-item">
+                                <!-- #first category name -->
+                                <a href="">
+                                    TEMEK TAKIMLARIw
+                                </a>
+                                <!-- ------------- -->
+
+                                <ul>
+
+                                    <li>
+                                        <a href="">
+                                            12 Kisilik yemek takimlari
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href=""> 6 Kisilik yemek takimlari</a>
+                                    </li>
+                                </ul>
+
+
+                            </li>
+
+
+                            <li class="dropdown-item">
+                                <a href="">
+                                    CATAL KASIK BICAK TAKIMLARI
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            12 Kisilik yemek takimlari
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <a href="">
+                                    6 Kisilik yemek takimlari
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            tekli catal bicak
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </li>
+
+
+
+                            <li class="dropdown-item">
+                                <a href="">
+                                    CAY PASTA TAKIMLARI
+                                </a>
+                                <ul>
+                                    <li> <a href="">cay fincanlari </a> </li>
+                                    <li> <a href=""> kahve fincanlari</a> </li>
+                                    <li> <a href=""> pasta fincanlari</a> </li>
+                                    <li> <a href="">cay setler </a> </li>
+                                    <li> <a href=""> kupalar</a> </li>
+                                    <li> <a href=""> pasta dunum servis seti</a> </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="">
+                                    KAHVALTI VE SERVIS TAKIMLARI
+                                </a>
+                                <ul>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                    <li> <a href=""> kahvalti takimlari </a> </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                     <!-- metbex -->
                     <li class="nav-item ">
-                        <a class="nav-link fm" href="#">MƏTBƏX AKSESUARLARI</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">MƏTBƏX AKSESUARLARI</a>
                     </li>
                     <!-- digerleri -->
                     <li class="nav-item active">
-                        <a class="nav-link fm" href="#">DİGƏRLƏRİ</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">DİGƏRLƏRİ</a>
                     </li>
                     <!-- blog -->
                     <li class="nav-item active">
-                        <a class="nav-link fm" href="#">BLOG</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">BLOG</a>
                     </li>
                 </ul>
             </div>
         </nav>
-    </header> <!-- header -->
+    </header> 
+    <style>
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+    </style>
 
     <!-- sufre -->
     <section id="sufre">
@@ -308,7 +466,7 @@
                 </span>
             </button>
             <div class="sidebar">
-
+                <form action="{% url 'detail' %}" method="get">
                 <!-- categories -->
                 <ul class="categories">
 
@@ -384,90 +542,51 @@
 
                 </ul>
 
-
+               
                 <!-- colors -->
                 <label for="" class="mt-4 fm">RENK</label>
-                <ul class="colors">
-
-                    <li class="color d-flex active">
-                        <span class="red">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10.771" height="7.91"
-                                viewBox="0 0 10.771 7.91">
-                                <path id="Path_114" data-name="Path 114"
-                                    d="M10.613,68.155a.539.539,0,0,0-.762,0L3.4,74.607l-2.48-2.48a.539.539,0,0,0-.762.762L3.018,75.75a.539.539,0,0,0,.762,0l6.833-6.833A.539.539,0,0,0,10.613,68.155Z"
-                                    transform="translate(0 -67.997)" fill="#fff" />
-                            </svg>
-
-                        </span>
-                        <p>Kırmızı</p>
-                    </li>
-
-                    <li class="color d-flex">
-                        <span class="blue">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10.771" height="7.91"
-                                viewBox="0 0 10.771 7.91">
-                                <path id="Path_114" data-name="Path 114"
-                                    d="M10.613,68.155a.539.539,0,0,0-.762,0L3.4,74.607l-2.48-2.48a.539.539,0,0,0-.762.762L3.018,75.75a.539.539,0,0,0,.762,0l6.833-6.833A.539.539,0,0,0,10.613,68.155Z"
-                                    transform="translate(0 -67.997)" fill="#fff" />
-                            </svg>
-
-                        </span>
-                        <p>Mavi</p>
-                    </li>
-                    <li class="color d-flex">
-                        <span class="yellow">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10.771" height="7.91"
-                                viewBox="0 0 10.771 7.91">
-                                <path id="Path_114" data-name="Path 114"
-                                    d="M10.613,68.155a.539.539,0,0,0-.762,0L3.4,74.607l-2.48-2.48a.539.539,0,0,0-.762.762L3.018,75.75a.539.539,0,0,0,.762,0l6.833-6.833A.539.539,0,0,0,10.613,68.155Z"
-                                    transform="translate(0 -67.997)" fill="#fff" />
-                            </svg>
-
-                        </span>
-                        <p>Sarı</p>
-                    </li>
-                    <li class="color d-flex active">
-                        <span class="white">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10.771" height="7.91"
-                                viewBox="0 0 10.771 7.91">
-                                <path id="Path_114" data-name="Path 114"
-                                    d="M10.613,68.155a.539.539,0,0,0-.762,0L3.4,74.607l-2.48-2.48a.539.539,0,0,0-.762.762L3.018,75.75a.539.539,0,0,0,.762,0l6.833-6.833A.539.539,0,0,0,10.613,68.155Z"
-                                    transform="translate(0 -67.997)" fill="#fff" />
-                            </svg>
-
-                        </span>
-                        <p>Beyaz</p>
-                    </li>
-                    <li class="color d-flex ">
-                        <span class="black">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10.771" height="7.91"
-                                viewBox="0 0 10.771 7.91">
-                                <path id="Path_114" data-name="Path 114"
-                                    d="M10.613,68.155a.539.539,0,0,0-.762,0L3.4,74.607l-2.48-2.48a.539.539,0,0,0-.762.762L3.018,75.75a.539.539,0,0,0,.762,0l6.833-6.833A.539.539,0,0,0,10.613,68.155Z"
-                                    transform="translate(0 -67.997)" fill="#fff" />
-                            </svg>
-
-                        </span>
-                        <p>Siyah</p>
-                    </li>
-                </ul>
+                <label class="container">Qirmizi
+                    <input type="checkbox" value="3" name="colors">
+                    <span class="checkmark" style="background-color: #af3d3d;"></span>
+                  </label>
+                  <label class="container" name="colors">Sari
+                    <input type="checkbox" value="2" name="colors">
+                    <span class="checkmark" style="background-color: #ffbb00;"></span>
+                  </label>
+                  <label class="container">Yasil
+                    <input type="checkbox"  value="4" name="colors">
+                    <span class="checkmark" style="background-color: #28a745;"></span>
+                  </label>
+                  <label class="container" >Rose Gold
+                    <input type="checkbox" value="5" name="colors">
+                    <span class="checkmark" style="background-color: #dc3567;"></span>
+                  </label>
+                  <label class="container">Boz
+                    <input type="checkbox" value="6" name="colors">
+                    <span class="checkmark" style="background-color: #535353;"></span>
+                  </label>
+                  <label class="container">Qara
+                    <input type="checkbox" value="7" name="colors">
+                    <span class="checkmark" style="background-color: #000000;"></span>
+                  </label>
+                  <label class="container">Tund Qirmizi
+                    <input type="checkbox" value="10" name="colors">
+                    <span class="checkmark" style="background-color: #dc3535;"></span>
+                  </label>
+                  
 
                 <!-- brands -->
                 <label for="" class="mt-4 fm">Marka</label>
+                    
+               
                 <ul class="brands">
+                    {% for x in brand %}
                     <li class="brand">
-                        <input class="inp-cbx" id="cbx" type="checkbox" style="display: none;" />
-                        <label class="cbx" for="cbx"><span>Schafer</span></label>
+                        <input class="inp-cbx" id="cbx{{x.id}}" name="brand_id_in" value="{{x.id}}" type="checkbox" style="display: none;" />
+                        <label class="cbx" for="cbx{{x.id}}"><span>{{x.name}}</span></label>
                     </li>
-                    <li class="brand">
-                        <input class="inp-cbx" id="cbx2" type="checkbox" style="display: none;" />
-                        <label class="cbx" for="cbx2"><span>Schafer</span></label>
-                    </li>
+                    {% endfor %}
+                   
                 </ul>
 
                 <!-- range -->
@@ -487,7 +606,8 @@
                     <input type="text" class="js-range-slider" value="" />
 
                 </div>
-
+                <input style="height: 40px; width: 80px;" type="submit" />
+            </form>
             </div>
 
             <!-- right -->
@@ -551,577 +671,75 @@
                 </div>
 
                 <!-- products -->
-                <div class="products  my-5 ">
+                <div class="products  my-5 infinite-container ">
                     <!-- product -->
-                    <div class="product">
+                    {% for x in page_obj %}
+                    <div class="product new infinite-item">
+                        {% if x.sale > 0 %}
                         <div class="product-status">
-                            <p>ENDİRİMLİ
-                                MƏHSUL</p>
+                            <p>{{x.sale}}% ENDİRİM</p>
                         </div>
+                        {% else %}
+                        {%endif %}
                         <div class="product-photo">
-                            <a href="product-detail.html">
-                                <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
+                            <a href="{{x.get_absolute_url}}?id={{x.id}}">
+                                <img class="img-bg" src="{{x.image.url}}" alt="{{x.image.name}}">
                             </a>
                         </div>
                         <div class="product-info">
                             <div class="product-rate">
-                                <ul class="stars d-flex ">
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                                    </li>
-
-                                </ul>
+                                {% ratings x 17 17 %}
                             </div>
                             <div class="product-title my-3">
-                                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
+                               {{x.brand}} {{x.name}}  {{x.colors.name|default:""}} 
                             </div>
                             <div class="product-price d-flex">
-                                <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                <div class="old-price">295.95 ‎₼</div>
+                                {% if x.sale > 0 %}
+                                <div class="new-price mr-2"> {{x.dicount}} ‎₼</div>
+                                <div class="old-price">{{x.price}} ‎₼</div>
+                                {% else %}
+                                <div class="new-price mr-2">{{x.price}} ‎₼</div>
+                                {%endif %}
                             </div>
                             <div class="d-flex flex-wrap justify-content-between">
                                 <div class="fav">
-                                    <img src="{% static 'images/icons/heart.svg' %}" alt="">
+                                    <form action="{% url 'add_to_fovarite' x.id %}" method="POST">
+                                        {% csrf_token %}
+                                       <input type="hidden" name="type" value="{{x.id}}">
+                                       <input type="hidden" name="url_form" value="{{ request.path }}">
+                                       <input type="hidden" name="visits" value="">
+                                       <button type="submit"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
+                                        viewBox="0 0 28.467 24.957">
+                                        <path id="heart"
+                                            d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z"
+                                            transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                                    </svg></button>
+                                     </form>
                                 </div>
-                                <button class="add-to-cart border-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                        height="30.078" viewBox="0 0 27.775 30.078">
+                                <a href="" class="add_to_cart" data-slug='{{ x.slug }}'> <div class="add-to-cart">
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775" height="30.078"
+                                        viewBox="0 0 27.775 30.078">
                                         <path id="Path_14" data-name="Path 14"
                                             d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
                                             transform="translate(-17.2 0)" fill="#fff" />
                                     </svg>
-                                    <p>Səbətə əlavə et</p>
-                                </button>
+                                </div></a>
                                 <div class="product-payment">
                                     <p class="fm">
                                         Hissə-hissə ödəniş
                                     </p>
                                     <span class="month">12 ay</span>
-                                    <span class="per-month"> 20 ‎₼ </span>
+                                    <span class="per-month"> {{x.month_12}} ‎₼ </span>
                                 </div>
                             </div>
                         </div>
 
 
                     </div>
+                    {% endfor %}
                     <!-- product -->
-                    <div class="product">
-                        <div class="product-status">
-                            <p>ENDİRİMLİ
-                                MƏHSUL</p>
-                        </div>
-                        <div class="product-photo">
-                            <a href="product-detail.html">
-                                <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-rate">
-                                <ul class="stars d-flex ">
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="product-title my-3">
-                                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                            </div>
-                            <div class="product-price d-flex">
-                                <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                <div class="old-price">295.95 ‎₼</div>
-                            </div>
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <div class="fav">
-                                    <img src="{% static 'images/icons/heart.svg' %}" alt="">
-                                </div>
-                                <button class="add-to-cart border-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                        height="30.078" viewBox="0 0 27.775 30.078">
-                                        <path id="Path_14" data-name="Path 14"
-                                            d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                            transform="translate(-17.2 0)" fill="#fff" />
-                                    </svg>
-                                    <p>Səbətə əlavə et</p>
-                                </button>
-                                <div class="product-payment">
-                                    <p class="fm">
-                                        Hissə-hissə ödəniş
-                                    </p>
-                                    <span class="month">12 ay</span>
-                                    <span class="per-month"> 20 ‎₼ </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="product">
-                        <div class="product-status">
-                            <p>ENDİRİMLİ
-                                MƏHSUL</p>
-                        </div>
-                        <div class="product-photo">
-                            <a href="product-detail.html">
-                                <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-rate">
-                                <ul class="stars d-flex ">
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="product-title my-3">
-                                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                            </div>
-                            <div class="product-price d-flex">
-                                <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                <div class="old-price">295.95 ‎₼</div>
-                            </div>
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <div class="fav">
-                                    <img src="{% static 'images/icons/heart.svg' %}" alt="">
-                                </div>
-                                <button class="add-to-cart border-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                        height="30.078" viewBox="0 0 27.775 30.078">
-                                        <path id="Path_14" data-name="Path 14"
-                                            d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                            transform="translate(-17.2 0)" fill="#fff" />
-                                    </svg>
-                                    <p>Səbətə əlavə et</p>
-                                </button>
-                                <div class="product-payment">
-                                    <p class="fm">
-                                        Hissə-hissə ödəniş
-                                    </p>
-                                    <span class="month">12 ay</span>
-                                    <span class="per-month"> 20 ‎₼ </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="product">
-                        <div class="product-status">
-                            <p>ENDİRİMLİ
-                                MƏHSUL</p>
-                        </div>
-                        <div class="product-photo">
-                            <a href="product-detail.html">
-                                <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-rate">
-                                <ul class="stars d-flex ">
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="product-title my-3">
-                                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                            </div>
-                            <div class="product-price d-flex">
-                                <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                <div class="old-price">295.95 ‎₼</div>
-                            </div>
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <div class="fav">
-                                    <img src="{% static 'images/icons/heart.svg' %}" alt="">
-                                </div>
-                                <button class="add-to-cart border-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                        height="30.078" viewBox="0 0 27.775 30.078">
-                                        <path id="Path_14" data-name="Path 14"
-                                            d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                            transform="translate(-17.2 0)" fill="#fff" />
-                                    </svg>
-                                    <p>Səbətə əlavə et</p>
-                                </button>
-                                <div class="product-payment">
-                                    <p class="fm">
-                                        Hissə-hissə ödəniş
-                                    </p>
-                                    <span class="month">12 ay</span>
-                                    <span class="per-month"> 20 ‎₼ </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="product">
-                        <div class="product-status">
-                            <p>ENDİRİMLİ
-                                MƏHSUL</p>
-                        </div>
-                        <div class="product-photo">
-                            <a href="product-detail.html">
-                                <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-rate">
-                                <ul class="stars d-flex ">
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="product-title my-3">
-                                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                            </div>
-                            <div class="product-price d-flex">
-                                <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                <div class="old-price">295.95 ‎₼</div>
-                            </div>
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <div class="fav">
-                                    <img src="{% static 'images/icons/heart.svg' %}" alt="">
-                                </div>
-                                <button class="add-to-cart border-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                        height="30.078" viewBox="0 0 27.775 30.078">
-                                        <path id="Path_14" data-name="Path 14"
-                                            d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                            transform="translate(-17.2 0)" fill="#fff" />
-                                    </svg>
-                                    <p>Səbətə əlavə et</p>
-                                </button>
-                                <div class="product-payment">
-                                    <p class="fm">
-                                        Hissə-hissə ödəniş
-                                    </p>
-                                    <span class="month">12 ay</span>
-                                    <span class="per-month"> 20 ‎₼ </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="product">
-                        <div class="product-status">
-                            <p>ENDİRİMLİ
-                                MƏHSUL</p>
-                        </div>
-                        <div class="product-photo">
-                            <a href="product-detail.html">
-                                <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-rate">
-                                <ul class="stars d-flex ">
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="product-title my-3">
-                                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                            </div>
-                            <div class="product-price d-flex">
-                                <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                <div class="old-price">295.95 ‎₼</div>
-                            </div>
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <div class="fav">
-                                    <img src="{% static 'images/icons/heart.svg' %}" alt="">
-                                </div>
-                                <button class="add-to-cart border-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                        height="30.078" viewBox="0 0 27.775 30.078">
-                                        <path id="Path_14" data-name="Path 14"
-                                            d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                            transform="translate(-17.2 0)" fill="#fff" />
-                                    </svg>
-                                    <p>Səbətə əlavə et</p>
-                                </button>
-                                <div class="product-payment">
-                                    <p class="fm">
-                                        Hissə-hissə ödəniş
-                                    </p>
-                                    <span class="month">12 ay</span>
-                                    <span class="per-month"> 20 ‎₼ </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="product">
-                        <div class="product-status">
-                            <p>ENDİRİMLİ
-                                MƏHSUL</p>
-                        </div>
-                        <div class="product-photo">
-                            <a href="product-detail.html">
-                                <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-rate">
-                                <ul class="stars d-flex ">
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="product-title my-3">
-                                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                            </div>
-                            <div class="product-price d-flex">
-                                <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                <div class="old-price">295.95 ‎₼</div>
-                            </div>
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <div class="fav">
-                                    <img src="{% static 'images/icons/heart.svg' %}" alt="">
-                                </div>
-                                <button class="add-to-cart border-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                        height="30.078" viewBox="0 0 27.775 30.078">
-                                        <path id="Path_14" data-name="Path 14"
-                                            d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                            transform="translate(-17.2 0)" fill="#fff" />
-                                    </svg>
-                                    <p>Səbətə əlavə et</p>
-                                </button>
-                                <div class="product-payment">
-                                    <p class="fm">
-                                        Hissə-hissə ödəniş
-                                    </p>
-                                    <span class="month">12 ay</span>
-                                    <span class="per-month"> 20 ‎₼ </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="product">
-                        <div class="product-status">
-                            <p>ENDİRİMLİ
-                                MƏHSUL</p>
-                        </div>
-                        <div class="product-photo">
-                            <a href="product-detail.html">
-                                <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-rate">
-                                <ul class="stars d-flex ">
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="product-title my-3">
-                                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                            </div>
-                            <div class="product-price d-flex">
-                                <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                <div class="old-price">295.95 ‎₼</div>
-                            </div>
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <div class="fav">
-                                    <img src="{% static 'images/icons/heart.svg' %}" alt="">
-                                </div>
-                                <button class="add-to-cart border-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                        height="30.078" viewBox="0 0 27.775 30.078">
-                                        <path id="Path_14" data-name="Path 14"
-                                            d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                            transform="translate(-17.2 0)" fill="#fff" />
-                                    </svg>
-                                    <p>Səbətə əlavə et</p>
-                                </button>
-                                <div class="product-payment">
-                                    <p class="fm">
-                                        Hissə-hissə ödəniş
-                                    </p>
-                                    <span class="month">12 ay</span>
-                                    <span class="per-month"> 20 ‎₼ </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="product">
-                        <div class="product-status">
-                            <p>ENDİRİMLİ
-                                MƏHSUL</p>
-                        </div>
-                        <div class="product-photo">
-                            <a href="product-detail.html">
-                                <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-rate">
-                                <ul class="stars d-flex ">
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="product-title my-3">
-                                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                            </div>
-                            <div class="product-price d-flex">
-                                <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                <div class="old-price">295.95 ‎₼</div>
-                            </div>
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <div class="fav">
-                                    <img src="{% static 'images/icons/heart.svg' %}" alt="">
-                                </div>
-                                <button class="add-to-cart border-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                        height="30.078" viewBox="0 0 27.775 30.078">
-                                        <path id="Path_14" data-name="Path 14"
-                                            d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                            transform="translate(-17.2 0)" fill="#fff" />
-                                    </svg>
-                                    <p>Səbətə əlavə et</p>
-                                </button>
-                                <div class="product-payment">
-                                    <p class="fm">
-                                        Hissə-hissə ödəniş
-                                    </p>
-                                    <span class="month">12 ay</span>
-                                    <span class="per-month"> 20 ‎₼ </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-
+                   
                 </div>
                 <!-- loader -->
                 <div class="loader my-5 d-flex justify-content-center">
@@ -1138,6 +756,16 @@
                         <div></div>
                         <div></div>
                         <div></div>
+                      
+                        <!-- product -->
+                        {% if page_obj.has_next %}
+                        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+                        {% endif %}
+                        <div class="d-flex justify-content-center" style="display:none;">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1376,15 +1004,16 @@
         </div>
         <div class="copyright text-center">
             <p>Copyright © 2020 "Ayshidesign" MMC. All rights reserved.
+
+               
             </p>
         </div>
 
     </footer>
 
     <script type="text/javascript" src="https://kit.fontawesome.com/5a14b242ce.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/static/js/jquery-2.2.4.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
@@ -1393,6 +1022,49 @@
         crossorigin="anonymous"></script>
         <script src="{% static 'js/ranger.js' %}"></script>
         <script src="{% static 'js/script.js' %}"></script>
+        <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+        <script src="/static/js/jquery.waypoints.min.js"></script>
+        <script src="/static/js/infinite.min.js"></script>
+        <script>
+            var infinite = new Waypoint.Infinite({
+                element: $('.infinite-container')[0],
+                handler: function(direction) {
+                
+            },
+            offset: 'bottom-in-view',
+        
+            onBeforePageLoad: function () {
+            $('.spinner-border').show();
+            },
+            onAfterPageLoad: function () {
+            $('.spinner-border').hide();
+            }
+                
+            });
+        
+            </script>
+
+<script>
+    $(document).ready(function(){
+      $('.add_to_cart').on('click', function(e){
+        e.preventDefault()
+        product_slug = $(this).attr('data-slug')
+        data = {
+          product_slug: product_slug
+        }
+        $.ajax({
+          type: "GET",
+          url: '/add_to_cart/',
+          data: data,
+          success: function(data){
+            $("#cart_count").html(data.cart_total)
+          }
+        })
+      })
+    })
+        
+        
+    </script>
 </body>
 
 </html>

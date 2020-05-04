@@ -1,5 +1,6 @@
 {% load static %}
 {% load ratings %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +13,7 @@
 
     <title>SCHAFER</title>
     <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -341,11 +343,85 @@
                 </ul>
             </div>
         </nav>
-    </header> <!-- header -->
+    </header> 
+    <style>
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+    </style>
 
 
-    <section id="product">
-        <div class="page-nav container pt-4">
+    <!-- sufre -->
+    <section id="sufre">
+        <div class="page-cover">
+            <img src="{% static 'images/covers/sufre.jpg' %}" alt="" class="img-bg">
+            <div class="page-name">
+                SÜFRƏ QRUPU
+            </div>
+        </div>
+        <div class="page-nav container">
             <ul class="d-flex">
                 <li>
                     <a href="index.html">
@@ -354,588 +430,351 @@
                     </a>
                 </li>
                 <li class="divider">
-                    <img src="./images/icons/arrow.svg" alt="">
+                    <img src="{% static 'images/icons/arrow.svg' %}" alt="">
                 </li>
                 <li>
-                    <a href="./sufre.html">
-                        Süfrə qrupu
-
-                    </a>
-                </li>
-                <li class="divider">
-                    <img src="./images/icons/arrow.svg" alt="">
-                </li>
-                <li>
-                    {{product.name}}
+                    Süfrə qrupu
                 </li>
             </ul>
         </div>
-        <!-- detail -->
-        <div class="product-detail d-flex justify-content-between mt-5 container ">
-            <ul class="additional-images">
-                <li class="additional-image">
-                    <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                </li>
-                <li class="additional-image">
-                    <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                </li>
-                <li class="additional-image">
-                    <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                </li>
-                <li class="additional-image">
-                    <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                </li>
-            </ul>
-            <div class="main-image">
-                <img class="img-bg" src="{{product.image.url}}" alt="">
-            </div>
-            <div class="product-information">
-                <div class="product-title fm">
-                    {{product.name}}
-                </div>
-                <div class="product-number">
-                    Mehsul kodu: {{product.code}}
-                </div>
-                <div class="product-rate rating-widget">
-                   
-                    {% ratings product 28 28 %}
-                        
-               
-                     
-                </div>
-                
-                <div class="product-price d-flex ">
-                    {% if product.sale > 0 %}
-                    <div class="new-price mr-2">{{product.dicount}} ‎₼</div>
-                    <div class="old-price">{{product.price}} ‎₼</div>
-                     {% else %}
-                     <div class="new-price mr-2">{{product.price}} ‎₼</div>
-                     {% endif %}
-                </div>
 
-                <div class="buying">
-                    <div class="buy" data-slug='{{ product.slug }}' >
-                       
-                        <button class="btn-red" type="submit">
-                           
-                            Almaq
-                        </button>
-                      
-                        <a href="" class="add_to_cart" data-slug='{{ product.slug }}'> <button class="add-to-cart border-0 " data-slug='{{ product.slug }}' href=''>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart"  width="27.775" height="30.078"
-                                viewBox="0 0 27.775 30.078">
-                                <path id="Path_14" data-name="Path 14"
-                                    d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                    transform="translate(-17.2 0)" fill="#fff" />
-                            </svg>
-                            
-                        </button></a>
-                    </div>
-                    <div class="pay">
-                        <button class="btn-grey" data-toggle="modal" data-target="#exampleModalCenter">
-                            <img src="{% static 'images/icons/pie-chart.svg' %}" alt="">
-                            Hissə-hissə al</button>
-                        
-                        
-                    </div>
-                    
-                    <div class="one-click">
-                        <button class="btn-grey" data-toggle="modal" data-target="#clickle_al">
-                            <img src="{% static 'images/icons/tap.svg' %}" alt="">
-                            Bir kliklə al</button>
-                    </div>
-                    <div class="product-count d-flex">
-                        <div data-title="minus" class="change-count minus">
-                            <span data-title="minus">-</span>
-                        </div>
-                        <div class="count">
-                            <input type="number" class="text-center border-0" value="1" min="1" max="20">
-                        </div>
-                        <div data-title="plus" class="change-count plus"><span data-title="plus">+</span></div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
         <!--  -->
 
-        <!-- descriptions -->
-        <div class="product-descriptions container  my-5">
-            <div class="product-description">
-                {{product.title}}
-            </div>
-            <div class="product-description">
-                {{product.description}}
-            </div>
-            <div class="desc-nav my-5">
-                <ul class="d-flex">
-                    <li data-id='1' class="active ml-0">
-                        Haqqında
+
+        <div class="wrapper  container px-0 my-5">
+            <!--  sidebar left -->
+
+            <button type="button" class="nav-toggle" aria-label="toggle navigation">
+                <span class="nav-label">Menu</span>
+                <span class="nav-svg">
+                    <span class="dots"></span>
+                    <svg width="50" height="50" version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 524.5 2000 2000.5"
+                        enable-background="new 0 524.5 2000 2000.5" xml:space="preserve">
+
+                        <path class="x" fill="none" stroke="#000000" stroke-miterlimit="10" d="M1410.5,1235.2H589.3" />
+
+                        <path class="x" fill="none" stroke="#000000" stroke-miterlimit="10" d="M1410.5,1815H589.3" />
+
+                        <path class="yy" fill="none" stroke="#000000" stroke-miterlimit="10"
+                            d="M1410.5,1524.7c0,0-821.2,0-821.2,0c-211.3,0-260,98-218.2,217.6
+                    l0,0.1c90.1,260.7,337.6,447.9,628.9,447.9c367.4,0,665.2-297.8,665.2-665.2c0-79-13.8-154.8-39.1-225.2" />
+
+                        <path class="yy" fill="none" stroke="#000000" stroke-miterlimit="10"
+                            d="M589.3,1524.7c0,0,821.2,0,821.2,0c211.3,0,260-98,218.2-217.6l0-0.1
+                    c-90.1-260.7-337.6-447.9-628.9-447.9c-367.4,0-665.2,297.8-665.2,665.2c0,79,13.8,154.8,39.1,225.2" />
+                    </svg>
+                </span>
+            </button>
+            <div class="sidebar">
+                <form action="{% url 'detail' %}" method="get">
+                <!-- categories -->
+                <ul class="categories">
+
+                    <!-- category -->
+                    <li class="category fm">Endirimlər
                     </li>
-                    <li data-id='2'>
-                        Xüsusiyyətlər
+
+                    <!-- category -->
+                    <li class="category active fm">Süfrə qrupu
+                        <img class="ml-1" src="{% static 'images/icons/arrow.svg' %}" alt="">
+
+                        <!-- subcategories -->
+                        <ul class="subcategories">
+
+                            <!-- subcategory -->
+                            <li class="subcategory">
+                                12 Kişilik
+                            </li>
+
+                            <!-- subcategory -->
+                            <li class="subcategory">
+                                6 Kişilik
+                            </li>
+                        </ul>
                     </li>
-                    <li data-id='3'>
-                        Ödəmə üsulları
+
+                    <!-- category -->
+                    <li class="category fm active">Bişirmə qrupu
+                        <img class="ml-1" src="{% static 'images/icons/arrow.svg' %}" alt="">
+
+                        <!-- subcategories -->
+                        <ul class="subcategories">
+
+                            <!-- subcategory -->
+                            <li class="subcategory active">
+                                Çatal Kaşık Bıçak Takımları
+                                <img class="ml-1" src="{% static 'images/icons/arrow.svg' %}" alt="">
+                                <ul>
+                                    <li>
+                                        12 Kişilik
+                                    </li>
+                                    <li>
+                                        6 Kişilik
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- subcategory -->
+                            <li class="subcategory">
+                                Yemek takımları
+
+                            </li>
+
+                            <!-- subcategory -->
+                            <li class="subcategory">
+                                Çay Pasta Takımları
+                            </li>
+
+                            <!-- subcategory -->
+                            <li class="subcategory">
+                                Kahvaltı ve Servis Takımları
+                            </li>
+                        </ul>
                     </li>
-                    <li data-id='4'>
-                        Oxşar məhsullar
+
+                    <!-- category -->
+                    <li class="category fm">Kiçik ev alətləri
                     </li>
+
+                    <!-- category -->
+                    <li class="category fm">MƏTBƏX AKSESUARLARI
+                    </li>
+
                 </ul>
-            </div>
-            <div class="tabs">
-                <div data-id='1' class="tab desc-about active">
-                    <ul class="w-50">
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                    </ul>
-                </div>
-                <div data-id='2' class="tab desc-spec ">
-                    <ul class="w-50">
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                    </ul>
-                </div>
-                <div data-id='3' class="tab desc-payment ">
-                    Ödəmə üsulları
-                </div>
-                <div data-id='4' class="tab desc-same ">
-                    <!-- recommended products -->
-                    <div class="products  recommended container mt-5 ">
-                        <div class="titles d-flex justify-content-between mb-5">
-                            <div class="title fm">
-                                OXŞAR MƏHSULLAR
-                            </div>
-                            <div class="more-products">
-                                Daha çox məhsul
-                                <svg xmlns="http://www.w3.org/2000/svg" width="23.865" height="15.91"
-                                    viewBox="0 0 23.865 15.91">
-                                    <g id="right" transform="translate(0 -85.333)">
-                                        <g id="Group_162" data-name="Group 162" transform="translate(0 85.333)">
-                                            <path id="Path_76" data-name="Path 76"
-                                                d="M23.72,92.936l-7.458-7.458a.5.5,0,0,0-.7.7l6.609,6.609H.5a.5.5,0,0,0,0,.994H22.168l-6.609,6.609a.5.5,0,1,0,.7.7l7.458-7.458A.5.5,0,0,0,23.72,92.936Z"
-                                                transform="translate(0 -85.333)" />
-                                        </g>
-                                    </g>
-                                </svg>
+
+               
+                <!-- colors -->
+                <label for="" class="mt-4 fm">RENK</label>
+                <label class="container">Qirmizi
+                    <input type="checkbox" value="3" name="colors">
+                    <span class="checkmark" style="background-color: #af3d3d;"></span>
+                  </label>
+                  <label class="container" name="colors">Sari
+                    <input type="checkbox" value="2" name="colors">
+                    <span class="checkmark" style="background-color: #ffbb00;"></span>
+                  </label>
+                  <label class="container">Yasil
+                    <input type="checkbox"  value="4" name="colors">
+                    <span class="checkmark" style="background-color: #28a745;"></span>
+                  </label>
+                  <label class="container" >Rose Gold
+                    <input type="checkbox" value="5" name="colors">
+                    <span class="checkmark" style="background-color: #dc3567;"></span>
+                  </label>
+                  <label class="container">Boz
+                    <input type="checkbox" value="6" name="colors">
+                    <span class="checkmark" style="background-color: #535353;"></span>
+                  </label>
+                  <label class="container">Qara
+                    <input type="checkbox" value="7" name="colors">
+                    <span class="checkmark" style="background-color: #000000;"></span>
+                  </label>
+                  <label class="container">Tund Qirmizi
+                    <input type="checkbox" value="10" name="colors">
+                    <span class="checkmark" style="background-color: #dc3535;"></span>
+                  </label>
+                  
+
+                <!-- brands -->
+                <label for="" class="mt-4 fm">Marka</label>
+                    
+               
+                <ul class="brands">
+                    {% for x in brand %}
+                    <li class="brand">
+                        <input class="inp-cbx" id="cbx{{x.id}}" name="brand_id_in" value="{{x.id}}" type="checkbox" style="display: none;" />
+                        <label class="cbx" for="cbx{{x.id}}"><span>{{x.name}}</span></label>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <!-- range -->
+                <label for="" class="mt-4 fm">
+                    Fiyat aralığı
+                </label>
+                <div class="range-slider pr-3">
+                    <div class="range-slider">
+                        <div class="extra-controls form-inline">
+                            <div class="form-group">
+                                <input type="text" class="js-input-from " value="0" />
+                                <span class="divider mx-3">-</span>
+                                <input type="text" class="js-input-to " value="0" />
                             </div>
                         </div>
+                    </div>
+                    <input type="text" class="js-range-slider" value="" />
 
-                        <div class="row">
-                           {{history_products}}
-                            <div class="col-lg-4 col-md-6 col-xs-12">
-                                <div class="product ">
-                                    <div class="product-status">
-                                        <p>ENDİRİMLİ
-                                            MƏHSUL</p>
-                                    </div>
-                                    <div class="product-photo">
-                                        <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
-                                    </div>
-                                    <div class="fav">
-                                        <img src="{% static 'images/icons/heart.svg' %}" alt="">
-                                    </div>
-                                    <div class="product-info">
-                                        <div class="product-rate">
-                                            <ul class="stars d-flex ">
-                                                <li class="star">
-                                                    <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="{% static 'images/icons/star.svg' %}" alt="">
-                                                </li>
-                                                <li class="star">
-                                                    <img src="{% static 'images/icons/star-g.svg' %}" alt="">
-                                                </li>
+                </div>
+                <input style="height: 40px; width: 80px;" type="submit" />
+            </form>
+            </div>
 
-                                            </ul>
-                                        </div>
-                                        <div class="product-title my-3">
-                                            Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
-                                        </div>
-                                        <div class="product-price d-flex">
-                                            <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                            <div class="old-price">295.95 ‎₼</div>
-                                        </div>
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
-                                            height="30.078" viewBox="0 0 27.775 30.078">
-                                            <path id="Path_14" data-name="Path 14"
-                                                d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
-                                                transform="translate(-17.2 0)" fill="#fff" />
-                                        </svg>
-                                    </div>
+            <!-- right -->
+            <div class="content mb-5">
+
+                <div class="filter d-flex justify-content-between">
+                    <div class="count">
+                        156 nəticə
+                    </div>
+                    <div class="sorting">
+                        <div class="dropdown ">
+                            <div class="select">
+                                <span>
+                                    Varsayılan sıralama
+
+                                </span>
+                                <i class="fa fa-chevron-left"></i>
+                            </div>
+                            <input type="hidden" name="gender">
+                            <ul class="dropdown-menu">
+                                <li id="az">Alfabetik A-Z
+                                </li>
+                                <li id="newToOld">Yeniden eskiye</li>
+                                <li id="oldToNew">Eskiden yeniye</li>
+                                <li id="rice">Artan fiyat
+                                </li>
+                                <li id="down">Azalan fiyat</li>
+                                <li id="random">random</li>
+                                <li id="rate">Puana göre</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="shown d-flex">
+                        <div class="list mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="31" viewBox="0 0 40 31">
+                                <g id="Group_171" data-name="Group 171" transform="translate(-1207 -818)">
+                                    <rect id="Rectangle_93" data-name="Rectangle 93" width="40" height="7" rx="3.5"
+                                        transform="translate(1207 818)" fill="#a4a4a4" />
+                                    <rect id="Rectangle_100" data-name="Rectangle 100" width="40" height="7" rx="3.5"
+                                        transform="translate(1207 830)" fill="#a4a4a4" />
+                                    <rect id="Rectangle_99" data-name="Rectangle 99" width="40" height="7" rx="3.5"
+                                        transform="translate(1207 842)" fill="#a4a4a4" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="grid active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31">
+                                <g id="Group_172" data-name="Group 172" transform="translate(-1270 -818)">
+                                    <rect id="Rectangle_77" data-name="Rectangle 77" width="14" height="14" rx="2"
+                                        transform="translate(1270 818)" fill="#a4a4a4" />
+                                    <rect id="Rectangle_98" data-name="Rectangle 98" width="14" height="14" rx="2"
+                                        transform="translate(1270 835)" fill="#a4a4a4" />
+                                    <rect id="Rectangle_96" data-name="Rectangle 96" width="14" height="14" rx="2"
+                                        transform="translate(1287 818)" fill="#a4a4a4" />
+                                    <rect id="Rectangle_97" data-name="Rectangle 97" width="14" height="14" rx="2"
+                                        transform="translate(1287 835)" fill="#a4a4a4" />
+                                </g>
+                            </svg></div>
+                    </div>
+                </div>
+
+                <!-- products -->
+                <div class="products  my-5 infinite-container ">
+                    <!-- product -->
+                    {% for x in filter.qs %}
+                    <div class="product new infinite-item">
+                        {% if x.sale > 0 %}
+                        <div class="product-status">
+                            <p>{{x.sale}}% ENDİRİM</p>
+                        </div>
+                        {% else %}
+                        {%endif %}
+                        <div class="product-photo">
+                            <a href="{{x.get_absolute_url}}?id={{x.id}}">
+                                <img class="img-bg" src="{{x.image.url}}" alt="{{x.image.name}}">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-rate">
+                                {% ratings x 17 17 %}
+                            </div>
+                            <div class="product-title my-3">
+                               {{x.brand}} {{x.name}}  {{x.colors.name|default:""}} 
+                            </div>
+                            <div class="product-price d-flex">
+                                {% if x.sale > 0 %}
+                                <div class="new-price mr-2"> {{x.dicount}} ‎₼</div>
+                                <div class="old-price">{{x.price}} ‎₼</div>
+                                {% else %}
+                                <div class="new-price mr-2">{{x.price}} ‎₼</div>
+                                {%endif %}
+                            </div>
+                            <div class="d-flex flex-wrap justify-content-between">
+                                <div class="fav">
+                                    <form action="{% url 'add_to_fovarite' x.id %}" method="POST">
+                                        {% csrf_token %}
+                                       <input type="hidden" name="type" value="{{x.id}}">
+                                       <input type="hidden" name="url_form" value="{{ request.path }}">
+                                       <input type="hidden" name="visits" value="">
+                                       <button type="submit"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
+                                        viewBox="0 0 28.467 24.957">
+                                        <path id="heart"
+                                            d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z"
+                                            transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                                    </svg></button>
+                                     </form>
+                                </div>
+                                <a href="" class="add_to_cart" data-slug='{{ x.slug }}'> <div class="add-to-cart">
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775" height="30.078"
+                                        viewBox="0 0 27.775 30.078">
+                                        <path id="Path_14" data-name="Path 14"
+                                            d="M25.116,19.8H41.584a3.408,3.408,0,0,0,3.391-3.412V9.345a.079.079,0,0,0-.006-.037c0-.012-.006-.031-.006-.043s-.006-.025-.006-.037a.392.392,0,0,1-.012-.043c-.006-.012-.006-.025-.012-.037s-.006-.025-.012-.037a.3.3,0,0,1-.018-.043.135.135,0,0,0-.018-.031L44.864,9c-.006-.012-.012-.019-.018-.031s-.018-.025-.025-.037A.109.109,0,0,0,44.8,8.9c-.006-.012-.018-.019-.025-.031s-.018-.019-.025-.031-.018-.019-.025-.025l-.031-.031c-.012-.006-.018-.019-.031-.025s-.025-.019-.037-.025-.018-.012-.031-.019a.128.128,0,0,1-.037-.025l-.037-.019-.037-.019-.037-.019c-.012-.006-.025-.006-.037-.012a.113.113,0,0,0-.043-.012.265.265,0,0,1-.031-.006.134.134,0,0,0-.049-.006c-.006,0-.012-.006-.025-.006L23.39,5.692V2.761a.382.382,0,0,0-.006-.087.047.047,0,0,0-.006-.025c0-.019-.006-.037-.006-.056s-.006-.031-.012-.049-.006-.019-.006-.031l-.018-.056c0-.006-.006-.019-.006-.025a.185.185,0,0,0-.025-.049c-.006-.006-.006-.019-.012-.025a.129.129,0,0,0-.025-.037c-.006-.012-.012-.019-.018-.031s-.012-.019-.018-.031-.018-.025-.025-.037l-.018-.019-.037-.037-.018-.019a.268.268,0,0,0-.043-.037c-.006-.006-.018-.012-.025-.019s-.025-.019-.037-.031a.567.567,0,0,0-.049-.031c-.006-.006-.012-.006-.018-.012l-.08-.037L18.353.066a.826.826,0,0,0-1.087.445.835.835,0,0,0,.442,1.094l4.017,1.706V21.6a3.409,3.409,0,0,0,2.955,3.381A3.353,3.353,0,1,0,30.9,26.709a3.321,3.321,0,0,0-.461-1.7h7.457a3.342,3.342,0,1,0,2.887-1.669H25.116A1.74,1.74,0,0,1,23.384,21.6V19.335A3.413,3.413,0,0,0,25.116,19.8Zm4.128,6.9A1.689,1.689,0,1,1,27.555,25,1.7,1.7,0,0,1,29.244,26.7Zm13.231,0A1.689,1.689,0,1,1,40.786,25,1.7,1.7,0,0,1,42.475,26.7Zm-.891-8.568H25.116a1.74,1.74,0,0,1-1.732-1.743V7.373l19.932,2.763v6.25A1.741,1.741,0,0,1,41.584,18.135Z"
+                                            transform="translate(-17.2 0)" fill="#fff" />
+                                    </svg>
+                                </div></a>
+                                <div class="product-payment">
+                                    <p class="fm">
+                                        Hissə-hissə ödəniş
+                                    </p>
+                                    <span class="month">12 ay</span>
+                                    <span class="per-month"> {{x.month_12}} ‎₼ </span>
                                 </div>
                             </div>
-                           
+                        </div>
 
+
+                    </div>
+                    {% endfor %}
+                    <!-- product -->
+                   
+                </div>
+                <!-- loader -->
+                <div class="loader my-5 d-flex justify-content-center">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      
+                        <!-- product -->
+                        {% if page_obj.has_next %}
+                        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+                        {% endif %}
+                        <div class="d-flex justify-content-center" style="display:none;">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </div>
                     </div>
-                    <!---->
                 </div>
             </div>
-        </div>
-        <!--  -->
-        <div class="raiting container px-0">
-            <div class="rate-statistics d-flex justify-content-between">
-                <div class="product-rate">
-                
-                    <ul class="stars d-flex ">
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star-g.svg" alt="">
-                        </li>
 
-                    </ul>
-                </div>
-                <div class="rate-count">
-                    150 Dəyərləndirmə | 5 Rəy
-                </div>
-                <div class="rate-button">
-                    <button class="give-rate">
-                        Rəy Bildir
-                    </button>
-
-                </div>
-            </div>
-            <div class="add-comment text-center">
-                <div class="text-center">
-  
-                    
-                  </div>
-                <input type="email" placeholder="emailiniz">
-                <input type="text" placeholder="reyiniz">
-                <button class="btn-red">gonder</button>
-            </div>
-
-            <ul class="comments">
-                <li class="comment">
-                    <!-- stars -->
-                    <ul class="stars d-flex ">
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star-g.svg" alt="">
-                        </li>
-
-                    </ul>
-                    <div class="text">çok iyi uygun fiyata aldım.</div>
-                    <div class="comment-info">
-                        Gulay Yildiz | 20 Mart 2020
-                    </div>
-                    <div class="comment-detail position-absolute">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="5" height="21" viewBox="0 0 5 21">
-                            <g id="Group_278" data-name="Group 278" transform="translate(-1266 -3079)">
-                              <circle id="Ellipse_14" data-name="Ellipse 14" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3079)" fill="#686868"/>
-                              <circle id="Ellipse_15" data-name="Ellipse 15" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3087)" fill="#686868"/>
-                              <circle id="Ellipse_16" data-name="Ellipse 16" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3095)" fill="#686868"/>
-                            </g>
-                          </svg>
-                          
-                    </div>
-                    <div class="comment-like position-absolute">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19.705" height="18.392"
-                            viewBox="0 0 19.705 18.392">
-                            <g id="like" transform="translate(-33.182 -99.007)">
-                                <g id="Group_275" data-name="Group 275" transform="translate(33.182 105.575)">
-                                    <g id="Group_274" data-name="Group 274" transform="translate(0 0)">
-                                        <path id="Path_203" data-name="Path 203"
-                                            d="M36.466,262.219H33.839a.657.657,0,0,0-.657.657v10.51a.657.657,0,0,0,.657.657h2.627a.657.657,0,0,0,.657-.657v-10.51A.657.657,0,0,0,36.466,262.219Z"
-                                            transform="translate(-33.182 -262.219)" fill="#a4a4a4" />
-                                    </g>
-                                </g>
-                                <g id="Group_277" data-name="Group 277" transform="translate(38.437 99.007)">
-                                    <g id="Group_276" data-name="Group 276" transform="translate(0 0)">
-                                        <path id="Path_204" data-name="Path 204"
-                                            d="M178.19,107.317a2.066,2.066,0,0,0-2.093-1.741h-5.121a11.341,11.341,0,0,0,.658-3.884,2.735,2.735,0,0,0-2.742-2.685h-.542a.657.657,0,0,0-.657.657c0,1.519-.591,4.261-1.707,5.376a7.275,7.275,0,0,1-2.234,1.443v9.856a15.344,15.344,0,0,0,5.418,1.059h4.3a2,2,0,0,0,1.97-2.7,1.971,1.971,0,0,0,1.314-2.627,1.972,1.972,0,0,0,.949-3.215A1.966,1.966,0,0,0,178.19,107.317Z"
-                                            transform="translate(-163.752 -99.007)" fill="#a4a4a4" />
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                        <span>
-                            Bəyən (1)
-
-                        </span>
-
-                    </div>
-
-                </li>
-                <li class="comment">
-                    <!-- stars -->
-                    <ul class="stars d-flex ">
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star-g.svg" alt="">
-                        </li>
-
-                    </ul>
-                    <div class="text">çok iyi uygun fiyata aldım.</div>
-                    <div class="comment-info">
-                        Gulay Yildiz | 20 Mart 2020
-                    </div>
-                    <div class="comment-detail position-absolute">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="5" height="21" viewBox="0 0 5 21">
-                            <g id="Group_278" data-name="Group 278" transform="translate(-1266 -3079)">
-                              <circle id="Ellipse_14" data-name="Ellipse 14" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3079)" fill="#686868"/>
-                              <circle id="Ellipse_15" data-name="Ellipse 15" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3087)" fill="#686868"/>
-                              <circle id="Ellipse_16" data-name="Ellipse 16" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3095)" fill="#686868"/>
-                            </g>
-                          </svg>
-                          
-                    </div>
-                    <div class="comment-like position-absolute">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19.705" height="18.392"
-                            viewBox="0 0 19.705 18.392">
-                            <g id="like" transform="translate(-33.182 -99.007)">
-                                <g id="Group_275" data-name="Group 275" transform="translate(33.182 105.575)">
-                                    <g id="Group_274" data-name="Group 274" transform="translate(0 0)">
-                                        <path id="Path_203" data-name="Path 203"
-                                            d="M36.466,262.219H33.839a.657.657,0,0,0-.657.657v10.51a.657.657,0,0,0,.657.657h2.627a.657.657,0,0,0,.657-.657v-10.51A.657.657,0,0,0,36.466,262.219Z"
-                                            transform="translate(-33.182 -262.219)" fill="#a4a4a4" />
-                                    </g>
-                                </g>
-                                <g id="Group_277" data-name="Group 277" transform="translate(38.437 99.007)">
-                                    <g id="Group_276" data-name="Group 276" transform="translate(0 0)">
-                                        <path id="Path_204" data-name="Path 204"
-                                            d="M178.19,107.317a2.066,2.066,0,0,0-2.093-1.741h-5.121a11.341,11.341,0,0,0,.658-3.884,2.735,2.735,0,0,0-2.742-2.685h-.542a.657.657,0,0,0-.657.657c0,1.519-.591,4.261-1.707,5.376a7.275,7.275,0,0,1-2.234,1.443v9.856a15.344,15.344,0,0,0,5.418,1.059h4.3a2,2,0,0,0,1.97-2.7,1.971,1.971,0,0,0,1.314-2.627,1.972,1.972,0,0,0,.949-3.215A1.966,1.966,0,0,0,178.19,107.317Z"
-                                            transform="translate(-163.752 -99.007)" fill="#a4a4a4" />
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                        <span>
-                            Bəyən (1)
-
-                        </span>
-
-                    </div>
-
-                </li>
-              
-                    <!-- stars -->
-                    <ul class="stars d-flex ">
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star.svg" alt="">
-                        </li>
-                        <li class="star">
-                            <img src="./images/icons/star-g.svg" alt="">
-                        </li>
-
-                    </ul>
-                    <div class="text">çok iyi uygun fiyata aldım.</div>
-                    <div class="comment-info">
-                        Gulay Yildiz | 20 Mart 2020
-                    </div>
-                    <div class="comment-detail position-absolute">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="5" height="21" viewBox="0 0 5 21">
-                            <g id="Group_278" data-name="Group 278" transform="translate(-1266 -3079)">
-                              <circle id="Ellipse_14" data-name="Ellipse 14" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3079)" fill="#686868"/>
-                              <circle id="Ellipse_15" data-name="Ellipse 15" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3087)" fill="#686868"/>
-                              <circle id="Ellipse_16" data-name="Ellipse 16" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3095)" fill="#686868"/>
-                            </g>
-                          </svg>
-                          
-                    </div>
-                    <div class="comment-like position-absolute">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19.705" height="18.392"
-                            viewBox="0 0 19.705 18.392">
-                            <g id="like" transform="translate(-33.182 -99.007)">
-                                <g id="Group_275" data-name="Group 275" transform="translate(33.182 105.575)">
-                                    <g id="Group_274" data-name="Group 274" transform="translate(0 0)">
-                                        <path id="Path_203" data-name="Path 203"
-                                            d="M36.466,262.219H33.839a.657.657,0,0,0-.657.657v10.51a.657.657,0,0,0,.657.657h2.627a.657.657,0,0,0,.657-.657v-10.51A.657.657,0,0,0,36.466,262.219Z"
-                                            transform="translate(-33.182 -262.219)" fill="#a4a4a4" />
-                                    </g>
-                                </g>
-                                <g id="Group_277" data-name="Group 277" transform="translate(38.437 99.007)">
-                                    <g id="Group_276" data-name="Group 276" transform="translate(0 0)">
-                                        <path id="Path_204" data-name="Path 204"
-                                            d="M178.19,107.317a2.066,2.066,0,0,0-2.093-1.741h-5.121a11.341,11.341,0,0,0,.658-3.884,2.735,2.735,0,0,0-2.742-2.685h-.542a.657.657,0,0,0-.657.657c0,1.519-.591,4.261-1.707,5.376a7.275,7.275,0,0,1-2.234,1.443v9.856a15.344,15.344,0,0,0,5.418,1.059h4.3a2,2,0,0,0,1.97-2.7,1.971,1.971,0,0,0,1.314-2.627,1.972,1.972,0,0,0,.949-3.215A1.966,1.966,0,0,0,178.19,107.317Z"
-                                            transform="translate(-163.752 -99.007)" fill="#a4a4a4" />
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                        <span>
-                            Bəyən (1)
-
-                        </span>
-
-                    </div>
-
-                </li>
-            </ul>
-
-            <div class="see-more text-center my-5">
-                <button class="w-25">
-                    Hamısını gör
-                </button>
-            </div>
         </div>
 
         <div class="ads"></div>
+    </section> <!-- sufre -->
 
-    </section>
 
     <!-- footer -->
     <footer>
@@ -1104,308 +943,127 @@
                     <p>
                         Bizi izləyin
                     </p>
-                    <ul class="social-links d-flex ">
+                    <ul class="social-links d-flex flex-wrap ">
                         <li>
                             <a href="">
-                                <img src="./images/social/twitter.svg" alt="">
+                                <img src="{% static 'images/social/twitter.svg' %}" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="">
-                                <img src="./images/social/fb.svg" alt="">
+                                <img src="{% static 'images/social/fb.svg' %}" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="">
-                                <img src="./images/social/instagram.svg" alt="">
+                                <img src="{% static 'images/social/instagram.svg' %}" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="">
-                                <img src="./images/social/whatsapp.svg" alt="">
+                                <img src="{% static 'images/social/whatsapp.svg' %}" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="">
-                                <img src="./images/social/youtube.svg" alt="">
+                                <img src="{% static 'images/social/youtube.svg' %}" alt="">
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="payment-methods">
-                    <ul class="d-flex">
+                    <ul class="d-flex flex-wrap">
                         <li class="method">
-                            <img src="./images/methods/wallet.svg" alt="">
+                            <img src="{% static 'images/methods/wallet.svg' %}" alt="">
                         </li>
                         <li class="method">
-                            <img src="./images/methods/bitcoin.svg" alt="">
+                            <img src="{% static 'images/methods/bitcoin.svg' %}" alt="">
                         </li>
                         <li class="method">
-                            <img src="./images/methods/cash_on_delivery.svg" alt="">
+                            <img src="{% static 'images/methods/cash_on_delivery.svg' %}" alt="">
                         </li>
                         <li class="method">
-                            <img src="./images/methods/discover.svg" alt="">
+                            <img src="{% static 'images/methods/discover.svg' %}" alt="">
                         </li>
                         <li class="method">
-                            <img src="./images/methods/maestro.svg" alt="">
+                            <img src="{% static 'images/methods/maestro.svg' %}" alt="">
                         </li>
                         <li class="method">
-                            <img src="./images/methods/master_card.svg" alt="">
+                            <img src="{% static 'images/methods/master_card.svg' %}" alt="">
                         </li>
                         <li class="method">
-                            <img src="./images/methods/paypal.svg" alt="">
+                            <img src="{% static 'images/methods/paypal.svg' %}" alt="">
                         </li>
                         <li class="method">
-                            <img src="./images/methods/visa.svg" alt="">
+                            <img src="{% static 'images/methods/visa.svg' %}" alt="">
                         </li>
-
+        
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Hisse-hisse al</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    
-                  6 ay  = Ayda - {{product.month_6}} ₼
-                  <br>
-                  <hr>
-                  12 ay  =  Ayda - {{product.month_12}} ‎₼
-                  <br> 
-                  <hr>
-                  18 ay  = Ayda - {{product.kredit.all.0.odenis}} ‎₼
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Save changes</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal fade" id="clickle_al" tabindex="-1" role="dialog" aria-labelledby="clickle_al" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Bir klikle al</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    
-                <form action="{% url 'click_create'  %}" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                      <label for="phone">Telefon</label>
-                      <input type="text" name="phone" maxlength="20" required="" id="id_phone" class="form-control">
-                      <select hidden name="product" id="">
-                          <option value="{{product.id}}">
-
-                          </option>
-                      </select>
-                      <small id="phone" class="form-text text-muted">Elaqe nomrenisi qeyd edin</small>
-                    </div>
-                    <div class="form-group">
-                      <label for="name">Adiniz</label>
-                      <input type="text" name="name" maxlength="100" required="" id="id_name" class="form-control">
-                      <small id="name" class="form-text text-muted">Size nece muraciet edek?</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="note">Qeyd</label>
-                        <input type="text" name="note" maxlength="200"  id="id_note" class="form-control">
-                        <small id="text" class="form-text text-muted">Elave qeydler</small>
-
-                      </div>
-                    <div class="form-group form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Qebul edirem</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </form>
-                </div>
-                
-                
-              </div>
-            </div>
-          </div>
         <div class="copyright text-center">
             <p>Copyright © 2020 "Ayshidesign" MMC. All rights reserved.
+
+               
             </p>
         </div>
 
     </footer>
 
     <script type="text/javascript" src="https://kit.fontawesome.com/5a14b242ce.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/static/js/jquery-2.2.4.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-        <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src="{% static 'js/ranger.js' %}"></script>
-    <script src="{% static 'js/script.js' %}"></script>
-    <script>
-        $(document).ready(function(){
-            $('.add_to_cart').on('click', function(e){
-                e.preventDefault()
-                product_slug = $(this).attr('data-slug')
-                data = {
-                    product_slug: product_slug
-                }
-                $.ajax({
-                    type: "GET",
-                    url: '/add_to_cart/',
-                    data: data,
-                    success: function(data){
-                        $("#cart_count").html(data.cart_total)
-                    }
-                })
-            })
-        })
-            
-            
-        </script>
+        <script src="{% static 'js/ranger.js' %}"></script>
+        <script src="{% static 'js/script.js' %}"></script>
+        <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+        <script src="/static/js/jquery.waypoints.min.js"></script>
+        <script src="/static/js/infinite.min.js"></script>
         <script>
-            function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
+            var infinite = new Waypoint.Infinite({
+                element: $('.infinite-container')[0],
+                handler: function(direction) {
+                
+            },
+            offset: 'bottom-in-view',
+        
+            onBeforePageLoad: function () {
+            $('.spinner-border').show();
+            },
+            onAfterPageLoad: function () {
+            $('.spinner-border').hide();
             }
-            return cookieValue;
-        }
-        var csrftoken = getCookie('csrftoken');
-        </script>
-        <script>
-            $(document).ready(function(){
-                $('.buy').on('click', function(e){
-                    e.preventDefault()
-                    product_slug = $(this).attr('data-slug')
-                    data = {
-                        product_slug: product_slug
-                    }
-                    $.ajax({
-                        headers: { "X-CSRFToken": getCookie("csrftoken") },
-                        type: "GET",
-                        url: '{% url "buy" product.slug %}',
-                        data: data,
-                        success: function(data){
-                            if (data.code != 200) {
-                            top.location.href = '{% url "cart" %}';
-                                }
-                            $("#cart_count").html(data.cart_total)
-                        }
-                        
-                    })
-                })
-            })
                 
-                
+            });
+        
             </script>
             <script>
                 $(document).ready(function(){
-          
-          /* 1. Visualizing things on Hover - See next part for action on click */
-          $('#stars li').on('mouseover', function(){
-            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-           
-            // Now highlight all the stars that's not after the current hovered star
-            $(this).parent().children('li.star').each(function(e){
-              if (e < onStar) {
-                $(this).addClass('hover');
-              }
-              else {
-                $(this).removeClass('hover');
-              }
-            });
-            
-          }).on('mouseout', function(){
-            $(this).parent().children('li.star').each(function(e){
-              $(this).removeClass('hover');
-            });
-          });
-          
-          
-          /* 2. Action to perform on click */
-          $('#stars li').on('click', function(){
-            var onStar = parseInt($(this).data('value'), 10); // The star currently selected
-            var stars = $(this).parent().children('li.star');
-            
-            for (i = 0; i < stars.length; i++) {
-              $(stars[i]).removeClass('selected');
-            }
-            
-            for (i = 0; i < onStar; i++) {
-              $(stars[i]).addClass('selected');
-            }
-            
-            // JUST RESPONSE (Not needed)
-            var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-            var msg = "";
-            if (ratingValue > 1) {
-                msg = "Thanks! You rated this " + ratingValue + " stars.";
-            }
-            else {
-                msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
-            }
-            responseMessage(msg);
-            
-          });
-          
-          
-        });
-        
-        
-        function responseMessage(msg) {
-          $('.success-box').fadeIn(200);  
-          $('.success-box div.text-message').html("<span>" + msg + "</span>");
-        }
-            </script>
-        <script>
-            $(document).ready(function(){
-            $('#form1').submit(ajax);
-        })
-        function ajax(){
-            data = {
-                        product_id : "{{product.id}}",
-                        user_id : "{{user.id}}",
-                        url_form : "{{ request.path }}"
+                  $('.add_to_cart').on('click', function(e){
+                    e.preventDefault()
+                    product_slug = $(this).attr('data-slug')
+                    data = {
+                      product_slug: product_slug
                     }
-                $.ajax({
-                    headers: { "X-CSRFToken": getCookie("csrftoken") },
-                    url: '{% url "products_history"  %}',
-                    type : 'POST',
-                
-                    data: data,
-                    success: function(data){
-                        if (data.code != 200) {
-                            break ajax;
-                                }
-                    }
-                });
-        }
-        window.onload=function(){
-            setTimeout(ajax, 1000);
-        }
-        </script>
+                    $.ajax({
+                      type: "GET",
+                      url: '/add_to_cart/',
+                      data: data,
+                      success: function(data){
+                        $("#cart_count").html(data.cart_total)
+                      }
+                    })
+                  })
+                })
+                    
+                    
+                </script>
 </body>
 
 </html>

@@ -15,6 +15,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.shortcuts import get_object_or_404 
 from django.shortcuts import redirect
 from .filter import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, FormView, DetailView, UpdateView, View,ListView,TemplateView
@@ -29,7 +30,40 @@ from django.utils.safestring import mark_safe
 from django.urls import reverse_lazy
 # Create your views here.
 from django.db.models import Q
+from django.views.generic.list import ListView
+from django_filters.views import FilterView
 
+import django_filters
+
+class NumberInFilter(django_filters.BaseInFilter, django_filters.NumberFilter):
+    pass
+
+class Filters(django_filters.FilterSet):
+    brand_id_in = NumberInFilter(field_name='brand', lookup_expr='in')
+    class Meta:
+        model = Product
+        fields = ['price', 'category', 'brand_id_in','colors',]
+
+class PostsView(ListView):
+    model = Brand 
+    paginate_by = 10
+    context_object_name = 'posts'
+    template_name = 'sufre.html'
+    ordering = ['?']
+    #filter_class = ProductsFilter
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            try:
+                brand = self.request.GET.get('brand')
+                
+                    
+                return Product.objects.filter(brand__in= self.request.GET.get('brand'))
+            except:
+                ValueError
+                return Product.objects.all()
+       
+
+        
 def index(request):
     try:
         num_visits = request.session.get('num_visits', 0)
@@ -49,6 +83,7 @@ def index(request):
     brands = Brand.objects.all()
     w = Product.objects.all().order_by('?')[:8]
     r = Product.objects.all().order_by('?')[:4]
+    a = request.session.get('fovarites')
     #x = len(request.session.get('fovarites'))
     #fovarites = Fovarite.objects.all()
 
@@ -63,7 +98,8 @@ def index(request):
         'filter': f,
         'fovarites_list': request.session.get('fovarites'),
         'w': w,
-        'r': r
+        'r': r,
+        'a': a
         
     }
     return render(request, 'base/index.html', context)    
@@ -414,7 +450,14 @@ def login(request):
     return render(request, 'login.html')
 
 def details(request):
-    return render(request, 'product-detail.html')
+    filter = Filters(request.GET, queryset=Product.objects.all())
+    brand = Brand.objects.all()
+
+    context = {
+         'filter': filter,
+         'brand': brand,
+     }
+    return render(request, 'product-detail.html', context)
 
 def accounts(request):
     return render(request, 'account.html')
@@ -504,13 +547,13 @@ def add_to_fovarite(request, id):
             request.session['visits'] = list()
         else:
             request.session['visits'] = list(request.session['visits'])
-    item_exist = next((item for item in request.session['fovarites'] if item['type'] == request.POST.get('type') and item['id'] == id), False)
+    item_exist = next((item for item in request.session['fovarites'] if  item['id'] == id), False)
     #visit = 0
     
     
     #count = visits + request.POST.get('visits')
     add_data = {
-        'type': request.POST.get('type'),
+        #'type': request.POST.get('type'),
         'id': id,
         #'visit': visit,
     }
@@ -553,7 +596,7 @@ def fovarite_list(request):
         pass
     else:
         for x in fovarites:
-            pk.append(x['type'])
+            pk.append(x['id'])
         k = Product.objects.filter(id__in=pk)
        
         context = {
@@ -562,3 +605,25 @@ def fovarite_list(request):
   
         return render(request, 'fovarites.html', context )
     return render(request, 'fovarites.html')
+
+from django.core.paginator import Paginator
+
+
+def filter_list(request):
+    brand = Brand.objects.all()
+    category = SubCategory.objects.all()
+    posts = Product.objects.all()[:4]
+    filter = Filters(request.GET, queryset=Product.objects.all().order_by('?'))
+    paginator = Paginator(filter.qs, 50)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    #page_obj = paginator.get_page(page_number)
+    context = {
+        'brand': brand,
+        'category': category,
+        'posts': posts,
+        'filter': filter,
+        'page_obj':page_obj
+    }
+    return render(request, 'sufre.html', context)

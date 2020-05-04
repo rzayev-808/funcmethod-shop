@@ -19,7 +19,7 @@
 <hr>
 <form action='{% url "make_order" %}' method="POST">
 {% csrf_token %}
-<div class='col-sm-8'>
+<div class='col-sm-8 ' >
 	{{ form.name|as_crispy_field }}
 </div>
 <div class='col-sm-8'>
