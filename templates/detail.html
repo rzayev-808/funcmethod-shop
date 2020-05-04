@@ -155,7 +155,7 @@
                     </li>
                     <!-- sufre -->
                     <li class="nav-item">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="{% url 'posts' %}"> SÜFRƏ QRUPU</a>
+                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="sufre.html"> SÜFRƏ QRUPU</a>
                     </li>
                     <li class="nav-item dropdown ">
                         <a onmouseover="openCategory(event)" class="nav-link dropdown-toggle fm" href="#" data-index='1' id="navbarDropdown" role="button"
@@ -412,6 +412,7 @@
 }
     </style>
 
+
     <!-- sufre -->
     <section id="sufre">
         <div class="page-cover">
@@ -586,7 +587,6 @@
                         <label class="cbx" for="cbx{{x.id}}"><span>{{x.name}}</span></label>
                     </li>
                     {% endfor %}
-                   
                 </ul>
 
                 <!-- range -->
@@ -673,7 +673,7 @@
                 <!-- products -->
                 <div class="products  my-5 infinite-container ">
                     <!-- product -->
-                    {% for x in page_obj %}
+                    {% for x in filter.qs %}
                     <div class="product new infinite-item">
                         {% if x.sale > 0 %}
                         <div class="product-status">
@@ -1043,28 +1043,27 @@
             });
         
             </script>
-
-<script>
-    $(document).ready(function(){
-      $('.add_to_cart').on('click', function(e){
-        e.preventDefault()
-        product_slug = $(this).attr('data-slug')
-        data = {
-          product_slug: product_slug
-        }
-        $.ajax({
-          type: "GET",
-          url: '/add_to_cart/',
-          data: data,
-          success: function(data){
-            $("#cart_count").html(data.cart_total)
-          }
-        })
-      })
-    })
-        
-        
-    </script>
+            <script>
+                $(document).ready(function(){
+                  $('.add_to_cart').on('click', function(e){
+                    e.preventDefault()
+                    product_slug = $(this).attr('data-slug')
+                    data = {
+                      product_slug: product_slug
+                    }
+                    $.ajax({
+                      type: "GET",
+                      url: '/add_to_cart/',
+                      data: data,
+                      success: function(data){
+                        $("#cart_count").html(data.cart_total)
+                      }
+                    })
+                  })
+                })
+                    
+                    
+                </script>
 </body>
 
 </html>

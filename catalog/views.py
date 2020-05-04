@@ -457,7 +457,7 @@ def details(request):
          'filter': filter,
          'brand': brand,
      }
-    return render(request, 'product-detail.html', context)
+    return render(request, 'detail.html', context)
 
 def accounts(request):
     return render(request, 'account.html')
