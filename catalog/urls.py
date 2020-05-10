@@ -68,6 +68,5 @@ urlpatterns = [
 	path('search/', SearchProductView.as_view(), name='query'),
 	path('add/<int:id>/', add_to_fovarite, name='add_to_fovarite'),
 	path('products_history/', products_history, name='products_history'),
-	#path('filter/', PostsView.as_view(),  name="posts"),
 	path('filter/', filter_list,  name="posts"),
 ]

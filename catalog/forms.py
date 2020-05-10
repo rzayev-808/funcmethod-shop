@@ -228,3 +228,8 @@ class HistoryForms(forms.ModelForm):
   class Meta:
     model = HistoryProducts
     fields = ['user', 'product',]
+
+class ProductComment(forms.ModelForm):
+  class Meta:
+    model = Comment
+    fields = '__all__'

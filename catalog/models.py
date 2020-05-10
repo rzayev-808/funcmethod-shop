@@ -13,6 +13,9 @@ import os
 import glob
 from django.conf import settings
 from star_ratings.models import Rating
+from io import BytesIO
+from PIL import Image
+from django.core.files import File
 
 #from simple_history.models import HistoricalRecords
 import math
@@ -21,6 +24,13 @@ from django.contrib.auth.models import (
   BaseUserManager
 )
 # Create your models here.
+def compress(image):
+    im = Image.open(image)
+    im_io = BytesIO() 
+    im.save(im_io, 'JPEG', quality=60) 
+    new_image = File(im_io, name=image.name)
+    return new_image
+
 
 class ProductQuerySet(models.query.QuerySet):
 
@@ -112,10 +122,7 @@ def gen_random_promo():
 
     return str(int(time()))
 
-class Color(models.Model):
-    name = models.CharField(max_length=100)
-    def __str__(self):
-        return self.name
+
 
 
     
@@ -123,7 +130,7 @@ class Color(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(SubCategory,on_delete=models.CASCADE, verbose_name='Kategoriya')
-    colors = models.ManyToManyField(Color, verbose_name='Rengi', blank=True)
+    #colors = models.ManyToManyField(Color, verbose_name='Rengi', blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand')
     name = models.CharField(max_length=1000, verbose_name='Mehsulun Adi')
     code = models.CharField(max_length=100, verbose_name='Mehsulun Kodu')
@@ -134,7 +141,7 @@ class Product(models.Model):
     order_price = models.DecimalField(max_digits=9, decimal_places=2,  verbose_name='Catdirilma Qiymeti', blank=True, null=True)
     reting = models.IntegerField(verbose_name='Reyting', blank=True, null=True)
     title = models.TextField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    #description = models.TextField(blank=True, null=True)
     featured = models.BooleanField(default=False)
     data = models.DateField(auto_now_add=True)
     stock = models.BooleanField(default=True)
@@ -170,6 +177,8 @@ class Product(models.Model):
             self.month_12 = math.ceil(self.price / 12)
        
         #if sel
+        new_image = compress(self.image)
+        self.image = new_image
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -178,9 +187,33 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'product_slug': self.slug})
 
+
+class Color(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.name
+
+class Descripton(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    value = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.name
+
 class MultiImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(verbose_name='Image')
+    
+    
+    def save(self, *args, **kwargs):
+      new_image = compress(self.image)
+      self.image = new_image
+      super().save(*args, **kwargs)
+
     
 class CartItem(models.Model):
 
@@ -441,3 +474,12 @@ class HistoryProducts(models.Model):
     def __str__(self):
         return self.product.name
     
+class Comment(models.Model):
+  product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comment')
+  text = models.TextField()
+  date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+  
+
+  def __str__(self):
+      return self.product.name
+  

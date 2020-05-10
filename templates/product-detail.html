@@ -724,9 +724,16 @@
   
                     
                   </div>
-                <input type="email" placeholder="emailiniz">
-                <input type="text" placeholder="reyiniz">
-                <button class="btn-red">gonder</button>
+                  <form action="" method="POST">
+                      {% csrf_token %}
+                      
+                    
+                        <input hidden value="{{product.id}}" name="product"/>
+                        <input    type="text"  name="text" >
+              
+                <input hidden   type="text"  name="url_form" value="{{request.path}}" >
+                <button type="submit" class="btn-red">gonder</button>
+            </form>
             </div>
 
             <ul class="comments">
@@ -1404,6 +1411,6 @@
             setTimeout(ajax, 3000);
         }
         </script>
-</body>
+
 
 </html>

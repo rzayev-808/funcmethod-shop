@@ -2,6 +2,14 @@ from django.contrib import admin
 from .models import *
 #from simple_history.admin import SimpleHistoryAdmin
 
+class ProductDescriptions(admin.TabularInline):
+    model = Descripton
+    fields = ['name', 'value',]
+
+class ProductColor(admin.TabularInline):
+    model = Color
+    fields = ['name', 'code',]
+
 
 class ProductMultiImage(admin.TabularInline):
     model = MultiImage
@@ -38,7 +46,7 @@ class OrderAdmin(admin.ModelAdmin):
 	actions = [make_payed]
 
 class ProductAdmin(admin.ModelAdmin):
-	inlines = [ProductMultiImage, ProductMultiPromoCode,Kredit_18Admin,ProductMultiSize]
+	inlines = [ProductMultiImage, ProductMultiPromoCode,Kredit_18Admin,ProductMultiSize, ProductDescriptions, ProductColor]
 	extra = 1
 	list_display = ("category", "slug" ,"name", "active", "stock", "price", "sale", "dicount","prome_code_in","kredit_18",)
 	model = Product
@@ -51,7 +59,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(MultiImage)
 #Sadmin.site.register(Fovarite)
-admin.site.register(Color)
+#n.site.register(Color)
 admin.site.register(PromoCode)
 admin.site.register(CompanyPromoCode)
 admin.site.register(Click)
@@ -63,7 +71,7 @@ admin.site.register(Kredit_18_ay)
 admin.site.register(User)
 
 admin.site.register(HistoryProducts)
-
+admin.site.register(Comment)
 admin.site.register(Size)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(CartItem)

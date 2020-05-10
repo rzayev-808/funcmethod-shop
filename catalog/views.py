@@ -42,7 +42,7 @@ class Filters(django_filters.FilterSet):
     brand_id_in = NumberInFilter(field_name='brand', lookup_expr='in')
     class Meta:
         model = Product
-        fields = ['price', 'category', 'brand_id_in','colors',]
+        fields = ['price', 'category', 'brand_id_in',]
 
 class PostsView(ListView):
     model = Brand 
@@ -79,7 +79,7 @@ def index(request):
         cart = Cart.objects.get(id=cart_id)
     
     categories = Category.objects.all()
-    products = Product.objects.all().order_by('?')[:4]
+    products = Product.objects.all()[:4]
     brands = Brand.objects.all()
     w = Product.objects.all().order_by('?')[:8]
     r = Product.objects.all().order_by('?')[:4]
@@ -138,20 +138,18 @@ def product_view(request, product_slug):
     #print(history_products)
     product = Product.objects.get(slug=product_slug)
     categories = Category.objects.all()
-    if request.method == "POST":
-        form = HistoryForms(request.POST or None)
+    if request.method == 'POST':
+        form = ProductComment(request.POST or None)
         if form.is_valid():
-            new = form.save(commit=False)
-            product = request.POST.get('product')
-            new.user = request.user
-            #new.product = request.GET.get('id')
 
-            if  HistoryProducts.objects.filter(user=new.user).filter(product=request.POST.get('product')):
-                pass
-            else:
-                new.save()
-            return redirect(request.POST.get('url_form')) 
-
+            # Create Comment object but don't save to database yet
+            form = form.save(commit=False)
+            # Assign the current post to the comment
+            form.post = product
+            # Save the comment to the database
+            form.save()
+    else:
+        form = ProductComment()
     context = {
         'product': product,
         'categories': categories,
@@ -159,6 +157,7 @@ def product_view(request, product_slug):
         'product_page': "active",
         'product_list': product_list,
         'history_products': history_products,
+        'form':form,
         
     }
     return render(request, 'product-detail.html', context)
@@ -538,15 +537,15 @@ class SearchProductView(ListView):
     return Product.objects.featured()
 
 def add_to_fovarite(request, id):
-    if request.method == "POST":
-        if not request.session.get('fovarites'):
+    #if request.method == "POST":
+    if not request.session.get('fovarites'):
             request.session['fovarites'] = list()
-        else:
-            request.session['fovarites'] = list(request.session['fovarites'])
-        if not request.session.get('visits'):
-            request.session['visits'] = list()
-        else:
-            request.session['visits'] = list(request.session['visits'])
+    else:
+        request.session['fovarites'] = list(request.session['fovarites'])
+    if not request.session.get('visits'):
+        request.session['visits'] = list()
+    else:
+        request.session['visits'] = list(request.session['visits'])
     item_exist = next((item for item in request.session['fovarites'] if  item['id'] == id), False)
     #visit = 0
     
@@ -563,7 +562,7 @@ def add_to_fovarite(request, id):
         request.session.modified = True
         #visit += 1
         #visits = int(request.session.get('visits', '1')) + 1
-    return redirect(request.POST.get('url_form')) 
+    return JsonResponse({'add_data': add_data})
 
 def products_history(request):
 
@@ -627,3 +626,4 @@ def filter_list(request):
         'page_obj':page_obj
     }
     return render(request, 'sufre.html', context)
+
