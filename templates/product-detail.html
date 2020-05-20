@@ -366,7 +366,7 @@
                     <img src="./images/icons/arrow.svg" alt="">
                 </li>
                 <li>
-                    {{product.name}}
+                    {{product.category}}
                 </li>
             </ul>
         </div>
@@ -374,16 +374,16 @@
         <div class="product-detail d-flex justify-content-between mt-5 container ">
             <ul class="additional-images">
                 <li class="additional-image">
-                    <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
+                    <img class="img-bg" src="{{product.images.all.0.image.url}}" alt="">
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
+                    <img class="img-bg" src="{{product.images.all.1.image.url}}" alt="">
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
+                    <img class="img-bg" src="{{product.images.all.2.image.url}}" alt="">
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
+                    <img class="img-bg" src="{{product.images.all.3.image.url}}" alt="">
                 </li>
             </ul>
             <div class="main-image">
@@ -391,7 +391,7 @@
             </div>
             <div class="product-information">
                 <div class="product-title fm">
-                    {{product.title}}
+                    {{product.name}}
                 </div>
                 <div class="product-number">
                     Mehsul kodu: {{product.code}}
@@ -462,16 +462,12 @@
 
         <!-- descriptions -->
         <div class="product-descriptions container  my-5">
-            <div class="product-title">
-                {{product.description}}
-            </div>
+           
 
             <div class="desc-nav my-5">
                 <ul class="d-flex">
-                    <li data-id='1' class="active ml-0">
-                        Haqqında
-                    </li>
-                    <li data-id='2'>
+                    
+                    <li data-id='2' class="active ml-0">
                         Xüsusiyyətlər
                     </li>
                     <li data-id='3'>
@@ -483,120 +479,18 @@
                 </ul>
             </div>
             <div class="tabs">
-                <div data-id='1' class="tab desc-about active">
-                    <ul class="w-50">
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
+               
+                <div data-id='2' class="tab desc-spec active">
+                    <ul class="w-100">
+                       
+                           
+                            <div class="spec left w-100">
+                                {{product.title|safe}}
                             </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                    </ul>
-                </div>
-                <div data-id='2' class="tab desc-spec ">
-                    <ul class="w-50">
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="spec left w-50">
-                                Brend:
-                            </div>
-                            <div class="title right w-50">Schafer</div>
-                        </li>
+                            
+                        
+                     
+                       
                     </ul>
                 </div>
                 <div data-id='3' class="tab desc-payment ">

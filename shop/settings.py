@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_filters',
     'star_ratings',
+    'ckeditor',
     #'rest_framework',
    # 'api',
     #'favit',

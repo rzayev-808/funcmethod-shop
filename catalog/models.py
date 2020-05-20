@@ -16,6 +16,7 @@ from star_ratings.models import Rating
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
+from ckeditor.fields import RichTextField
 
 #from simple_history.models import HistoricalRecords
 import math
@@ -140,7 +141,7 @@ class Product(models.Model):
     dicount = models.DecimalField(max_digits=9, decimal_places=0, verbose_name='Yekun Qiymeti', blank=True, null=True)
     order_price = models.DecimalField(max_digits=9, decimal_places=2,  verbose_name='Catdirilma Qiymeti', blank=True, null=True)
     reting = models.IntegerField(verbose_name='Reyting', blank=True, null=True)
-    title = models.TextField(blank=True, null=True)
+    title = RichTextField()
     #description = models.TextField(blank=True, null=True)
     featured = models.BooleanField(default=False)
     data = models.DateField(auto_now_add=True)
@@ -191,7 +192,7 @@ class Product(models.Model):
 class Color(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=200)
+    code = models.CharField(max_length=200, blank=True, null=True)
     
     def __str__(self):
         return self.name
