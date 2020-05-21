@@ -122,12 +122,16 @@
                                 {% else %}
                                 <div class="new-price mr-2">{{x.price}} ‎₼</div>
                                 {%endif %}
-                                {% for x in x.color.all %}
-                
-            <a href="/color/{{x.id}}/"><button style="background-color:#{{x.color}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
-            {% endfor %}
+                              
                             </div>
+                           
                             
+                            
+                            
+                            {% for x in x.color.all %}
+                
+                            <a href="/color/{{x.id}}/"><button style="background-color:#{{x.color}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
+                            {% endfor %}
                         </div>
                         
                         <a href="" class="add_to_cart" data-slug='{{ x.slug }}'> <div class="add-to-cart">
