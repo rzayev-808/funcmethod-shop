@@ -149,7 +149,7 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     month_6 = models.CharField(max_length=200,blank=True, verbose_name='Kredit 6 ay ucun ayliq odenis')
     month_12 = models.CharField(max_length=200,blank=True, verbose_name='Kredit 12 ay ucun ayliq odenis')
-
+    month_18 = models.CharField(max_length=200,blank=True, verbose_name='Kredit 12 ay ucun ayliq odenis')
     #promo_kod = models.CharField(max_length=200, blank=True)
     slug = models.SlugField(max_length=200, blank=True)
     material = models.CharField(max_length=200, blank=True, verbose_name='Material')
@@ -176,8 +176,10 @@ class Product(models.Model):
             self.month_6 = math.ceil(self.price / 6)
         if not self.month_12:
             self.month_12 = math.ceil(self.price / 12)
+        if not self.month_18:
+            self.month_18 = math.ceil(self.price / 18)
        
-        #if sel
+       
         new_image = compress(self.image)
         self.image = new_image
         super().save(*args, **kwargs)
@@ -190,12 +192,18 @@ class Product(models.Model):
 
 
 class Color(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="color")
+    color = models.CharField(max_length=100)
+    color_name = models.CharField(max_length=100)
     code = models.CharField(max_length=200, blank=True, null=True)
+    image = models.ImageField()
+    #slug = models.SlugField(max_length=200, blank=True)
     
-    def __str__(self):
-        return self.name
+
+
+
+    def get_absolute_url(self):
+        return reverse('color_detail', kwargs={'color_slug': self.id})
 
 class Descripton(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -480,6 +488,8 @@ class Comment(models.Model):
   text = models.TextField()
   date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
   
+  class Meta:
+    ordering = ['-date']
 
   def __str__(self):
       return self.product.name

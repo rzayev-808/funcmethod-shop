@@ -8,8 +8,8 @@ class ProductDescriptions(admin.TabularInline):
 
 class ProductColor(admin.TabularInline):
     model = Color
-    fields = ['name', 'code',]
-
+    fields = ['color_name','color','code', 'image',]
+	
 
 class ProductMultiImage(admin.TabularInline):
     model = MultiImage
@@ -46,7 +46,7 @@ class OrderAdmin(admin.ModelAdmin):
 	actions = [make_payed]
 
 class ProductAdmin(admin.ModelAdmin):
-	inlines = [ProductMultiImage, ProductMultiPromoCode,Kredit_18Admin,ProductMultiSize, ProductDescriptions, ProductColor]
+	inlines = [ProductMultiImage, ProductMultiPromoCode,ProductMultiSize, ProductDescriptions, ProductColor]
 	extra = 1
 	list_display = ("category", "slug" ,"name", "active", "stock", "price", "sale", "dicount","prome_code_in","kredit_18",)
 	model = Product
@@ -69,6 +69,7 @@ admin.site.register(Brand)
 admin.site.register(SubCategory)
 admin.site.register(Kredit_18_ay)
 admin.site.register(User)
+admin.site.register(Color)
 
 admin.site.register(HistoryProducts)
 admin.site.register(Comment)

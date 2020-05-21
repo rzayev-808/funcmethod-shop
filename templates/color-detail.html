@@ -366,7 +366,7 @@
                     <img src="./images/icons/arrow.svg" alt="">
                 </li>
                 <li>
-                    {{product.category}}
+                    {{color.product.category}}
                 </li>
             </ul>
         </div>
@@ -374,46 +374,45 @@
         <div class="product-detail d-flex justify-content-between mt-5 container ">
             <ul class="additional-images">
                 <li class="additional-image">
-                    <img class="img-bg" src="{{product.images.all.0.image.url}}" alt="">
+                    <img class="img-bg" src="{{color.product.images.all.0.image.url}}" alt="">
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{{product.images.all.1.image.url}}" alt="">
+                    <img class="img-bg" src="{{color.product.images.all.1.image.url}}" alt="">
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{{product.images.all.2.image.url}}" alt="">
+                    <img class="img-bg" src="{{color.product.images.all.2.image.url}}" alt="">
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{{product.images.all.3.image.url}}" alt="">
+                    <img class="img-bg" src="{{color.product.images.all.3.image.url}}" alt="">
                 </li>
             </ul>
             <div class="main-image">
-                <img class="img-bg" src="{{product.image.url}}" alt="">
+                <img class="img-bg" src="{{color.product.image.url}}" alt="">
             </div>
             <div class="product-information">
                 <div class="product-title fm">
-                    {{product.name}}
+                    {{color.product.name}}
                 </div>
                 <div class="product-number">
-                    Mehsul kodu: {{product.code}}
+                    Mehsul kodu: {{color.code}}
                 </div>
                 <div class="product-rate rating-widget">
                    
-                    {% ratings product 28 28 %}
-                        
+                    {% ratings color 28 28 %}
+                    <br>
+
                
                    
                 </div>
-                {% for x in product.color.all %}
-                
-            <a href="/color/{{x.id}}/"><button style="background-color:#{{x.color}}; color: white;" type="button" class="btn">{{x.color_name}}</button></a>
+                {% for x in color.product.color.all %}
+                <a href="/color/{{x.id}}/"><button style="background-color:#{{x.color}}; color: white;" type="button" class="btn">{{x.color_name}}</button></a>
             {% endfor %}
-                <a href="">{{product.color.color_name}}</a>
                 <div class="product-price d-flex ">
-                    {% if product.sale > 0 %}
-                    <div class="new-price mr-2">{{product.dicount}} ‎₼</div>
-                    <div class="old-price">{{product.price}} ‎₼</div>
+                    {% if color.product.sale > 0 %}
+                    <div class="new-price mr-2">{{color.product.dicount}} ‎₼</div>
+                    <div class="old-price">{{color.product.price}} ‎₼</div>
                      {% else %}
-                     <div class="new-price mr-2">{{product.price}} ‎₼</div>
+                     <div class="new-price mr-2">{{color.product.price}} ‎₼</div>
                      {% endif %}
                 </div>
 
@@ -635,15 +634,29 @@
             </div>
 
             <ul class="comments">
-                {% for i in  product.comment.all %}
                 <li class="comment">
                     <!-- stars -->
                     <ul class="stars d-flex ">
-                        {% ratings i 15 15 %}
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star-g.svg" alt="">
+                        </li>
+
                     </ul>
-                    <div class="text">{{i.text}}</div>
+                    <div class="text">çok iyi uygun fiyata aldım.</div>
                     <div class="comment-info">
-                        Gulay Yildiz | {{i.date}}
+                        Gulay Yildiz | 20 Mart 2020
                     </div>
                     <div class="comment-detail position-absolute">
 
@@ -685,15 +698,141 @@
                     </div>
 
                 </li>
-               {% endfor %}
+                <li class="comment">
                     <!-- stars -->
-                  
-                  
+                    <ul class="stars d-flex ">
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star-g.svg" alt="">
+                        </li>
+
+                    </ul>
+                    <div class="text">çok iyi uygun fiyata aldım.</div>
+                    <div class="comment-info">
+                        Gulay Yildiz | 20 Mart 2020
+                    </div>
+                    <div class="comment-detail position-absolute">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="5" height="21" viewBox="0 0 5 21">
+                            <g id="Group_278" data-name="Group 278" transform="translate(-1266 -3079)">
+                              <circle id="Ellipse_14" data-name="Ellipse 14" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3079)" fill="#686868"/>
+                              <circle id="Ellipse_15" data-name="Ellipse 15" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3087)" fill="#686868"/>
+                              <circle id="Ellipse_16" data-name="Ellipse 16" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3095)" fill="#686868"/>
+                            </g>
+                          </svg>
+                          
+                    </div>
+                    <div class="comment-like position-absolute">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="19.705" height="18.392"
+                            viewBox="0 0 19.705 18.392">
+                            <g id="like" transform="translate(-33.182 -99.007)">
+                                <g id="Group_275" data-name="Group 275" transform="translate(33.182 105.575)">
+                                    <g id="Group_274" data-name="Group 274" transform="translate(0 0)">
+                                        <path id="Path_203" data-name="Path 203"
+                                            d="M36.466,262.219H33.839a.657.657,0,0,0-.657.657v10.51a.657.657,0,0,0,.657.657h2.627a.657.657,0,0,0,.657-.657v-10.51A.657.657,0,0,0,36.466,262.219Z"
+                                            transform="translate(-33.182 -262.219)" fill="#a4a4a4" />
+                                    </g>
+                                </g>
+                                <g id="Group_277" data-name="Group 277" transform="translate(38.437 99.007)">
+                                    <g id="Group_276" data-name="Group 276" transform="translate(0 0)">
+                                        <path id="Path_204" data-name="Path 204"
+                                            d="M178.19,107.317a2.066,2.066,0,0,0-2.093-1.741h-5.121a11.341,11.341,0,0,0,.658-3.884,2.735,2.735,0,0,0-2.742-2.685h-.542a.657.657,0,0,0-.657.657c0,1.519-.591,4.261-1.707,5.376a7.275,7.275,0,0,1-2.234,1.443v9.856a15.344,15.344,0,0,0,5.418,1.059h4.3a2,2,0,0,0,1.97-2.7,1.971,1.971,0,0,0,1.314-2.627,1.972,1.972,0,0,0,.949-3.215A1.966,1.966,0,0,0,178.19,107.317Z"
+                                            transform="translate(-163.752 -99.007)" fill="#a4a4a4" />
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                        <span>
+                            Bəyən (1)
+
+                        </span>
+
+                    </div>
+
+                </li>
+              
+                    <!-- stars -->
+                    <ul class="stars d-flex ">
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star.svg" alt="">
+                        </li>
+                        <li class="star">
+                            <img src="./images/icons/star-g.svg" alt="">
+                        </li>
+
+                    </ul>
+                    <div class="text">çok iyi uygun fiyata aldım.</div>
+                    <div class="comment-info">
+                        Gulay Yildiz | 20 Mart 2020
+                    </div>
+                    <div class="comment-detail position-absolute">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="5" height="21" viewBox="0 0 5 21">
+                            <g id="Group_278" data-name="Group 278" transform="translate(-1266 -3079)">
+                              <circle id="Ellipse_14" data-name="Ellipse 14" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3079)" fill="#686868"/>
+                              <circle id="Ellipse_15" data-name="Ellipse 15" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3087)" fill="#686868"/>
+                              <circle id="Ellipse_16" data-name="Ellipse 16" cx="2.5" cy="2.5" r="2.5" transform="translate(1266 3095)" fill="#686868"/>
+                            </g>
+                          </svg>
+                          
+                    </div>
+                    <div class="comment-like position-absolute">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="19.705" height="18.392"
+                            viewBox="0 0 19.705 18.392">
+                            <g id="like" transform="translate(-33.182 -99.007)">
+                                <g id="Group_275" data-name="Group 275" transform="translate(33.182 105.575)">
+                                    <g id="Group_274" data-name="Group 274" transform="translate(0 0)">
+                                        <path id="Path_203" data-name="Path 203"
+                                            d="M36.466,262.219H33.839a.657.657,0,0,0-.657.657v10.51a.657.657,0,0,0,.657.657h2.627a.657.657,0,0,0,.657-.657v-10.51A.657.657,0,0,0,36.466,262.219Z"
+                                            transform="translate(-33.182 -262.219)" fill="#a4a4a4" />
+                                    </g>
+                                </g>
+                                <g id="Group_277" data-name="Group 277" transform="translate(38.437 99.007)">
+                                    <g id="Group_276" data-name="Group 276" transform="translate(0 0)">
+                                        <path id="Path_204" data-name="Path 204"
+                                            d="M178.19,107.317a2.066,2.066,0,0,0-2.093-1.741h-5.121a11.341,11.341,0,0,0,.658-3.884,2.735,2.735,0,0,0-2.742-2.685h-.542a.657.657,0,0,0-.657.657c0,1.519-.591,4.261-1.707,5.376a7.275,7.275,0,0,1-2.234,1.443v9.856a15.344,15.344,0,0,0,5.418,1.059h4.3a2,2,0,0,0,1.97-2.7,1.971,1.971,0,0,0,1.314-2.627,1.972,1.972,0,0,0,.949-3.215A1.966,1.966,0,0,0,178.19,107.317Z"
+                                            transform="translate(-163.752 -99.007)" fill="#a4a4a4" />
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                        <span>
+                            Bəyən (1)
+
+                        </span>
+
+                    </div>
 
                 </li>
             </ul>
 
-            
+            <div class="see-more text-center my-5">
+                <button class="w-25">
+                    Hamısını gör
+                </button>
+            </div>
         </div>
 
         <div class="ads"></div>
@@ -937,10 +1076,10 @@
                 </div>
                 <div class="modal-body">
                     
-                  6 ay  = Ayda - {{product.month_6}} ₼
+                  6 ay  = Ayda - {{color.product.month_6}} ₼
                   <br>
                   <hr>
-                  12 ay  =  Ayda - {{product.month_12}} ‎₼
+                  12 ay  =  Ayda - {{color.product.month_12}} ‎₼
                   <br> 
                   <hr>
                   18 ay  = Ayda - {{product.kredit.all.0.odenis}} ‎₼
@@ -1068,7 +1207,7 @@
                     $.ajax({
                         headers: { "X-CSRFToken": getCookie("csrftoken") },
                         type: "GET",
-                        url: '{% url "buy" product.slug %}',
+                        url: '{% url "buy" color.product.slug %}',
                         data: data,
                         success: function(data){
                             if (data.code != 200) {
@@ -1148,8 +1287,8 @@
         })
         function ajax(){
             data = {
-                        product_id : "{{product.id}}",
-                        user_id : "{{user.id}}",
+                        product_id : "{{color.product.id}}",
+                        user_id : "{{color.user.id}}",
                         url_form : "{{ request.path }}"
                     }
                 $.ajax({

@@ -32,6 +32,7 @@ from .views import (
 	fovarite_list,
 	PostsView,
 	filter_list,
+	color_view
 	
 )
 
@@ -42,6 +43,7 @@ urlpatterns = [
     path('brand/<brand_slug>/', brand_view, name='brand_detail'),	
 	path('category/<category_slug>/', category_view, name='category_detail'),
 	path('product/<product_slug>/', product_view, name='product_detail'),
+	path('color/<int:id>/', color_view, name='color_detail'),
 	path('xx/', product_list, name='product_list'),
 	path('fovarite_update/<product_id>/', fovarite_update, name='fovarite_update'),
     path('add_to_cart/', add_to_cart_view, name='add_to_cart'),

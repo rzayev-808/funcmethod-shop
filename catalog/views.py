@@ -79,7 +79,7 @@ def index(request):
         cart = Cart.objects.get(id=cart_id)
     
     categories = Category.objects.all()
-    products = Product.objects.all()[:4]
+    products = Product.objects.all().order_by('-id')[:4]
     brands = Brand.objects.all()
     w = Product.objects.all().order_by('?')[:8]
     r = Product.objects.all().order_by('?')[:4]
@@ -627,3 +627,55 @@ def filter_list(request):
     }
     return render(request, 'sufre.html', context)
 
+def color_view(request, id):
+    try:
+        x = request.GET.get('id')
+        product_list = request.session.get('product_list', {})
+        product_list[product_slug] = x
+        request.session['product_list'] = product_list
+        cart_id = request.session['cart_id']
+        cart = Cart.objects.get(id=cart_id)
+        request.session['total'] = cart.items.count()
+    except:
+        cart = Cart()
+        cart.save()
+        cart_id = cart.id
+        request.session['cart_id'] = cart_id
+        cart = Cart.objects.get(id=cart_id)
+    his = {}
+    keys = []
+    #print(product_list)
+    for key,values in product_list.items():
+        keys.append(key)
+    history = list(keys)
+    for n in history:
+        history_products = Product.objects.filter(slug__icontains=n[1]).order_by('-id')
+    #history = list(keys)
+    
+    #his['slug'] = keys
+    #print(history_products)
+    color = Color.objects.get(id=id)
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        form = ProductComment(request.POST or None)
+        if form.is_valid():
+
+            # Create Comment object but don't save to database yet
+            form = form.save(commit=False)
+            # Assign the current post to the comment
+            form.post = product
+            # Save the comment to the database
+            form.save()
+    else:
+        form = ProductComment()
+    context = {
+        'color': color,
+        'categories': categories,
+        'cart': cart,
+        'product_page': "active",
+        'product_list': product_list,
+        'history_products': history_products,
+        'form':form,
+        
+    }
+    return render(request, 'color-detail.html', context)
