@@ -48,18 +48,14 @@
                         </a>
                     </div>
                     <div class="fav">
-                        <form action="{% url 'add_to_fovarite' x.id %}" method="POST">
-                            {% csrf_token %}
-                           <input type="hidden" name="type" value="{{x.id}}">
-                           <input type="hidden" name="url_form" value="{{ request.path }}">
-                           <input type="hidden" name="visits" value="">
-                           <button type="submit"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
-                            viewBox="0 0 28.467 24.957">
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
+                            viewBox="0 0 28.467 24.957" class="active">
                             <path id="heart"
                                 d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z"
                                 transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
-                        </svg></button>
+                        </svg>
                          </form>
                        
 

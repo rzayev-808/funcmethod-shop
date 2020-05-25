@@ -81,8 +81,12 @@
                 <div class="user-side d-flex justify-content-between">
                     <ul class="d-flex justify-content-between">
                         <li class="user">
-                            <a href="login.html">
+                            {% if request.user.is_authenticated %}
 
+                            <a href="{% url 'account' %}">
+                                {% else %}
+                                <a href="{% url 'login' %}">
+                                    {% endif %}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
                                     <g id="Group_29" data-name="Group 29" transform="translate(-2137.879 -366.88)">
                                         <rect id="Rectangle_28" data-name="Rectangle 28" width="23" height="23"

@@ -16,7 +16,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from .filter import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from star_ratings.models import AbstractBaseRating
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, FormView, DetailView, UpdateView, View,ListView,TemplateView
 from django.views.generic.edit import FormMixin
@@ -131,7 +131,8 @@ def product_view(request, product_slug):
         keys.append(key)
     history = list(keys)
     for n in history:
-        history_products = Product.objects.filter(slug__icontains=n[1]).order_by('-id')
+        history_products = Product.objects.filter(slug__icontains=n[1]).order_by('?')[:3]
+
     #history = list(keys)
     
     #his['slug'] = keys
@@ -378,7 +379,7 @@ def account_view(request):
         'order': order,
         'categories': categories
     }
-    return render(request, 'project/account.html', context)
+    return render(request, 'account.html', context)
 
 def registration_view(request):
     form = RegistrationForm(request.POST or None)

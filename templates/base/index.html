@@ -48,6 +48,7 @@
                         </div>
                         <div class="content">
                             <p>Güvenli alışveriş</p>
+                            {{a}}
                             <span>Kredi kartına 12 taksit{% include 'filter.html' %}</span>
                         </div>
                     </div>
@@ -130,7 +131,7 @@
                             
                             {% for x in x.color.all %}
                 
-                            <a href="/color/{{x.id}}/"><button style="background-color:#{{x.color}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
+                            <a href="/color/{{x.id}}/"><button style="background-color:#{{x.color|default:'000000'}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
                             {% endfor %}
                         </div>
                         
