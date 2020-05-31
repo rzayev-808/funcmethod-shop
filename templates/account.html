@@ -1,5 +1,6 @@
 {% load static %}
 {% if request.user.is_authenticated %}
+{% load ratings %}
 
 {% include 'header.html' %}
     <!-- login -->
@@ -47,19 +48,19 @@
                         Şəxsi məlumatlar
                     </li>
                     <li data-id='2' class="menu-item active">
-                        Sifarişlərim (2)
+                        Sifarişlərim ({{order.count}})
                     </li>
                     <li data-id='3' class="menu-item">
-                        Seçilmişlər (1)
+                        Seçilmişlər ({{request.session.fovarites|length }})
                     </li>
                     <li data-id='4' class="menu-item">
-                        Baxılanlar (5)
+                        Baxılanlar ({{history.count}})
                     </li>
                     <li data-id='5' class="menu-item">
-                        Məktublarım (2)
+                        Məktublarım ({{mesaj.count}})
                     </li>
                     <li data-id='6' class="menu-item">
-                        Promokodlarım (1)
+                        Promokodlarım (0)
                     </li>
                     <li class="menu-item">
                         Çıxış
@@ -205,28 +206,29 @@
                         </ul>
                     </div>
 
-
                     <div data-id="1" class="order-tab active">
                         <div class="order-products">
-
-                            <!-- #1 -->
+                            {% for item in order %}
+                            
+                            {% for order_item in item.items.item.all %}   
+                            {% for x in order_item.items.items.all %}
                             <div class="order-product  ">
                                 <div class="product d-flex flex-wrap ">
                                     <div class="product-photo w-25 ">
-                                        <img class="img-bg" src="{% static 'images/products/1.jpg' %}" alt="">
+                                        <img class="img-bg" src="{{x.product.image.url}}" alt="">
                                     </div>
                                     <div class="product-info d-flex justify-content-between">
                                         <div class="left ">
-                                            <div class="product-date">Tarix: 01/01/2020</div>
-                                            <div class="product-title">Schafer Roxy Dik Elektrikli El Süpürgesi - 3
-                                                Parça - Pembe</div>
+                                            <div class="product-date">Tarix: {{order_item.date}}</div>
+                                            <div class="product-title">{{x.product.name|truncatechars:50}}</div>
                                             <div class="product-number">
-                                                Mehsul kodu: 0265413
+                                                Mehsul kodu: {{x.product.code}}
                                             </div>
                                         </div>
                                         <div class="right text-center d-flex  m-auto">
                                             <div class="product-price text-center w-100 ">
-                                                269.95 ‎₼
+                                                
+                                                {{x.item_total}} ‎₼
                                             </div>
                                         </div>
                                     </div>
@@ -306,7 +308,9 @@
 
 
                             </div>
-
+                            {% endfor %}
+                            {% endfor %}
+                            {% endfor %}
                              <!-- #2 -->
                             
 
@@ -316,26 +320,31 @@
 
                     </div>
                     <div data-id="2" class="order-tab">
+                 
                         <div class="order-products">
 
-                            <!-- #1 -->
+             <!-- #1 -->
+             {% for item in order %}
+                            {% if item.status == "1"  %}
+                            {% for order_item in item.items.item.all %}   
+                            {% for x in order_item.items.items.all %}
                             <div class="order-product  ">
                                 <div class="product d-flex flex-wrap ">
                                     <div class="product-photo w-25 ">
-                                        <img class="img-bg" src="./images/products/2.jpg" alt="">
+                                        <img class="img-bg" src="{{x.product.image.url}}" alt="">
                                     </div>
                                     <div class="product-info d-flex justify-content-between">
                                         <div class="left ">
-                                            <div class="product-date">Tarix: 01/01/2020</div>
-                                            <div class="product-title">Schafer Roxy Dik Elektrikli El Süpürgesi - 3
-                                                Parça - Pembe</div>
+                                            <div class="product-date">Tarix: {{order_item.date}}</div>
+                                            <div class="product-title">{{x.product.name|truncatechars:50}}</div>
                                             <div class="product-number">
-                                                Mehsul kodu: 0265413
+                                                Mehsul kodu: {{x.product.code}}
                                             </div>
                                         </div>
                                         <div class="right text-center d-flex  m-auto">
                                             <div class="product-price text-center w-100 ">
-                                                269.95 ‎₼
+                                                
+                                                {{x.item_total}} ‎₼
                                             </div>
                                         </div>
                                     </div>
@@ -415,7 +424,11 @@
 
 
                             </div>
+                            {% endfor %}
+                            {% endfor %}
+                            {%endif %}
 
+                            {% endfor %}
                              <!-- #2 -->
                            
 
@@ -425,24 +438,27 @@
                     <div data-id="3" class="order-tab">
                         <div class="order-products">
 
-                            <!-- #1 -->
+                            {% for item in order %}
+                            {% if item.status == "2"  %}
+                            {% for order_item in item.items.item.all %}   
+                            {% for x in order_item.items.items.all %}
                             <div class="order-product  ">
                                 <div class="product d-flex flex-wrap ">
                                     <div class="product-photo w-25 ">
-                                        <img class="img-bg" src="./images/products/3.jpg" alt="">
+                                        <img class="img-bg" src="{{x.product.image.url}}" alt="">
                                     </div>
                                     <div class="product-info d-flex justify-content-between">
                                         <div class="left ">
-                                            <div class="product-date">Tarix: 01/01/2020</div>
-                                            <div class="product-title">Schafer Roxy Dik Elektrikli El Süpürgesi - 3
-                                                Parça - Pembe</div>
+                                            <div class="product-date">Tarix: {{order_item.date}}</div>
+                                            <div class="product-title">{{x.product.name|truncatechars:50}}</div>
                                             <div class="product-number">
-                                                Mehsul kodu: 0265413
+                                                Mehsul kodu: {{x.product.code}}
                                             </div>
                                         </div>
                                         <div class="right text-center d-flex  m-auto">
                                             <div class="product-price text-center w-100 ">
-                                                269.95 ‎₼
+                                                
+                                                {{x.item_total}} ‎₼
                                             </div>
                                         </div>
                                     </div>
@@ -522,8 +538,11 @@
 
 
                             </div>
+                            {% endfor %}
+                            {% endfor %}
+                            {%endif %}
 
-                             <!-- #2 -->
+                            {% endfor %}
                              
 
                           
@@ -532,24 +551,27 @@
                     <div data-id="4" class="order-tab">
                         <div class="order-products">
 
-                            <!-- #1 -->
+                            {% for item in order %}
+                            {% if item.status == "3"  %}
+                            {% for order_item in item.items.item.all %}   
+                            {% for x in order_item.items.items.all %}
                             <div class="order-product  ">
                                 <div class="product d-flex flex-wrap ">
                                     <div class="product-photo w-25 ">
-                                        <img class="img-bg" src="./images/products/2.jpg" alt="">
+                                        <img class="img-bg" src="{{x.product.image.url}}" alt="">
                                     </div>
                                     <div class="product-info d-flex justify-content-between">
                                         <div class="left ">
-                                            <div class="product-date">Tarix: 01/01/2020</div>
-                                            <div class="product-title">Schafer Roxy Dik Elektrikli El Süpürgesi - 3
-                                                Parça - Pembe</div>
+                                            <div class="product-date">Tarix: {{order_item.date}}</div>
+                                            <div class="product-title">{{x.product.name|truncatechars:50}}</div>
                                             <div class="product-number">
-                                                Mehsul kodu: 0265413
+                                                Mehsul kodu: {{x.product.code}}
                                             </div>
                                         </div>
                                         <div class="right text-center d-flex  m-auto">
                                             <div class="product-price text-center w-100 ">
-                                                269.95 ‎₼
+                                                
+                                                {{x.item_total}} ‎₼
                                             </div>
                                         </div>
                                     </div>
@@ -629,8 +651,11 @@
 
 
                             </div>
+                            {% endfor %}
+                            {% endfor %}
+                            {%endif %}
 
-                             <!-- #2 -->
+                            {% endfor %}
                             
 
                           
@@ -638,25 +663,27 @@
                     </div>
                     <div data-id="5" class="order-tab">
                         <div class="order-products">
-
-                            <!-- #1 -->
+                            {% for item in order %}
+                            {% if item.status == "4"  %}
+                            {% for order_item in item.items.item.all %}   
+                            {% for x in order_item.items.items.all %}
                             <div class="order-product  ">
                                 <div class="product d-flex flex-wrap ">
                                     <div class="product-photo w-25 ">
-                                        <img class="img-bg" src="./images/products/1.jpg" alt="">
+                                        <img class="img-bg" src="{{x.product.image.url}}" alt="">
                                     </div>
                                     <div class="product-info d-flex justify-content-between">
                                         <div class="left ">
-                                            <div class="product-date">Tarix: 01/01/2020</div>
-                                            <div class="product-title">Schafer Roxy Dik Elektrikli El Süpürgesi - 3
-                                                Parça - Pembe</div>
+                                            <div class="product-date">Tarix: {{order_item.date}}</div>
+                                            <div class="product-title">{{x.product.name|truncatechars:50}}</div>
                                             <div class="product-number">
-                                                Mehsul kodu: 0265413
+                                                Mehsul kodu: {{x.product.code}}
                                             </div>
                                         </div>
                                         <div class="right text-center d-flex  m-auto">
                                             <div class="product-price text-center w-100 ">
-                                                269.95 ‎₼
+                                                
+                                                {{x.item_total}} ‎₼
                                             </div>
                                         </div>
                                     </div>
@@ -736,8 +763,11 @@
 
 
                             </div>
+                            {% endfor %}
+                            {% endfor %}
+                            {%endif %}
 
-                             <!-- #2 -->
+                            {% endfor %}
                            
                           
                         </div>
@@ -749,43 +779,37 @@
                         <!-- products -->
                 <div class="products container mb-5 ">
                     <!-- product -->
+                    {% for x in k %}
                     <div class="product">
+                        {% if x.sale > 0 %}
                         <div class="product-status">
-                            <p>ENDİRİMLİ
-                                MƏHSUL</p>
+                            <p>{{x.sale}}% ENDİRİM</p>
                         </div>
+                        {% else %}
+                        {%endif %}
                         <div class="product-photo w-100">
-                            <a href="product-detail.html">
-                                <img class="img-bg" src="./images/products/1.jpg" alt="">
+                            <a href="/product/{{x.slug}}/">
+                                <img class="img-bg" src="{{x.image.url}}" alt="">
                             </a>
                         </div>
                         <div class="product-info">
                             <div class="product-rate">
                                 <ul class="stars d-flex ">
-                                    <li class="star">
-                                        <img src="./images/icons/star.svg" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="./images/icons/star.svg" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="./images/icons/star.svg" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="./images/icons/star.svg" alt="">
-                                    </li>
-                                    <li class="star">
-                                        <img src="./images/icons/star-g.svg" alt="">
-                                    </li>
+                                  
+                                    {% ratings x 17 17 %}
 
                                 </ul>
                             </div>
                             <div class="product-title my-3">
-                                Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
+                                {{x.name}}
                             </div>
                             <div class="product-price d-flex">
-                                <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                <div class="old-price">295.95 ‎₼</div>
+                                {% if x.sale > 0 %}
+                                <div class="new-price mr-2"> {{x.dicount}} ‎₼</div>
+                                <div class="old-price">{{x.price}} ‎₼</div>
+                                {% else %}
+                                <div class="new-price mr-2">{{x.price}} ‎₼</div>
+                                {%endif %}
                             </div>
                             <div class="d-flex flex-wrap justify-content-between">
                                 <div class="fav">
@@ -812,6 +836,9 @@
 
 
                     </div>
+                    {% endfor %}
+                   
+                   
                  
                 
                 </div>
@@ -821,47 +848,41 @@
                 <div data-id="4" class="user-page views">
                     <div class="products container mb-5 ">
                         <!-- product -->
+                        {% for x in history %}
                         <div class="product">
+                            {% if x.product.sale > 0 %}
                             <div class="product-status">
-                                <p>ENDİRİMLİ
-                                    MƏHSUL</p>
+                                <p>{{x.product.sale}}% ENDİRİM</p>
                             </div>
+                            {% else %}
+                            {%endif %}
                             <div class="product-photo">
-                                <a href="product-detail.html">
-                                    <img class="img-bg" src="./images/products/2.jpg" alt="">
+                                <a href="/product/{{x.product.slug}}/">
+                                    <img class="img-bg" src="{{x.product.image.url}}" alt="">
                                 </a>
                             </div>
                             <div class="product-info">
                                 <div class="product-rate">
                                     <ul class="stars d-flex ">
-                                        <li class="star">
-                                            <img src="./images/icons/star.svg" alt="">
-                                        </li>
-                                        <li class="star">
-                                            <img src="./images/icons/star.svg" alt="">
-                                        </li>
-                                        <li class="star">
-                                            <img src="./images/icons/star.svg" alt="">
-                                        </li>
-                                        <li class="star">
-                                            <img src="./images/icons/star.svg" alt="">
-                                        </li>
-                                        <li class="star">
-                                            <img src="./images/icons/star-g.svg" alt="">
-                                        </li>
+                                        {% ratings x 17 17 %}
     
                                     </ul>
                                 </div>
                                 <div class="product-title my-3">
-                                    Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
+                                    {{x.product.name}}
                                 </div>
                                 <div class="product-price d-flex">
-                                    <div class="new-price mr-2"> 295.95 ‎₼</div>
-                                    <div class="old-price">295.95 ‎₼</div>
+                                    {% if x.product.sale > 0 %}
+                                    <div class="new-price mr-2"> {{x.product.dicount}} ‎₼</div>
+                                    <div class="old-price">{{x.product.price}} ‎₼</div>
+                                    {% else %}
+                                    <div class="new-price mr-2">{{x.product.price}} ‎₼</div>
+                                    {%endif %}
+                                  
                                 </div>
                                 <div class="d-flex flex-wrap justify-content-between">
                                     <div class="fav">
-                                        <img src="./images/icons/heart.svg" alt="">
+                                        <img src="images/icons/heart.svg" alt="">
                                     </div>
                                     <button class="add-to-cart border-0">
                                         <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart" width="27.775"
@@ -877,13 +898,14 @@
                                             Hissə-hissə ödəniş
                                         </p>
                                         <span class="month">12 ay</span>
-                                        <span class="per-month"> 20 ‎₼ </span>
+                                        <span class="per-month"> {{x.product.month_6}} ‎₼ </span>
                                     </div>
                                 </div>
                             </div>
     
     
                         </div>
+                        {% endfor %}
                         <!-- product -->
                      
                     
@@ -892,7 +914,12 @@
 
                 <!-- #5 messages -->
                 <div data-id="5" class="user-page messages">
-                    messages
+               
+                    {% for x in mesaj %}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong_{{x.id}}">
+                        Gonderdi : "{{x.sender}}"      ----------   Tarix : "{{x.date}}"
+                    </button>
+                    {% endfor %}
                 </div> <!-- #5 -->
 
                 <!-- #6 promocodes -->
@@ -907,8 +934,29 @@
         <div class="ads"></div>
 
     </section> <!-- login -->
-
-
+    {% for x in mesaj %}
+    <div class="modal fade" id="exampleModalLong_{{x.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="text-center" id="exampleModalLongTitle">{{x.title}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center"> Tarix: {{x.date}}</p>
+                <hr>
+                <br>
+              <h5>{{x.message}}</h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Geri</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     <!-- footer -->
     {% include 'footer.html' %}
     <script type="text/javascript" src="https://kit.fontawesome.com/5a14b242ce.js"></script>

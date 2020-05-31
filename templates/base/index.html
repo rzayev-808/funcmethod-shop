@@ -48,7 +48,7 @@
                         </div>
                         <div class="content">
                             <p>Güvenli alışveriş</p>
-                            {{a}}
+                            
                             <span>Kredi kartına 12 taksit{% include 'filter.html' %}</span>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
         <div class="products  container mt-5 ">
             <div class="row">
                 {% for x in products %}
-
+                    {% if x.active == True %}
                 <div class="col-md-3">
                     <div class="product new">
                         {% if x.sale > 0 %}
@@ -145,6 +145,7 @@
                         </div></a>
                     </div>
                 </div>
+                {% endif %}
 {% endfor %}
             </div>
         </div>
@@ -172,7 +173,7 @@
 
             <div class="row">
                 {% for x in w %}
-
+                {% if x.active == True %}
                 <div class="col-md-3">
                     <div class="product new">
                         {% if x.sale > 0 %}
@@ -228,6 +229,7 @@
                         </div></a>
                     </div>
                 </div>
+                {% endif %}
 {% endfor %}
 
             </div>

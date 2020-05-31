@@ -1,349 +1,12 @@
 {% load static %}
+{% include 'header.html' %}
+    <!-- home -->
 {% load ratings %}
-
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#ed1c24">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.ico' %}">
-
-    <title>SCHAFER</title>
-    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  
+  <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+ 
 </head>
-
-<body>
-
-    <!-- header -->
-    <header>
-        <!-- top  -->
-        <nav class="navbar navbar-expand-lg ">
-            <a class="navbar-brand" href="{% url 'index' %}">
-                <img src="{% static 'images/logo.svg' %}" alt="">
-            </a>
-            <div class="nav-side d-flex flex-grow-1 justify-content-between">
-                <div class="search d-flex">
-                    <input type="text" placeholder="Axtaris">
-                    <div class="search-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
-                            <g id="Group_30" data-name="Group 30" transform="translate(-1450 33)">
-                                <rect id="Rectangle_29" data-name="Rectangle 29" width="23" height="23"
-                                    transform="translate(1450 -33)" fill="none" />
-                                <path id="search"
-                                    d="M22.852,20.949l-5.474-5.693a9.283,9.283,0,1,0-7.108,3.316,9.187,9.187,0,0,0,5.32-1.68l5.516,5.736a1.211,1.211,0,1,0,1.746-1.679ZM10.27,2.422A6.864,6.864,0,1,1,3.406,9.286,6.871,6.871,0,0,1,10.27,2.422Z"
-                                    transform="translate(1449.016 -33)" fill="#fff" />
-                            </g>
-                        </svg>
-                    </div>
-                </div>
-                <div class="call-center d-flex ">
-                    <!-- phone-icon -->
-                    <div class="phone-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22.319" height="22.318"
-                            viewBox="0 0 22.319 22.318">
-                            <g id="Group_31" data-name="Group 31" transform="translate(295.215 12.215)">
-                                <rect id="Rectangle_31" data-name="Rectangle 31" width="22.112" height="22.112"
-                                    transform="translate(-295.215 -12.215)" fill="none" />
-                                <g id="phone" transform="translate(-295.125 -12.124)">
-                                    <g id="Group_32" data-name="Group 32" transform="translate(0 0)">
-                                        <g id="Group_31-2" data-name="Group 31">
-                                            <path id="Path_15" data-name="Path 15"
-                                                d="M22.645,18.165l-4.5-3a1.313,1.313,0,0,0-1.758.286l-1.311,1.685a.56.56,0,0,1-.718.151l-.249-.137a15.066,15.066,0,0,1-3.926-3.084A15.127,15.127,0,0,1,7.1,10.139L6.963,9.89a.561.561,0,0,1,.148-.721l1.684-1.31A1.314,1.314,0,0,0,9.081,6.1l-3-4.5a1.306,1.306,0,0,0-1.761-.4L2.438,2.335a2.654,2.654,0,0,0-1.21,1.571c-.677,2.468-.168,6.729,6.108,13,4.992,4.992,8.708,6.334,11.263,6.334a6.563,6.563,0,0,0,1.741-.227,2.651,2.651,0,0,0,1.571-1.21l1.131-1.88A1.307,1.307,0,0,0,22.645,18.165ZM22.4,19.547l-1.129,1.881a1.914,1.914,0,0,1-1.13.876c-2.279.626-6.26.107-12.285-5.917S1.317,6.381,1.942,4.1A1.917,1.917,0,0,1,2.819,2.97L4.7,1.842a.567.567,0,0,1,.764.172L7.094,4.46,8.462,6.512a.57.57,0,0,1-.124.763L6.654,8.585a1.3,1.3,0,0,0-.343,1.664l.134.243a15.714,15.714,0,0,0,3.211,4.1,15.73,15.73,0,0,0,4.1,3.21l.243.134a1.3,1.3,0,0,0,1.664-.343l1.31-1.684a.57.57,0,0,1,.763-.124l4.5,3A.566.566,0,0,1,22.4,19.547Z"
-                                                transform="translate(-1 -1.018)" fill="#d01b2b" />
-                                            <path id="Path_16" data-name="Path 16"
-                                                d="M282.965,70a5.73,5.73,0,0,1,5.723,5.723.337.337,0,0,0,.673,0,6.4,6.4,0,0,0-6.4-6.4.337.337,0,1,0,0,.673Z"
-                                                transform="translate(-269.492 -66.629)" fill="#d01b2b" />
-                                            <path id="Path_17" data-name="Path 17"
-                                                d="M282.965,121.2a3.708,3.708,0,0,1,3.7,3.7.337.337,0,1,0,.673,0,4.382,4.382,0,0,0-4.377-4.377.337.337,0,1,0,0,.673Z"
-                                                transform="translate(-270.064 -115.193)" fill="#d01b2b" />
-                                            <path id="Path_18" data-name="Path 18"
-                                                d="M282.965,172.4a1.685,1.685,0,0,1,1.683,1.683.337.337,0,1,0,.673,0,2.359,2.359,0,0,0-2.357-2.357.337.337,0,1,0,0,.673Z"
-                                                transform="translate(-270.232 -164.21)" fill="#d01b2b" />
-                                        </g>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                    </div>
-                    <!-- phone number -->
-                    <div class="phone-number">
-                        <a href="tel:0509932828">0509932828</a>
-                        <p>Çağrı mərkəzi</p>
-                    </div>
-                </div>
-                <div class="user-side d-flex justify-content-between">
-                    <ul class="d-flex justify-content-between">
-                        <li class="user">
-                            <a href="login.html">
-
-                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
-                                    <g id="Group_29" data-name="Group 29" transform="translate(-2137.879 -366.88)">
-                                        <rect id="Rectangle_28" data-name="Rectangle 28" width="23" height="23"
-                                            transform="translate(2137.879 366.88)" fill="none" />
-                                        <path id="Union_1" data-name="Union 1"
-                                            d="M3.688,23.673A2.692,2.692,0,0,1,1,20.989a2.778,2.778,0,0,1,.058-.564,11.489,11.489,0,0,1,1.672-4c.01-.017.021-.035.032-.051a11.516,11.516,0,0,1,5.969-4.537A6.02,6.02,0,0,1,6.32,7.244h0V7.011a6.023,6.023,0,1,1,12.044-.145c0,.048,0,.1,0,.145q0,.122-.005.243v.1a.874.874,0,0,1-.008.116v0a.6.6,0,0,1-.007.087v.044h0v.055c0,.027-.006.053-.009.08V7.79h0l-.005.041h0l-.006.041h0l-.006.04v.011l-.034.045v.015l-.005.03v.005c-.007.043-.015.085-.023.127h0c-.025.13-.054.259-.087.386v.008l-.01.035v.008c-.041.154-.089.3-.142.454v.006L18,9.077v.01l-.011.031-.006.017-.01.024-.005.014-.01.027-.008.019-.009.022-.01.023-.017.014-.01.023-.007.018-.014.032v.007l-.015.035V9.4a6.056,6.056,0,0,1-1.925,2.438,11.516,11.516,0,0,1,5.969,4.537l.03.047a11.492,11.492,0,0,1,1.674,4,2.778,2.778,0,0,1,.058.564,2.692,2.692,0,0,1-2.693,2.685Zm-.708-2.11a.9.9,0,0,0,.708.338h17.3a.9.9,0,0,0,.708-.338.921.921,0,0,0,.208-.594.972.972,0,0,0-.02-.181,9.787,9.787,0,0,0-9.2-7.749h-.108c-.078,0-.156,0-.235,0s-.158,0-.235,0h-.108a9.787,9.787,0,0,0-9.2,7.749.972.972,0,0,0-.02.181A.921.921,0,0,0,2.98,21.563Zm9.143-10.3h.429c.081,0,.162-.01.242-.019h.027a4.25,4.25,0,1,0-.968,0h.027C11.96,11.252,12.041,11.258,12.123,11.262Z"
-                                            transform="translate(2137 366.087)" fill="#ed1c24" />
-                                    </g>
-                                </svg>
-
-                            </a>
-                        </li>
-                        <li class="heart">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <g id="Group_28" data-name="Group 28" transform="translate(-2140 -404)">
-                                    <rect id="Rectangle_26" data-name="Rectangle 26" width="24" height="24"
-                                        transform="translate(2140 404)" fill="none" />
-                                    <path id="heart"
-                                        d="M12,21.132a1.416,1.416,0,0,1-.928-.345c-.97-.839-1.9-1.627-2.729-2.323l0,0A50.54,50.54,0,0,1,2.38,12.925,8.791,8.791,0,0,1,0,7.138a7.379,7.379,0,0,1,1.9-5.07A6.485,6.485,0,0,1,6.7,0a6.077,6.077,0,0,1,3.771,1.288A7.671,7.671,0,0,1,12,2.864a7.671,7.671,0,0,1,1.525-1.575A6.077,6.077,0,0,1,17.3,0a6.485,6.485,0,0,1,4.8,2.068A7.379,7.379,0,0,1,24,7.138a8.79,8.79,0,0,1-2.38,5.787,50.535,50.535,0,0,1-5.958,5.535c-.826.7-1.762,1.486-2.734,2.327a1.417,1.417,0,0,1-.928.345ZM6.7,1.391a5.088,5.088,0,0,0-3.767,1.62A6,6,0,0,0,1.406,7.138a7.4,7.4,0,0,0,2.057,4.9A49.737,49.737,0,0,0,9.251,17.4l0,0c.828.7,1.766,1.49,2.743,2.335.983-.847,1.922-1.64,2.752-2.339a49.75,49.75,0,0,0,5.788-5.364,7.4,7.4,0,0,0,2.057-4.9,6,6,0,0,0-1.532-4.127A5.088,5.088,0,0,0,17.3,1.391a4.694,4.694,0,0,0-2.911,1,6.771,6.771,0,0,0-1.622,1.858.892.892,0,0,1-1.525,0A6.764,6.764,0,0,0,9.615,2.389a4.694,4.694,0,0,0-2.911-1Zm0,0"
-                                        transform="translate(2140 405)" fill="#ed1c24" />
-                                </g>
-                            </svg>
-                            <div class="notifications">
-                                <a href="{% url 'fovarite_list' %}" style="    color: #fefcf4;"><span>{{request.session.fovarites|length }}</span></a>
-                            </div>
-                        </li>
-                        <li class="cart">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <g id="Group_27" data-name="Group 27" transform="translate(-2097 -403)">
-                                    <rect id="Rectangle_27" data-name="Rectangle 27" width="24" height="24"
-                                        transform="translate(2097 403)" fill="none" />
-                                    <g id="shopping-cart" transform="translate(2098 403)">
-                                        <path id="Path_14" data-name="Path 14"
-                                            d="M23.516,15.8h13.14a2.72,2.72,0,0,0,2.705-2.723V7.457a.063.063,0,0,0,0-.03c0-.01,0-.025,0-.035s0-.02,0-.03a.314.314,0,0,1-.01-.035c0-.01,0-.02-.01-.03s0-.02-.01-.03a.241.241,0,0,1-.015-.035.108.108,0,0,0-.015-.025l-.015-.03c0-.01-.01-.015-.015-.025s-.015-.02-.02-.03a.087.087,0,0,0-.02-.025c0-.01-.015-.015-.02-.025s-.015-.015-.02-.025-.015-.015-.02-.02l-.025-.025c-.01,0-.015-.015-.024-.02s-.02-.015-.029-.02l-.025-.015a.1.1,0,0,1-.029-.02L39,6.919,38.97,6.9l-.029-.015c-.01,0-.02,0-.029-.01a.09.09,0,0,0-.034-.01.211.211,0,0,1-.025,0,.107.107,0,0,0-.039,0s-.01,0-.02,0L22.139,4.541V2.2a.305.305,0,0,0,0-.069.037.037,0,0,0,0-.02c0-.015,0-.03,0-.044s0-.025-.01-.039,0-.015,0-.025L22.1,1.962s0-.015,0-.02a.148.148,0,0,0-.02-.039s0-.015-.01-.02a.1.1,0,0,0-.02-.03c0-.01-.01-.015-.015-.025s-.01-.015-.015-.025-.015-.02-.02-.03l-.015-.015-.029-.03-.015-.015a.213.213,0,0,0-.034-.03s-.015-.01-.02-.015-.02-.015-.029-.025a.452.452,0,0,0-.039-.025s-.01,0-.015-.01l-.064-.03L18.12.053a.659.659,0,0,0-.868.355.667.667,0,0,0,.353.873l3.205,1.361v14.59a2.72,2.72,0,0,0,2.357,2.7,2.676,2.676,0,1,0,4.96,1.381,2.65,2.65,0,0,0-.368-1.356h5.95a2.666,2.666,0,1,0,2.3-1.332h-12.5a1.388,1.388,0,0,1-1.382-1.391V15.428A2.723,2.723,0,0,0,23.516,15.8Zm3.294,5.5a1.348,1.348,0,1,1-1.348-1.356A1.355,1.355,0,0,1,26.81,21.307Zm10.557,0a1.348,1.348,0,1,1-1.348-1.356A1.355,1.355,0,0,1,37.367,21.307Zm-.711-6.836H23.516a1.388,1.388,0,0,1-1.382-1.391v-7.2l15.9,2.2v4.987A1.389,1.389,0,0,1,36.657,14.471Z"
-                                            transform="translate(-17.2 0)" fill="#ed1c24" />
-                                    </g>
-                                </g>
-                            </svg>
-
-                            <div class="notifications">
-                                <a class='nav-link' style="    color: #fefcf4; font-size: 11px;" href='{% url "cart" %}'> <span id='cart_count'>{% if not request.session.total %} 0 {% else %} {{ request.session.total }} {% endif %}</span></a>
-                                   
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <div class="hamburger">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-            </div>
-        </nav>
-
-        <!-- bottom -->
-        <nav class="navbar navbar-expand-lg">
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav justify-content-between w-100 ">
-                    <!-- endirimler -->
-                    <li class="nav-item active">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">ENDİRİMLƏR</a>
-                    </li>
-                    <!-- sufre -->
-                    <li class="nav-item">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="{% url 'posts' %}"> SÜFRƏ QRUPU</a>
-                    </li>
-                    <li class="nav-item dropdown ">
-                        <a onmouseover="openCategory(event)" class="nav-link dropdown-toggle fm" href="#" data-index='1' id="navbarDropdown" role="button"
-                          >
-                            BİŞİRMƏ QRUPU
-                        </a>
-                        <ul class="dropdown-menu justify-content-around mt-0" aria-labelledby="navbarDropdown">
-                            <li class="dropdown-item">
-                                <!-- #first category name -->
-                                <a href="">
-                                    TEMEK TAKIMLARI
-                                </a>
-                                <!-- ------------- -->
-
-                                <ul>
-
-                                    <li>
-                                        <a href="">
-                                            12 Kisilik yemek takimlari
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href=""> 6 Kisilik yemek takimlari</a>
-                                    </li>
-                                </ul>
-
-
-                            </li>
-
-
-                            <li class="dropdown-item">
-                                <a href="">
-                                    CATAL KASIK BICAK TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="">
-                                            12 Kisilik yemek takimlari
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <a href="">
-                                    6 Kisilik yemek takimlari
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="">
-                                            tekli catal bicak
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </li>
-
-
-
-                            <li class="dropdown-item">
-                                <a href="">
-                                    CAY PASTA TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li> <a href="">cay fincanlari </a> </li>
-                                    <li> <a href=""> kahve fincanlari</a> </li>
-                                    <li> <a href=""> pasta fincanlari</a> </li>
-                                    <li> <a href="">cay setler </a> </li>
-                                    <li> <a href=""> kupalar</a> </li>
-                                    <li> <a href=""> pasta dunum servis seti</a> </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-item">
-                                <a href="">
-                                    KAHVALTI VE SERVIS TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- bisirme -->
-
-                    <!-- kicik ev -->
-                    <li class="nav-item dropdown">
-                        <a onmouseover="openCategory(event)" class="nav-link fm dropdown-toggle" href="#">KİÇİK EV ALƏTLƏRİ</a>
-                        <ul class="dropdown-menu justify-content-around mt-0" aria-labelledby="navbarDropdown">
-
-
-
-                            <li class="dropdown-item">
-                                <!-- #first category name -->
-                                <a href="">
-                                    TEMEK TAKIMLARIw
-                                </a>
-                                <!-- ------------- -->
-
-                                <ul>
-
-                                    <li>
-                                        <a href="">
-                                            12 Kisilik yemek takimlari
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href=""> 6 Kisilik yemek takimlari</a>
-                                    </li>
-                                </ul>
-
-
-                            </li>
-
-
-                            <li class="dropdown-item">
-                                <a href="">
-                                    CATAL KASIK BICAK TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="">
-                                            12 Kisilik yemek takimlari
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <a href="">
-                                    6 Kisilik yemek takimlari
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="">
-                                            tekli catal bicak
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </li>
-
-
-
-                            <li class="dropdown-item">
-                                <a href="">
-                                    CAY PASTA TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li> <a href="">cay fincanlari </a> </li>
-                                    <li> <a href=""> kahve fincanlari</a> </li>
-                                    <li> <a href=""> pasta fincanlari</a> </li>
-                                    <li> <a href="">cay setler </a> </li>
-                                    <li> <a href=""> kupalar</a> </li>
-                                    <li> <a href=""> pasta dunum servis seti</a> </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-item">
-                                <a href="">
-                                    KAHVALTI VE SERVIS TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- metbex -->
-                    <li class="nav-item ">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">MƏTBƏX AKSESUARLARI</a>
-                    </li>
-                    <!-- digerleri -->
-                    <li class="nav-item active">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">DİGƏRLƏRİ</a>
-                    </li>
-                    <!-- blog -->
-                    <li class="nav-item active">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">BLOG</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header> 
     <style>
 
 .container {
@@ -423,8 +86,8 @@
         <div class="page-nav container">
             <ul class="d-flex">
                 <li>
-                    <a href="index.html">
-
+                    <a href="{% url 'index' %}">
+ 
                         Anasayfa
                     </a>
                 </li>
@@ -615,7 +278,7 @@
 
                 <div class="filter d-flex justify-content-between">
                     <div class="count">
-                        156 nəticə
+                        {{posts.count}} nəticə
                     </div>
                     <div class="sorting">
                         <div class="dropdown ">
@@ -674,6 +337,7 @@
                 <div class="products  my-5 infinite-container ">
                     <!-- product -->
                     {% for x in page_obj %}
+                    {% if x.active == True %}
                     <div class="product new infinite-item">
                         {% if x.sale > 0 %}
                         <div class="product-status">
@@ -737,6 +401,7 @@
 
 
                     </div>
+                    {% endif %}
                     {% endfor %}
                     <!-- product -->
                    

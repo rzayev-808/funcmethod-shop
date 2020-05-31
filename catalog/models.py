@@ -323,15 +323,17 @@ class Cart(models.Model):
         cart.save()
 
 ORDER_STATUS_CHOICES = (
-	('Qeyde alindi', 'Qeyde alindi'),
-	('Icra olunur', 'Icra olunur'),
-	('Odenilib', 'Odenilib')
+  ('0', 'Icra olunmayib'),
+	('1', 'Yoldadir'),
+	('2', 'Çatdırılıb'),
+	('3', 'Imtina edilib'),
+  ('4', 'Qaytarilib')
 )
 
 class Order(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    items = models.ForeignKey('Cart', on_delete=models.CASCADE)
+    items = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='item')
     total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
@@ -494,3 +496,18 @@ class Comment(models.Model):
   def __str__(self):
       return self.product.name
   
+class Phone(models.Model):
+  phone = models.CharField(max_length=100)
+  def __str__(self):
+    return self.phone
+
+
+class Message(models.Model):
+  sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="senders")
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  title = models.CharField(max_length=300, verbose_name='Basliq')
+  message = models.TextField(verbose_name='Mesaj')
+  date = models.DateTimeField(auto_now_add=True)
+
+  def __str__(self):
+    return self.user.email

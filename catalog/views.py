@@ -84,6 +84,7 @@ def index(request):
     w = Product.objects.all().order_by('?')[:8]
     r = Product.objects.all().order_by('?')[:4]
     a = request.session.get('fovarites')
+    phone = Phone.objects.get(id=1)
     #x = len(request.session.get('fovarites'))
     #fovarites = Fovarite.objects.all()
 
@@ -99,7 +100,8 @@ def index(request):
         'fovarites_list': request.session.get('fovarites'),
         'w': w,
         'r': r,
-        'a': a
+        'a': a,
+        'phone':phone
         
     }
     return render(request, 'base/index.html', context)    
@@ -372,12 +374,25 @@ def make_order_view(request):
 def account_view(request):
     order = Order.objects.filter(user=request.user).order_by('-id')
     categories = Category.objects.all()
+    history = HistoryProducts.objects.filter(user=request.user)
+    mesaj = Message.objects.filter(user=request.user)
+    fovarites = request.session.get('fovarites')
+    pk = []
+    if not fovarites:
+        pass
+    else:
+        for x in fovarites:
+            pk.append(x['id'])
+        k = Product.objects.filter(id__in=pk)
     for item in order:
         for new_item in item.items.items.all():
             print(new_item.item_total)
     context = {
         'order': order,
-        'categories': categories
+        'categories': categories,
+        'history':history,
+        'mesaj':mesaj,
+        'k':k
     }
     return render(request, 'account.html', context)
 
@@ -612,7 +627,7 @@ from django.core.paginator import Paginator
 def filter_list(request):
     brand = Brand.objects.all()
     category = SubCategory.objects.all()
-    posts = Product.objects.all()[:4]
+    posts = Product.objects.all()
     filter = Filters(request.GET, queryset=Product.objects.all().order_by('?'))
     paginator = Paginator(filter.qs, 50)
     page_number = request.GET.get('page')

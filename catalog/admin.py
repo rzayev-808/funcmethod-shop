@@ -41,6 +41,15 @@ def make_payed(modeladmin, request, queryset):
     queryset.update(status='Odenilib')
 make_payed.short_description = "Odenilmis kimi qeyd et"
 
+def deactive_payed(modeladmin, request, queryset):
+    queryset.update(active='False')
+deactive_payed.short_description = "Secilmis mehsullari deaktiv et"
+
+
+def active_payed(modeladmin, request, queryset):
+    queryset.update(active='True')
+active_payed.short_description = "Secilmis mehsullari aktiv et"
+
 class OrderAdmin(admin.ModelAdmin):
 	list_filter = ['status']
 	actions = [make_payed]
@@ -50,10 +59,12 @@ class ProductAdmin(admin.ModelAdmin):
 	extra = 1
 	list_display = ("category", "slug" ,"name", "active", "stock", "price", "sale", "dicount","prome_code_in","kredit_18",)
 	model = Product
+	actions = [deactive_payed, active_payed]
 	#extra = 2
 	list_filter = ('active','codes__name','company__name','brand',)
 	readonly_fields = ['slug','month_6', 'month_12','reting',]
 	#fields = ['kredit',]
+	search_fields = ('name', 'code',)
 	
 
 
@@ -70,6 +81,8 @@ admin.site.register(SubCategory)
 admin.site.register(Kredit_18_ay)
 admin.site.register(User)
 admin.site.register(Color)
+admin.site.register(Phone)
+admin.site.register(Message)
 
 admin.site.register(HistoryProducts)
 admin.site.register(Comment)
