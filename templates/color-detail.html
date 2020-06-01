@@ -376,20 +376,27 @@
         <div class="product-detail d-flex justify-content-between mt-5 container ">
             <ul class="additional-images">
                 <li class="additional-image">
-                    <img class="img-bg" src="{{color.product.images.all.0.image.url}}" alt="">
+                    <a href="#" class="pop">
+                    <img class="img-bg" src="{{color.product.images.all.0.image.url}}"  alt=""></a>
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{{color.product.images.all.1.image.url}}" alt="">
+                    <a href="#" class="pop">
+                    <img class="img-bg" src="{{color.product.images.all.1.image.url}}" alt=""></a>
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{{color.product.images.all.2.image.url}}" alt="">
+                    <a href="#" class="pop">
+                    <img class="img-bg" src="{{color.product.images.all.2.image.url}}" alt=""></a>
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{{color.product.images.all.3.image.url}}" alt="">
+                    <a href="#" class="pop">
+                    <img class="img-bg" src="{{color.product.images.all.3.image.url}}" alt=""></a>
                 </li>
             </ul>
             <div class="main-image">
+                <a href="#" class="pop">
+
                 <img class="img-bg" src="{{color.image.url}}" alt="">
+                </a>
             </div>
             <div class="product-information">
                 <div class="product-title fm">
@@ -419,14 +426,14 @@
                 </div>
 
                 <div class="buying">
-                    <div class="buy" data-slug='{{ product.slug }}' >
+                    <div class="buy" data-slug='{{ product.slug }}' data-color='{{ color.color_name }}' >
                        
                         <button class="btn-red" type="submit">
                            
                             Almaq
                         </button>
                       
-                        <a href="" class="add_to_cart" data-slug='{{ product.slug }}'> <button class="add-to-cart border-0 " data-slug='{{ product.slug }}' href=''>
+                        <a href="" class="buy" data-slug='{{ product.slug }}' data-color='{{ color.color_name }}' > <button class="add-to-cart border-0 " data-slug='{{ product.slug }}' href=''>
                             <svg xmlns="http://www.w3.org/2000/svg" id="shopping-cart"  width="27.775" height="30.078"
                                 viewBox="0 0 27.775 30.078">
                                 <path id="Path_14" data-name="Path 14"
@@ -1203,8 +1210,10 @@
                 $('.buy').on('click', function(e){
                     e.preventDefault()
                     product_slug = $(this).attr('data-slug')
+                    color = $(this).attr('data-color')
                     data = {
-                        product_slug: product_slug
+                        product_slug: product_slug,
+                        color:color
                     }
                     $.ajax({
                         headers: { "X-CSRFToken": getCookie("csrftoken") },
@@ -1290,7 +1299,7 @@
         function ajax(){
             data = {
                         product_id : "{{color.product.id}}",
-                        user_id : "{{color.user.id}}",
+                        user_id : "{{user.id}}",
                         url_form : "{{ request.path }}"
                     }
                 $.ajax({
@@ -1307,9 +1316,17 @@
                 });
         }
         window.onload=function(){
-            setTimeout(ajax, 3000);
+            setTimeout(ajax, 1000);
         }
         </script>
+    <script>
+        $(function() {
+    $('.pop').on('click', function() {
+        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+        $('#imagemodal').modal('show');   
+    });		
+});
+    </script>
 
 
 </html>

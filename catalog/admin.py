@@ -6,9 +6,11 @@ class ProductDescriptions(admin.TabularInline):
     model = Descripton
     fields = ['name', 'value',]
 
-class ProductColor(admin.TabularInline):
+class ProductColor(admin.StackedInline):
+	
     model = Color
     fields = ['color_name','color','code', 'image',]
+	
 	
 
 class ProductMultiImage(admin.TabularInline):
@@ -23,19 +25,15 @@ class ProductMultiPromoCode(admin.TabularInline):
     model = PromoCode
     fields = ['name', 'code', ]
 	
-#class Kredit_18Admin(admin.StackedInline):
+class ColorssAdmin(admin.TabularInline):
     #extra = 1
 	
-#	model = Kredit_18_ay
-#	fields = ['faiz', 'odenis',]
-#	show_change_link = True
-#	extra = 1
-#	readonly_fields = ['odenis',]
-#	def get_max_num(self, request, obj=None, **kwargs):
-#		max_num = 1
-#		if obj and obj.kredit:
-#			return max_num 
-#		return max_num
+	model = Color
+	fields = ['code', 'color','color_name', 'image']
+	#show_change_link = True
+	extra = 0
+	#readonly_fields = ['odenis',]
+	
 
 def make_payed(modeladmin, request, queryset):
     queryset.update(status='Odenilib')
@@ -43,7 +41,7 @@ make_payed.short_description = "Odenilmis kimi qeyd et"
 
 
 def category_payed(modeladmin, request, queryset):
-    queryset.update(slug="")
+    queryset.update()
 category_payed.short_description = "Yenile"
 
 
@@ -64,16 +62,23 @@ class OrderAdmin(admin.ModelAdmin):
 class SubCategoryAdmin(admin.ModelAdmin):
 	actions = [category_payed,]
 	list_display = ('name',)
+	model = SubCategory
+	
+class ColorAdmin(admin.ModelAdmin):
+	list_display = ('code',)
+	actions = [category_payed,]
+	model = Color
+	search_fields = ('code',)
 
 class ProductAdmin(admin.ModelAdmin):
-	inlines = [ProductMultiImage, ProductMultiPromoCode,ProductMultiSize, ProductDescriptions, ProductColor]
+	inlines = [ProductMultiImage, ProductMultiPromoCode,ProductMultiSize, ProductDescriptions, ColorssAdmin]
 	extra = 1
 	list_display = ("category", "slug" ,"name", "active", "stock", "price", "sale", "dicount","prome_code_in",)
 	model = Product
 	actions = [deactive_payed, active_payed]
 	#extra = 2
 	list_filter = ('active','codes__name','company__name','brand',)
-	readonly_fields = ['slug','month_6', 'month_12','reting',]
+	readonly_fields = ['slug','reting',]
 	#fields = ['kredit',]
 	search_fields = ('name', 'code',)
 	

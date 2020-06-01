@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_filters',
     'star_ratings',
     'ckeditor',
+    'colorful',
     #'rest_framework',
    # 'api',
     #'favit',

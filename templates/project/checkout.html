@@ -22,6 +22,7 @@
 <tr>
 	<td class='text-center'><strong>Mehsul</strong></td>
 	<td class='text-center'><strong>Sayi</strong></td>
+	<td class='text-center'><strong>Rengi</strong></td>
 	<td class='text-center'><strong>Qiymet</strong></td>
 	<td class='text-center'></td>
 </tr>
@@ -29,6 +30,7 @@
 <tr>
 	<td class='text-center'>{{ item.product.name }}</td>
 	<td class="text-center">{{ item.qty }}</td>
+	<td class="text-center">{{ item.color|default:"secilmeyib" }}</td>
 	<td class='text-center'>{{ item.item_total }} Azn</td>
 	<td></td>
 </tr>

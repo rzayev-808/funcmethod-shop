@@ -25,6 +25,7 @@
 	<td class='text-center'><strong>Shekil</strong></td>
 	<td class='text-center'><strong>Mehsul</strong></td>
 	<td class='text-center'><strong>Qederi</strong></td>
+	<td class='text-center'><strong>Rengi</strong></td>
 	<td class='text-center'><strong>Umumi qiymet</strong></td>
 	<td class='text-center'></td>
 </tr>
@@ -38,6 +39,7 @@
 			<input type='number' name='qty' class='cart-item-qty' data-id='{{ item.id }}' value='{{ item.qty }}' min='1' style='width: 50px;'>
 		</form>
 	</td>
+	<td class='text-center'>{{ item.color|default:"Qeyd olunmayib" }}</td>
 	<td class='text-center' id='cart-item-total-{{ item.id }}'>{{ item.item_total }} Azn</td>
 	<td class='text-center'><a href='#' class='remove_from_cart' data-slug='{{ item.product.slug }}' data-id='{{ item.product.id }}'><button class='btn btn-danger'>Sebetden sil</button></a></td>
 </tr>

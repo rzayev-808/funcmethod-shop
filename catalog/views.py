@@ -80,7 +80,7 @@ def index(request):
     
     categories = SubCategory.objects.all()
 
-    products = Product.objects.all().order_by('?')[:4]
+    products = Product.objects.all().order_by('-id')[:4]
     brands = Brand.objects.all()
     w = Product.objects.all().order_by('?')[:8]
     r = Product.objects.all().order_by('?')[:4]
@@ -95,7 +95,6 @@ def index(request):
     except KeyError:
         b = None
 
-    print(b)
     f = ProductFilter(request.GET, queryset=Product.objects.all())
     context = {
         'categories': categories,
@@ -392,7 +391,7 @@ def account_view(request):
     else:
         for x in fovarites:
             pk.append(x['id'])
-        k = Product.objects.filter(id__in=pk)
+    k = Product.objects.filter(id__in=pk)
     for item in order:
         for new_item in item.items.items.all():
             print(new_item.item_total)
@@ -498,8 +497,11 @@ def buy(request, product_slug):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     product_slug = product_slug
+    color = request.GET.get('color')
+    print(color)
     product = Product.objects.get(slug=product_slug)
-    cart.add_to_cart(product.slug)
+    cart.add_to_cart(product.slug , color)
+    print(cart)
     new_cart_total = 0.00
     for item in cart.items.all():
         new_cart_total += float(item.item_total)
@@ -727,7 +729,7 @@ def remove_fovarites(request, id):
                 
 
         while {} in request.session['fovarites']:
-            print(request.session['fovarites'].remove({}))
+            request.session['fovarites'].remove({})
 
         if not request.session['fovarites']:
             del request.session['fovarites']

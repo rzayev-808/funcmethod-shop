@@ -39,20 +39,28 @@
         <div class="product-detail d-flex justify-content-between mt-5 container ">
             <ul class="additional-images">
                 <li class="additional-image">
+                    <a href="#" class="pop">
                     <img class="img-bg" src="{{product.images.all.0.image.url}}" alt="">
+                </a>
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{{product.images.all.1.image.url}}" alt="">
+                    <a href="#" class="pop">
+                    <img class="img-bg" src="{{product.images.all.1.image.url}}" alt=""></a>
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{{product.images.all.2.image.url}}" alt="">
+                    <a href="#" class="pop">
+                    <img class="img-bg" src="{{product.images.all.2.image.url}}" alt=""></a>
                 </li>
                 <li class="additional-image">
-                    <img class="img-bg" src="{{product.images.all.3.image.url}}" alt="">
+                    <a href="#" class="pop">
+                    <img class="img-bg" src="{{product.images.all.3.image.url}}" alt=""></a>
                 </li>
             </ul>
             <div class="main-image">
+                <a href="#" class="pop">
+
                 <img class="img-bg" src="{{product.image.url}}" alt="">
+                </a>
             </div>
             <div class="product-information">
                 <div class="product-title fm">
@@ -70,7 +78,7 @@
                 </div>
                 {% for x in product.color.all %}
                 
-            <a href="/color/{{x.id}}/"><button style="background-color:#{{x.color}}; color: white;" type="button" class="btn">{{x.color_name}}</button></a>
+            <a href="/color/{{x.id}}/"><button style="background-color:{{x.color}}; color: white;" type="button" class="btn">{{x.color_name}}</button></a>
             {% endfor %}
                 <a href="">{{product.color.color_name}}</a>
                 <div class="product-price d-flex ">
@@ -582,13 +590,19 @@
                   6 ay  = Ayda - {{product.month_6}} ₼
                   <br>
                   <hr>
+                  9 ay  =  Ayda - {{product.month_9}} ‎₼
+                  <br> 
+                  <hr>
                   12 ay  =  Ayda - {{product.month_12}} ‎₼
                   <br> 
                   <hr>
-                  18 ay  = Ayda - {{product.kredit.all.0.odenis}} ‎₼
+                  15 ay  =  Ayda - {{product.month_15}} ‎₼
+                  <br> 
+                  <hr>
+                  18 ay  = Ayda - {{product.month_18}} ‎₼
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Save changes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Geri</button>
                 </div>
               </div>
             </div>
@@ -639,6 +653,18 @@
               </div>
             </div>
           </div>
+
+          <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">              
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <img src="" class="imagepreview" style="width: 100%;" >
+                </div>
+              </div>
+            </div>
+          </div>
+
         <div class="copyright text-center">
             <p>Copyright © 2020 "Ayshidesign" MMC. All rights reserved.
             </p>
@@ -704,8 +730,10 @@
                 $('.buy').on('click', function(e){
                     e.preventDefault()
                     product_slug = $(this).attr('data-slug')
+                    qyt = $(this).attr('data-qyt')
                     data = {
-                        product_slug: product_slug
+                        product_slug: product_slug,
+                        qyt:qyt
                     }
                     $.ajax({
                         headers: { "X-CSRFToken": getCookie("csrftoken") },
@@ -810,6 +838,14 @@
         window.onload=function(){
             setTimeout(ajax, 1000);
         }
+        </script>
+        <script>
+            $(function() {
+		$('.pop').on('click', function() {
+			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
+			$('#imagemodal').modal('show');   
+		});		
+});
         </script>
 
 

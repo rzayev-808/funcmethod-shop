@@ -17,6 +17,7 @@ from io import BytesIO
 from PIL import Image
 from django.core.files import File
 from ckeditor.fields import RichTextField
+from colorful.fields import RGBColorField
 
 #from simple_history.models import HistoricalRecords
 import math
@@ -159,8 +160,11 @@ class Product(models.Model):
     data = models.DateField(auto_now_add=True)
     stock = models.BooleanField(default=True)
     active = models.BooleanField(default=True)
-    month_6 = models.CharField(max_length=200,blank=True, verbose_name='Kredit 6 ay ucun ayliq odenis')
-    month_12 = models.CharField(max_length=200,blank=True, verbose_name='Kredit 12 ay ucun ayliq odenis')
+    month_6 = models.DecimalField(max_digits=9, decimal_places=0, blank=True, verbose_name='Kredit 6 ay ucun ayliq odenis')
+    month_9 =models.DecimalField(max_digits=9, decimal_places=0, blank=True, verbose_name='Kredit 9 ay ucun ayliq odenis')
+    month_12 =models.DecimalField(max_digits=9, decimal_places=0, blank=True, verbose_name='Kredit 12 ay ucun ayliq odenis')
+    month_15 =models.DecimalField(max_digits=9, decimal_places=0, blank=True, verbose_name='Kredit 15 ay ucun ayliq odenis')
+    month_18 = models.DecimalField(max_digits=9, decimal_places=0, blank=True, verbose_name='Kredit 18 ay ucun ayliq odenis')
     #promo_kod = models.CharField(max_length=200, blank=True)
     slug = models.SlugField(max_length=200, blank=True)
     material = models.CharField(max_length=200, blank=True, verbose_name='Material')
@@ -172,11 +176,11 @@ class Product(models.Model):
     def prome_code_in(self):
        return self.codes.all().count()
 
-    def kredit_18(self):
-       x = self.kredit.filter(product=self.id)
-       for i in x:
-           x = i.odenis
-           return x
+    #def kredit_18(self):
+     #  x = self.kredit.filter(product=self.id)
+      # for i in x:
+       #    x = i.odenis
+        #   return x
 
     def save (self, *args, **kwargs):
         if not self.slug:
@@ -184,11 +188,20 @@ class Product(models.Model):
         if not self.dicount:
             self.dicount = self.price - (self.price * self.sale / 100)
         if not self.month_6:
-            self.month_6 = math.ceil(self.price / 6)
+            self.month_6 = self.price + (self.price * 10 / 100)
+            self.month_6 = self.month_6  / 6 
+        if not self.month_9:
+            self.month_9 = self.price + (self.price * 10 / 100)
+            self.month_9 = self.month_9  / 9 
         if not self.month_12:
-            self.month_12 = math.ceil(self.price / 12)
+            self.month_12 = self.price + (self.price * 10 / 100)
+            self.month_12 = self.month_12  / 12
+        if not self.month_15:
+            self.month_15 = self.price + (self.price * 10 / 100)
+            self.month_15 = self.month_15  / 15  
         if not self.month_18:
-            self.month_18 = math.ceil(self.price / 18)
+            self.month_18 = self.price + (self.price * 10 / 100)
+            self.month_18 = self.month_18  / 18 
        
        
         new_image = compress(self.image)
@@ -204,13 +217,13 @@ class Product(models.Model):
 
 class Color(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="color")
-    color = models.CharField(max_length=100)
-    color_name = models.CharField(max_length=100)
+    color = RGBColorField(blank=True, null=True)
+    color_name = models.CharField(max_length=100,blank=True, null=True)
     code = models.CharField(max_length=200, blank=True, null=True)
-    image = models.ImageField()
+    image = models.ImageField(blank=True, null=True)
     #slug = models.SlugField(max_length=200, blank=True)
     
-
+   
 
 
     def get_absolute_url(self):
@@ -240,9 +253,9 @@ class CartItem(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     qty = models.PositiveIntegerField(default=1)
     item_total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
-
+    color = models.CharField(max_length=100, blank=True, null=True)
     def  __str__(self):
-        return "Cart item for product {0}".format(self.product.title)
+        return "{0} , rengi - {1}".format(self.product.name, self.color)
 
 class CompanyPromoCode(models.Model):
     name = models.CharField(max_length=400, verbose_name='Kampaniya Adi')
@@ -285,17 +298,23 @@ class Cart(models.Model):
 
     items = models.ManyToManyField(CartItem, blank=True)
     cart_total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    color = models.CharField(max_length=100, blank=True, null=True)
 
     def  __str__(self):
         return str(self.id)
 
-    def add_to_cart(self, product_slug):
+    def add_to_cart(self, product_slug, color):
         cart = self
         product = Product.objects.get(slug=product_slug)
-        new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.price)
+        new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.price, color=color)
+       
         cart_items = [item.product for item in cart.items.all()]
         if new_item.product not in cart_items:
             cart.items.add(new_item)
+            try:
+              cart.color(color)
+            except:
+              pass
             cart.save()
 
     def remove_from_cart(self, product_slug):
