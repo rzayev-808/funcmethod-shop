@@ -1,5 +1,7 @@
 {% load static %}
 {% include 'header.html' %}
+{% load catalog %}
+
     <!-- home -->
 {% load ratings %}
 <head>
@@ -56,11 +58,13 @@
             </div>
         </div>
         <!---->
-        
         <!-- products -->
+       
         <div class="products  container mt-5 ">
             <div class="row">
+              
                 {% for x in products %}
+              
                     {% if x.active == True %}
                 <div class="col-md-3">
                     <div class="product new">
@@ -77,28 +81,57 @@
                             </a>
                         </div>
                         <div class="fav">
-                            {% for b in a %}
-                          
-                            {% if x.id == b.id %}
-                           <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
+                           
+                            
+                            {% if x.id in b %}
+                            <a href="" class="delete_{{x.id}}" data-id="{{x.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
                                 viewBox="0 0 28.467 24.957" class="active">
                                 <path id="heart"
                                     d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z"
                                     transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
-                            </svg>
-                             {% else %}
-                             <a href="" class="add_to_fovarite" data-id="{{x.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
-                                viewBox="0 0 28.467 24.957">
+                            </svg></a>
+                            
+<script>
+    $(document).ready(function(){
+        $('.delete_{{x.id}}').on('click', function(e){
+            e.preventDefault()
+            fovarites = $(this).attr('data-slug')
+            id = $(this).attr('data-id')
+            data = {
+                fovarites: fovarites,
+                url_from: '{{request.path}}',
+                id: id
+
+            }
+            $.ajax({
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                type: "POST",
+                url: '{% url "remove_fovarites" x.id %}',
+                data: data,
+                success: function(data){
+    if (data.code != 200) {
+    top.location.href = '{% url "index" %}';
+        }
+    $("#cart_count").html(data.cart_total)
+}
+                
+            })
+        })
+    })
+        
+        
+    </script>
+                            {% else %}
+                            <a href="" class="add_to_fovarite" data-id="{{x.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
+                                viewBox="0 0 28.467 24.957"> 
                                 <path id="heart"
                                     d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z"
                                     transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
                             </svg></a>
-                           {% endif %}
-                            {% endfor %}
+                             {%endif%}
                               
-                             
                            
 
                         </div>
@@ -146,6 +179,9 @@
                     </div>
                 </div>
                 {% endif %}
+
+
+                
 {% endfor %}
             </div>
         </div>
@@ -188,13 +224,56 @@
                             </a>
                         </div>
                         <div class="fav">
-                            <a href="" class="add_to_fovarite" data-id="{{x.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
-                                viewBox="0 0 28.467 24.957">
+                           
+                            
+                            {% if x.id in b %}
+                            <a href="" class="delete_{{x.id}}" data-id="{{x.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
+                                viewBox="0 0 28.467 24.957" class="active">
                                 <path id="heart"
                                     d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z"
                                     transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
                             </svg></a>
+                            <script>
+                                $(document).ready(function(){
+                                    $('.delete_{{x.id}}').on('click', function(e){
+                                        e.preventDefault()
+                                        fovarites = $(this).attr('data-slug')
+                                        id = $(this).attr('data-id')
+                                        data = {
+                                            fovarites: fovarites,
+                                            url_from: '{{request.path}}',
+                                            id: id
+                            
+                                        }
+                                        $.ajax({
+                                            headers: { "X-CSRFToken": getCookie("csrftoken") },
+                                            type: "POST",
+                                            url: '{% url "remove_fovarites" x.id %}',
+                                            data: data,
+                                            success: function(data){
+                                if (data.code != 200) {
+                                top.location.href = '{% url "index" %}';
+                                    }
+                                $("#cart_count").html(data.cart_total)
+                            }
+                                            
+                                        })
+                                    })
+                                })
+                                    
+                                    
+                                </script>
+                            {% else %}
+                            <a href="" class="add_to_fovarite" data-id="{{x.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
+                                viewBox="0 0 28.467 24.957"> 
+                                <path id="heart"
+                                    d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z"
+                                    transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                            </svg></a>
+                             {%endif%}
+                              
                            
 
                         </div>
@@ -271,13 +350,59 @@
                             </a>
                         </div>
                         <div class="fav">
-                            <a href="" class="add_to_fovarite" data-id="{{x.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
-                                viewBox="0 0 28.467 24.957">
+                           
+                            
+                            {% if x.id in b %}
+                            <a href="" class="deletes_{{x.id}}"  data-slug="{{x.id}}" data-id="{{x.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
+                                viewBox="0 0 28.467 24.957" class="active">
                                 <path id="heart"
                                     d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z"
                                     transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
                             </svg></a>
+                            <script>
+                                $(document).ready(function(){
+                                    $('.deletes_{{x.id}}').on('click', function(e){
+                                        e.preventDefault()
+                                        fovarites = $(this).attr('data-slug')
+                                        id = $(this).attr('data-id')
+                                        data = {
+                                            fovarites: fovarites,
+                                            url_from: '{{request.path}}',
+                                            id: id
+                            
+                                        }
+                                        $.ajax({
+                                            headers: { "X-CSRFToken": getCookie("csrftoken") },
+                                            type: "POST",
+                                            url: '{% url "remove_fovarites" x.id %}',
+                                            data: data,
+                                            success: function(data){
+                                if (data.code != 200) {
+                                top.location.href = '{% url "index" %}';
+                                    }
+                                $("#cart_count").html(data.cart_total)
+                            }
+                                            
+                                        })
+                                    })
+                                })
+                                    
+                                    
+                                </script>
+                            {% else %}
+                            <a href="" class="add_to_fovarite" data-id="{{x.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
+                                viewBox="0 0 28.467 24.957"> 
+                                <path id="heart"
+                                    d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z"
+                                    transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                            </svg></a>
+                              
+
+                       
+                             {%endif%}
+                              
                            
 
                         </div>
@@ -312,6 +437,8 @@
                         </div></a>
                     </div>
                 </div>
+
+               
 {% endfor %}
 
             </div>
@@ -387,7 +514,6 @@
 {% include 'footer.html' %}
     <script src="{% static 'js/jquery.js' %}"></script>
 
-    <!-- footer --><script type="text/javascript" src="https://kit.fontawesome.com/5a14b242ce.js"></script>
 
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -453,8 +579,11 @@ var csrftoken = getCookie('csrftoken');
           url: 'add/'+ id + '/' ,
           data: data,
           success: function(data){
-            window.location.href = window.location.href
-          }
+                            if (data.code != 200) {
+                            top.location.href = '{% url "index" %}';
+                                }
+                            $("#cart_count").html(data.cart_total)
+                        }
         })
       })
     })
@@ -464,6 +593,8 @@ var csrftoken = getCookie('csrftoken');
   <script>
       
   </script>
+
+    
 </body>
 
 </html>

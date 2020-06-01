@@ -23,23 +23,29 @@ class ProductMultiPromoCode(admin.TabularInline):
     model = PromoCode
     fields = ['name', 'code', ]
 	
-class Kredit_18Admin(admin.StackedInline):
+#class Kredit_18Admin(admin.StackedInline):
     #extra = 1
 	
-	model = Kredit_18_ay
-	fields = ['faiz', 'odenis',]
-	show_change_link = True
-	extra = 1
-	readonly_fields = ['odenis',]
-	def get_max_num(self, request, obj=None, **kwargs):
-		max_num = 1
-		if obj and obj.kredit:
-			return max_num 
-		return max_num
+#	model = Kredit_18_ay
+#	fields = ['faiz', 'odenis',]
+#	show_change_link = True
+#	extra = 1
+#	readonly_fields = ['odenis',]
+#	def get_max_num(self, request, obj=None, **kwargs):
+#		max_num = 1
+#		if obj and obj.kredit:
+#			return max_num 
+#		return max_num
 
 def make_payed(modeladmin, request, queryset):
     queryset.update(status='Odenilib')
 make_payed.short_description = "Odenilmis kimi qeyd et"
+
+
+def category_payed(modeladmin, request, queryset):
+    queryset.update(slug="")
+category_payed.short_description = "Yenile"
+
 
 def deactive_payed(modeladmin, request, queryset):
     queryset.update(active='False')
@@ -54,10 +60,15 @@ class OrderAdmin(admin.ModelAdmin):
 	list_filter = ['status']
 	actions = [make_payed]
 
+
+class SubCategoryAdmin(admin.ModelAdmin):
+	actions = [category_payed,]
+	list_display = ('name',)
+
 class ProductAdmin(admin.ModelAdmin):
 	inlines = [ProductMultiImage, ProductMultiPromoCode,ProductMultiSize, ProductDescriptions, ProductColor]
 	extra = 1
-	list_display = ("category", "slug" ,"name", "active", "stock", "price", "sale", "dicount","prome_code_in","kredit_18",)
+	list_display = ("category", "slug" ,"name", "active", "stock", "price", "sale", "dicount","prome_code_in",)
 	model = Product
 	actions = [deactive_payed, active_payed]
 	#extra = 2
@@ -77,7 +88,7 @@ admin.site.register(Click)
 admin.site.register(Tag)
 admin.site.register(Category)
 admin.site.register(Brand)
-admin.site.register(SubCategory)
+admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(Kredit_18_ay)
 admin.site.register(User)
 admin.site.register(Color)
@@ -86,7 +97,6 @@ admin.site.register(Message)
 
 admin.site.register(HistoryProducts)
 admin.site.register(Comment)
-admin.site.register(Size)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(CartItem)
 admin.site.register(Cart)

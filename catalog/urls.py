@@ -32,7 +32,9 @@ from .views import (
 	fovarite_list,
 	PostsView,
 	filter_list,
-	color_view
+	color_view,
+	delete_fovarites,
+	remove_fovarites
 	
 )
 
@@ -64,6 +66,8 @@ urlpatterns = [
 	path('accounts/', accounts, name='accounts'),
     path('details/', details, name='detail'),
 	path('fovarites/', fovarite_list, name='fovarite_list'),
+	path('delete_fovarites/', delete_fovarites, name='delete_fovarites'),
+	path('remove_fovarites/<int:id>/', remove_fovarites, name='remove_fovarites'),
 
 	path('buy/<product_slug>/', buy, name='buy'),
 	path('click/', ClickCreateView.as_view(), name='click_create'),

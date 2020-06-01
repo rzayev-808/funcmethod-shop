@@ -418,23 +418,19 @@
         <div class="page-cover">
             <img src="{% static 'images/covers/sufre.jpg' %}" alt="" class="img-bg">
             <div class="page-name">
-                SÜFRƏ QRUPU
+                Axtaris
             </div>
         </div>
         <div class="page-nav container">
             <ul class="d-flex">
                 <li>
-                    <a href="index.html">
+                    <a href="{% url 'index' %}">
 
                         Anasayfa
                     </a>
                 </li>
-                <li class="divider">
-                    <img src="{% static 'images/icons/arrow.svg' %}" alt="">
-                </li>
-                <li>
-                    Süfrə qrupu
-                </li>
+                
+                
             </ul>
         </div>
 
@@ -615,7 +611,7 @@
 
                 <div class="filter d-flex justify-content-between">
                     <div class="count">
-                        156 nəticə
+                        {{filter.qs.count}} nəticə
                     </div>
                     <div class="sorting">
                         <div class="dropdown ">

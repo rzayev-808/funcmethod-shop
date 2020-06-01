@@ -78,8 +78,9 @@ def index(request):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     
-    categories = Category.objects.all()
-    products = Product.objects.all().order_by('-id')[:4]
+    categories = SubCategory.objects.all()
+
+    products = Product.objects.all().order_by('?')[:4]
     brands = Brand.objects.all()
     w = Product.objects.all().order_by('?')[:8]
     r = Product.objects.all().order_by('?')[:4]
@@ -87,7 +88,14 @@ def index(request):
     phone = Phone.objects.get(id=1)
     #x = len(request.session.get('fovarites'))
     #fovarites = Fovarite.objects.all()
+    b = []
+    try:
+        for i in request.session['fovarites']:
+            b.append(i['id'])
+    except KeyError:
+        b = None
 
+    print(b)
     f = ProductFilter(request.GET, queryset=Product.objects.all())
     context = {
         'categories': categories,
@@ -101,6 +109,7 @@ def index(request):
         'w': w,
         'r': r,
         'a': a,
+        'b': b,
         'phone':phone
         
     }
@@ -374,7 +383,7 @@ def make_order_view(request):
 def account_view(request):
     order = Order.objects.filter(user=request.user).order_by('-id')
     categories = Category.objects.all()
-    history = HistoryProducts.objects.filter(user=request.user)
+    history = HistoryProducts.objects.filter(user=request.user).order_by('-id')
     mesaj = Message.objects.filter(user=request.user)
     fovarites = request.session.get('fovarites')
     pk = []
@@ -465,7 +474,7 @@ def login(request):
     return render(request, 'login.html')
 
 def details(request):
-    filter = Filters(request.GET, queryset=Product.objects.all())
+    filter = Filters(request.GET, queryset=Product.objects.all().order_by('-id'))
     brand = Brand.objects.all()
 
     context = {
@@ -553,16 +562,16 @@ class SearchProductView(ListView):
     return Product.objects.featured()
 
 def add_to_fovarite(request, id):
-    #if request.method == "POST":
-    if not request.session.get('fovarites'):
+    if request.method == "POST":
+        if not request.session.get('fovarites'):
             request.session['fovarites'] = list()
-    else:
-        request.session['fovarites'] = list(request.session['fovarites'])
-    if not request.session.get('visits'):
-        request.session['visits'] = list()
-    else:
-        request.session['visits'] = list(request.session['visits'])
-    item_exist = next((item for item in request.session['fovarites'] if  item['id'] == id), False)
+        else:
+            request.session['fovarites'] = list(request.session['fovarites'])
+        if not request.session.get('visits'):
+            request.session['visits'] = list()
+        else:
+            request.session['visits'] = list(request.session['visits'])
+        item_exist = next((item for item in request.session['fovarites'] if  item['id'] == id), False)
     #visit = 0
     
     
@@ -695,3 +704,35 @@ def color_view(request, id):
         
     }
     return render(request, 'color-detail.html', context)
+
+
+
+def delete_fovarites(request):
+    if request.session.get('fovarites'):
+        del request.session['fovarites']
+    
+    return redirect(request.POST.get('url_from'))
+
+
+def remove_fovarites(request, id):
+    if request.method == 'POST':
+        for i in request.session['fovarites']:
+            
+            if i['id'] == id:
+
+                
+                i.clear()
+                
+                
+                
+
+        while {} in request.session['fovarites']:
+            print(request.session['fovarites'].remove({}))
+
+        if not request.session['fovarites']:
+            del request.session['fovarites']
+        
+        request.session.modified = True
+        return redirect(request.POST.get('url_from'))
+
+    

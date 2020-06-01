@@ -30,11 +30,18 @@
     
 
     <!-- products -->
+
+
+
+    
+
+
     <div class="products  container mt-5 ">
         <div class="row">
-           
+
             {% for x in f %}
-            <div class="col-md-4">
+
+            <div class="col-md-3">
                 <div class="product new">
                     {% if x.sale > 0 %}
                     <div class="product-status">
@@ -47,8 +54,58 @@
                             <img class="img-bg" src="{{x.image.url}}" alt="">
                         </a>
                     </div>
-                    <div class="fav">
+                    <div class="fav delete_{{x.id}}" data-slug='{{x.id}}'  data-id='{{x.id}}'>
                         
+                        <script src="{% static 'js/jquery.js' %}"></script>
+
+                        <script>
+                            function getCookie(name) {
+                            var cookieValue = null;
+                            if (document.cookie && document.cookie !== '') {
+                                var cookies = document.cookie.split(';');
+                                for (var i = 0; i < cookies.length; i++) {
+                                    var cookie = cookies[i].trim();
+                                    // Does this cookie string begin with the name we want?
+                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                        break;
+                                    }
+                                }
+                            }
+                            return cookieValue;
+                        }
+                        var csrftoken = getCookie('csrftoken');
+                        </script>
+                        <script>
+                            $(document).ready(function(){
+                                $('.delete_{{x.id}}').on('click', function(e){
+                                    e.preventDefault()
+                                    fovarites = $(this).attr('data-slug')
+                                    id = $(this).attr('data-id')
+                                    data = {
+                                        fovarites: fovarites,
+                                        url_from: '{{request.path}}',
+                                        id: id
+                        
+                                    }
+                                    $.ajax({
+                                        headers: { "X-CSRFToken": getCookie("csrftoken") },
+                                        type: "POST",
+                                        url: '{% url "remove_fovarites" x.id %}',
+                                        data: data,
+                                        success: function(data){
+                            if (data.code != 200) {
+                            top.location.href = '{% url "fovarite_list" %}';
+                                }
+                            $("#cart_count").html(data.cart_total)
+                        }
+                                        
+                                    })
+                                })
+                            })
+                                
+                                
+                            </script>
                             <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
                             viewBox="0 0 28.467 24.957" class="active">
                             <path id="heart"
@@ -56,7 +113,7 @@
                                 transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
                         </svg>
-                         </form>
+                        
                        
 
                     </div>
@@ -68,7 +125,7 @@
 
                               </ul>                            </div>
                         <div class="product-title mt-3">
-                            Schafer Roxy Dik Elektrikli El Süpürgesi - 3 Parça - Pembe
+                            {{x.brand}} - {{x.name}}
                         </div>
                         <div class="product-description">
                            
@@ -163,4 +220,5 @@ $(document).ready(function(){
 	})
 })
 </script>
+
 {% endblock content %}

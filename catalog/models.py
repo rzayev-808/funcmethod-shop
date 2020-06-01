@@ -33,6 +33,17 @@ def compress(image):
     return new_image
 
 
+def gen_random_promo():
+    #new_slug = slugify(s, allow_unicode=True)
+
+    return str(int(time()))
+
+
+def gen_slug(s):
+    new_slug = slugify(s, allow_unicode=True)
+
+    return new_slug + '_' + str(int(time()))
+
 class ProductQuerySet(models.query.QuerySet):
 
 
@@ -89,18 +100,15 @@ class Brand(models.Model):
         self.slug = slugify(self.name+str(self.name))
         super(Brand, self).save(*args, **kwargs)
     
-class SubCategory(models.Model):
-    name = models.CharField(max_length=200)
-    def __str__(self):
-        return self.name
+
     
 
 class Category(models.Model):
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand')
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, blank=True, null=True)
+    #brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand')
+    #subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=100)
-    slug = models.SlugField()
-    img = models.ImageField()
+    slug = models.SlugField(blank=True, null=True)
+    
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name+str(self.name))
@@ -113,17 +121,21 @@ class Category(models.Model):
         return reverse('category_detail', kwargs={'category_slug': self.slug})
 
 
-def gen_slug(s):
-    new_slug = slugify(s, allow_unicode=True)
-
-    return new_slug + '_' + str(int(time()))
-
-def gen_random_promo():
-    #new_slug = slugify(s, allow_unicode=True)
-
-    return str(int(time()))
 
 
+class SubCategory(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(blank=True, null=True)
+    def __str__(self):
+        return self.name
+
+
+
+    def save (self, *args, **kwargs):
+      if not self.slug:
+        self.slug = gen_slug(self.name) 
+      super().save(*args, **kwargs)
 
 
     
@@ -207,15 +219,15 @@ class Color(models.Model):
 
 class Descripton(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    value = models.CharField(max_length=200)
+    name = models.CharField(max_length=100,blank=True, null=True)
+    value = models.CharField(max_length=200, blank=True, null=True)
     
     def __str__(self):
         return self.name
 
 class MultiImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(verbose_name='Image')
+    image = models.ImageField(verbose_name='Image', blank=True, null=True)
     
     
     def save(self, *args, **kwargs):
