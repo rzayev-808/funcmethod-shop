@@ -161,7 +161,6 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     month_6 = models.CharField(max_length=200,blank=True, verbose_name='Kredit 6 ay ucun ayliq odenis')
     month_12 = models.CharField(max_length=200,blank=True, verbose_name='Kredit 12 ay ucun ayliq odenis')
-    month_18 = models.CharField(max_length=200,blank=True, verbose_name='Kredit 12 ay ucun ayliq odenis')
     #promo_kod = models.CharField(max_length=200, blank=True)
     slug = models.SlugField(max_length=200, blank=True)
     material = models.CharField(max_length=200, blank=True, verbose_name='Material')
@@ -256,27 +255,12 @@ class CompanyPromoCode(models.Model):
         return self.name
 
     
-class Kredit_18_ay(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='kredit')
-    faiz = models.IntegerField(verbose_name='18 Ay ucun faiz derecesi', blank=True)
-    odenis = models.CharField(max_length=100 , blank=True, verbose_name='Ayliq odenis')
-    
-    def save (self, *args, **kwargs):
-       
-        if not self.odenis:
-            x = self.product.price + (self.product.price * self.faiz / 100 )
-            self.odenis = math.ceil(x / 18)
-        #if sel
-        super().save(*args, **kwargs)
 
-    def __str__(self):
-        return str(self.product.name)
-    
     
     
 class Size(models.Model):
     products = models.ForeignKey(Product, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, verbose_name='Olculer')
+    name = models.CharField(max_length=200, verbose_name='Olculer',blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -284,7 +268,7 @@ class Size(models.Model):
 
 class PromoCode(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='codes')
-    name = models.IntegerField(verbose_name='Promocodun Faiz Derecesi')
+    name = models.IntegerField(verbose_name='Promocodun Faiz Derecesi',blank=True, null=True)
     code = models.CharField(max_length=300, verbose_name='Code', blank=True)
     def save (self, *args, **kwargs):
        
