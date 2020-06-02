@@ -34,7 +34,8 @@ from .views import (
 	filter_list,
 	color_view,
 	delete_fovarites,
-	remove_fovarites
+	remove_fovarites,
+	data
 	
 )
 
@@ -65,6 +66,7 @@ urlpatterns = [
     #path('logins/', login, name='login'),
 	path('accounts/', accounts, name='accounts'),
     path('details/', details, name='detail'),
+	path('data/', data, name='data'),
 	path('fovarites/', fovarite_list, name='fovarite_list'),
 	path('delete_fovarites/', delete_fovarites, name='delete_fovarites'),
 	path('remove_fovarites/<int:id>/', remove_fovarites, name='remove_fovarites'),

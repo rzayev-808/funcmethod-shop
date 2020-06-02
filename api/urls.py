@@ -3,6 +3,9 @@ from rest_framework import routers
 from .views import *
 router = routers.DefaultRouter()
 router.register(r'product', ProductsApiViews)
+router.register(r'category', SubCategoryApiViews)
+router.register(r'brand', BrandApiViews)
+
 
 urlpatterns = [
     

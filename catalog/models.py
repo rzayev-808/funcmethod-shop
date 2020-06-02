@@ -145,10 +145,11 @@ class SubCategory(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(SubCategory,on_delete=models.CASCADE, verbose_name='Kategoriya')
     #colors = models.ManyToManyField(Color, verbose_name='Rengi', blank=True)
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand')
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand',blank=True, null=True)
     name = models.CharField(max_length=1000, verbose_name='Mehsulun Adi')
     code = models.CharField(max_length=100, verbose_name='Mehsulun Kodu')
-    image = models.ImageField()
+    image = models.ImageField(blank=True, null=True)
+    barcode = models.CharField(max_length=100, verbose_name='Bar kod')
     price = models.DecimalField(max_digits=9, decimal_places=0, default=0, verbose_name='Qiymeti')
     sale = models.DecimalField(max_digits=9, decimal_places=0, default=0,  verbose_name='Endirim Faizi', blank=True, null=True)
     dicount = models.DecimalField(max_digits=9, decimal_places=0, verbose_name='Yekun Qiymeti', blank=True, null=True)

@@ -32,8 +32,12 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 from django.views.generic.list import ListView
 from django_filters.views import FilterView
-
 import django_filters
+from pyexcel_xlsx import get_data
+import json
+
+
+
 
 class NumberInFilter(django_filters.BaseInFilter, django_filters.NumberFilter):
     pass
@@ -640,7 +644,7 @@ def filter_list(request):
     category = SubCategory.objects.all()
     posts = Product.objects.all()
     filter = Filters(request.GET, queryset=Product.objects.all().order_by('?'))
-    paginator = Paginator(filter.qs, 50)
+    paginator = Paginator(filter.qs, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -737,4 +741,23 @@ def remove_fovarites(request, id):
         request.session.modified = True
         return redirect(request.POST.get('url_from'))
 
+import pyexcel as pe
+def data(request):
+    xlsxfile = "2.xlsx"
+    with open(xlsxfile, "rb") as f:
+        content = f.read()
+        r = pe.get_book(file_type="xlsx", file_content=content)
+        for x in r[0]:
+            create = Product.objects.update_or_create(
+                barcode=x[1],
+                brand_id=13,
+                category_id=x[3],
+                code=x[2],
+                image='_schafer1s39117002krm012_.jpeg',
+                name=x[4],
+                price=x[5],
+                title=x[6],
+            )
     
+    
+    return render(request, 'import.html')

@@ -22,7 +22,7 @@ from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('catalog.urls')),
-    #path('', include('api.urls')),
+    path('', include('api.urls')),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
     #path('favit/', include('favit.urls')),
 

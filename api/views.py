@@ -52,3 +52,18 @@ class ProductsApiViews(viewsets.ReadOnlyModelViewSet):
 
 
 
+class SubCategoryApiViews(viewsets.ModelViewSet):
+    permission_classes = [permissions.AllowAny]
+    serializer_class  = SubcategorySerializers
+    queryset = SubCategory.objects.all()
+    #filter_backends = (DjangoFilterBackend,)
+    #filter_class = ProductFilter
+    #pagination_class = CustomPagination
+
+class BrandApiViews(viewsets.ModelViewSet):
+    permission_classes = [permissions.AllowAny]
+    serializer_class  = BrandSerializers
+    queryset = Brand.objects.all()
+    #filter_backends = (DjangoFilterBackend,)
+    #filter_class = ProductFilter
+    #pagination_class = CustomPagination

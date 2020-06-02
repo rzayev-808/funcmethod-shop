@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'star_ratings',
     'ckeditor',
     'colorful',
-    #'rest_framework',
-   # 'api',
+    'import_export',
+    'rest_framework',
+    'api',
     #'favit',
     #'simple_history',
 ]
@@ -155,3 +156,4 @@ REST_FRAMEWORK = {
     ],
     #'DEFAULT_CONTENT_NEGOTIATION_CLASS': 'api.negotiation.IgnoreClientContentNegotiation',
 }
+IMPORT_EXPORT_USE_TRANSACTIONS = True
