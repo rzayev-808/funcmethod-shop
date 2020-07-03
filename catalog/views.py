@@ -86,7 +86,7 @@ def index(request):
     
     categories = SubCategory.objects.all()
 
-    products = Product.objects.all().order_by('-id')[:6]
+    products = Product.objects.all().order_by('?')[:6]
     brands = Brand.objects.all()
     w = Product.objects.all().order_by('?')[:9]
     r = Product.objects.all().order_by('?')[:6]
@@ -256,8 +256,9 @@ def add_to_cart_view(request):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     product_slug = request.GET.get('product_slug')
+    color = request.GET.get('color')
     product = Product.objects.get(slug=product_slug)
-    cart.add_to_cart(product.slug)
+    cart.add_to_cart(product.slug, color)
     new_cart_total = 0.00
     for item in cart.items.all():
         new_cart_total += float(item.item_total)

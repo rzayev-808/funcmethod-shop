@@ -557,7 +557,8 @@ var csrftoken = getCookie('csrftoken');
       e.preventDefault()
       product_slug = $(this).attr('data-slug')
       data = {
-        product_slug: product_slug
+        product_slug: product_slug,
+        color: 1
       }
       $.ajax({
           
