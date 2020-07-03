@@ -30,9 +30,12 @@
             </a>
             <div class="nav-side d-flex flex-grow-1 justify-content-between">
                 <div class="search d-flex">
-                    <input type="text" placeholder="Axtaris">
-                    <div class="search-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
+                    <form action="{% url 'query' %}">
+
+                    
+                    <input type="text" name="q" value="" placeholder="Axtaris">
+                    <div class="search-icon d-flex">
+                        <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
                             <g id="Group_30" data-name="Group 30" transform="translate(-1450 33)">
                                 <rect id="Rectangle_29" data-name="Rectangle 29" width="23" height="23"
                                     transform="translate(1450 -33)" fill="none" />
@@ -40,8 +43,9 @@
                                     d="M22.852,20.949l-5.474-5.693a9.283,9.283,0,1,0-7.108,3.316,9.187,9.187,0,0,0,5.32-1.68l5.516,5.736a1.211,1.211,0,1,0,1.746-1.679ZM10.27,2.422A6.864,6.864,0,1,1,3.406,9.286,6.871,6.871,0,0,1,10.27,2.422Z"
                                     transform="translate(1449.016 -33)" fill="#fff" />
                             </g>
-                        </svg>
+                        </svg></button>
                     </div>
+                </form>
                 </div>
                 <div class="call-center d-flex ">
                     <!-- phone-icon -->

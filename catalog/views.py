@@ -35,7 +35,9 @@ from django_filters.views import FilterView
 import django_filters
 from pyexcel_xlsx import get_data
 import json
-
+import hashlib
+import xml.etree.ElementTree as ET
+import requests
 
 
 
@@ -84,10 +86,10 @@ def index(request):
     
     categories = SubCategory.objects.all()
 
-    products = Product.objects.all().order_by('-id')[:4]
+    products = Product.objects.all().order_by('-id')[:6]
     brands = Brand.objects.all()
-    w = Product.objects.all().order_by('?')[:8]
-    r = Product.objects.all().order_by('?')[:4]
+    w = Product.objects.all().order_by('?')[:9]
+    r = Product.objects.all().order_by('?')[:6]
     a = request.session.get('fovarites')
     phone = Phone.objects.get(id=1)
     #x = len(request.session.get('fovarites'))
@@ -348,6 +350,9 @@ def order_create_view(request):
 
 
 def make_order_view(request):
+    
+
+
     try:
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
@@ -378,9 +383,39 @@ def make_order_view(request):
             buying_type=buying_type,
             comments=comments
             )
+        amount = int(cart.cart_total) * 100
+        merchantName = "schafer_az"
+        authKey = "97994b5611e443fc9ed4f3c2262e463a"
+        cardType = "v"
+        
+        description = str(cart)
+        a = ("97994b5611e443fc9ed4f3c2262e463a{}{}{}{}").format(merchantName,cardType,amount,description)
+        h = hashlib.md5(a.encode("utf-8")).hexdigest()
+        g = {
+
+            "merchantName": merchantName,
+
+            "cardType": cardType,
+
+            "hashCode": h,
+
+            "lang": "lv",
+
+            "amount":amount,
+
+            "description":description
+
+        }
+        url = "https://rest.goldenpay.az/web/service/merchant/getPaymentKey"
+        l = requests.post(url, json=g)
+        
+        root = ET.fromstring(l.content)
+        print(root)
         del request.session['cart_id']
         del request.session['total']
-        return HttpResponseRedirect(reverse('thank_you'))
+        for x in root.iter('paymentKey'):
+            
+            return redirect("https://rest.goldenpay.az/web/pay/" + x.text)
     return render(request, 'order.html', {'categories': categories})
 
 def account_view(request):
@@ -554,7 +589,7 @@ class LoginView(NextUrlMixin, RequestFormAttachMixin, FormView):
 
 class SearchProductView(ListView):
   template_name = "search/view.html"
-
+  paginate_by = 12
   def get_context_data(self, *args, **kwargs):
     context = super(SearchProductView, self).get_context_data(*args, **kwargs)
     context['query'] = self.request.GET.get('q')
@@ -563,6 +598,7 @@ class SearchProductView(ListView):
   def get_queryset(self, *args, **kwargs):
     request = self.request
     query = request.GET.get('q', None)
+    
     if query is not None:
       return Product.objects.search(query)
     return Product.objects.featured()

@@ -1,6 +1,8 @@
 {% include 'header.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% if request.user.is_authenticated %}
+
 {% block content %}
 <br>
 <br>
@@ -66,3 +68,18 @@
 {% include 'footer.html' %}
 
 {% endblock content %}
+{% else %}
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h2 class="text-center">
+<a href="{% url 'login' %}">Davam etmek ucun sisteme daxil olun</a></h2>
+
+{% endif %}

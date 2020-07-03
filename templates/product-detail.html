@@ -37,25 +37,36 @@
         </div>
         <!-- detail -->
         <div class="product-detail d-flex justify-content-between mt-5 container ">
+            {% if product.images.all.0  %}
             <ul class="additional-images">
                 <li class="additional-image">
                     <a href="#" class="pop">
                     <img class="img-bg" src="{{product.images.all.0.image.url}}" alt="">
                 </a>
                 </li>
+                {% if  product.images.all.1 %}
                 <li class="additional-image">
                     <a href="#" class="pop">
                     <img class="img-bg" src="{{product.images.all.1.image.url}}" alt=""></a>
                 </li>
+                {% else%}
+                {%endif%}
+                {% if  product.images.all.2 %}
                 <li class="additional-image">
                     <a href="#" class="pop">
                     <img class="img-bg" src="{{product.images.all.2.image.url}}" alt=""></a>
                 </li>
+                {% else%}
+                {%endif%}
+                {% if  product.images.all.3 %}
                 <li class="additional-image">
                     <a href="#" class="pop">
                     <img class="img-bg" src="{{product.images.all.3.image.url}}" alt=""></a>
                 </li>
+                {% else%}
+                {%endif%}
             </ul>
+            {% endif %}
             <div class="main-image">
                 <a href="#" class="pop">
 
