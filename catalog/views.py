@@ -92,6 +92,8 @@ def index(request):
     r = Product.objects.all().order_by('?')[:6]
     a = request.session.get('fovarites')
     phone = Phone.objects.get(id=1)
+    main = MainCategory.objects.all()
+    cat = Category.objects.all()
     #x = len(request.session.get('fovarites'))
     #fovarites = Fovarite.objects.all()
     b = []
@@ -115,7 +117,9 @@ def index(request):
         'r': r,
         'a': a,
         'b': b,
-        'phone':phone
+        'phone':phone,
+        'main': main,
+        'cat': cat
         
     }
     return render(request, 'base/index.html', context)    

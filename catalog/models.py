@@ -101,11 +101,15 @@ class Brand(models.Model):
         self.slug = slugify(self.name+str(self.name))
         super(Brand, self).save(*args, **kwargs)
     
+class MainCategory(models.Model):
+    name = models.CharField(max_length=200)
 
+    def __str__(self):
+      return self.name
     
 
 class Category(models.Model):
-    #brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand')
+    maincategory = models.ForeignKey(MainCategory, blank=True, null=True, on_delete=models.CASCADE, related_name='post')
     #subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=100)
     slug = models.SlugField(blank=True, null=True)
@@ -125,7 +129,7 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, related_name='sub')
     name = models.CharField(max_length=200)
     slug = models.SlugField(blank=True, null=True)
     def __str__(self):
@@ -230,13 +234,7 @@ class Color(models.Model):
     def get_absolute_url(self):
         return reverse('color_detail', kwargs={'color_slug': self.id})
 
-class Descripton(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100,blank=True, null=True)
-    value = models.CharField(max_length=200, blank=True, null=True)
-    
-    def __str__(self):
-        return self.name
+
 
 class MultiImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')

@@ -2,9 +2,7 @@ from django.contrib import admin
 from .models import *
 #from simple_history.admin import SimpleHistoryAdmin
 
-class ProductDescriptions(admin.TabularInline):
-    model = Descripton
-    fields = ['name', 'value',]
+
 
 class ProductColor(admin.StackedInline):
 	
@@ -71,7 +69,7 @@ class ColorAdmin(admin.ModelAdmin):
 	search_fields = ('code',)
 
 class ProductAdmin(admin.ModelAdmin):
-	inlines = [ProductMultiImage, ProductMultiPromoCode,ProductMultiSize, ProductDescriptions, ColorssAdmin]
+	inlines = [ProductMultiImage, ProductMultiPromoCode,ProductMultiSize, ColorssAdmin]
 	extra = 1
 	list_display = ("category", "slug" ,"name", "active", "stock", "price", "sale", "dicount","prome_code_in",)
 	model = Product
@@ -105,3 +103,4 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(CartItem)
 admin.site.register(Cart)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(MainCategory)

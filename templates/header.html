@@ -79,7 +79,8 @@
                     <!-- phone number -->
                     <div class="phone-number">
                         <a href="tel:0509932828">0509932828</a>
-                        <p>Çağrı mərkəzi</p>
+                        <p>Çağrı mərkəzi
+                        </p>
                     </div>
                 </div>
                 <div class="user-side d-flex justify-content-between">
@@ -158,196 +159,48 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav justify-content-between w-100 ">
                     <!-- endirimler -->
-                    <li class="nav-item active">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">ENDİRİMLƏR</a>
-                    </li>
+                  
                     <!-- sufre -->
-                    <li class="nav-item">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="{% url 'posts' %}"> SÜFRƏ QRUPU</a>
-                    </li>
+                  {% for x in main %}
                     <li class="nav-item dropdown ">
                         <a onmouseover="openCategory(event)" class="nav-link dropdown-toggle fm" href="#" data-index='1' id="navbarDropdown" role="button"
                           >
-                            BİŞİRMƏ QRUPU
+                           {{x.name}}
                         </a>
                         <ul class="dropdown-menu justify-content-around mt-0" aria-labelledby="navbarDropdown">
+                            {% for b in x.post.all %}
                             <li class="dropdown-item">
                                 <!-- #first category name -->
                                 <a href="">
-                                    TEMEK TAKIMLARI
+                                    
+                                    
+                                   {{b.name}}
+                                    
                                 </a>
                                 <!-- ------------- -->
-
+                                
                                 <ul>
-
+                                    {% for w in b.sub.all %}
                                     <li>
                                         <a href="">
-                                            12 Kisilik yemek takimlari
+                                           {{w.name}}
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href=""> 6 Kisilik yemek takimlari</a>
-                                    </li>
+                                    {%endfor%}
                                 </ul>
 
 
                             </li>
+                            {% endfor %}
 
-
-                            <li class="dropdown-item">
-                                <a href="">
-                                    CATAL KASIK BICAK TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="">
-                                            12 Kisilik yemek takimlari
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <a href="">
-                                    6 Kisilik yemek takimlari
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="">
-                                            tekli catal bicak
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </li>
-
-
-
-                            <li class="dropdown-item">
-                                <a href="">
-                                    CAY PASTA TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li> <a href="">cay fincanlari </a> </li>
-                                    <li> <a href=""> kahve fincanlari</a> </li>
-                                    <li> <a href=""> pasta fincanlari</a> </li>
-                                    <li> <a href="">cay setler </a> </li>
-                                    <li> <a href=""> kupalar</a> </li>
-                                    <li> <a href=""> pasta dunum servis seti</a> </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-item">
-                                <a href="">
-                                    KAHVALTI VE SERVIS TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                </ul>
-                            </li>
+                         
                         </ul>
                     </li>
+                    {% endfor %}
                     <!-- bisirme -->
 
                     <!-- kicik ev -->
-                    <li class="nav-item dropdown">
-                        <a onmouseover="openCategory(event)" class="nav-link fm dropdown-toggle" href="#">KİÇİK EV ALƏTLƏRİ</a>
-                        <ul class="dropdown-menu justify-content-around mt-0" aria-labelledby="navbarDropdown">
-
-
-
-                            <li class="dropdown-item">
-                                <!-- #first category name -->
-                                <a href="">
-                                    TEMEK TAKIMLARIw
-                                </a>
-                                <!-- ------------- -->
-
-                                <ul>
-
-                                    <li>
-                                        <a href="">
-                                            12 Kisilik yemek takimlari
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href=""> 6 Kisilik yemek takimlari</a>
-                                    </li>
-                                </ul>
-
-
-                            </li>
-
-
-                            <li class="dropdown-item">
-                                <a href="">
-                                    CATAL KASIK BICAK TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="">
-                                            12 Kisilik yemek takimlari
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <a href="">
-                                    6 Kisilik yemek takimlari
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="">
-                                            tekli catal bicak
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </li>
-
-
-
-                            <li class="dropdown-item">
-                                <a href="">
-                                    CAY PASTA TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li> <a href="">cay fincanlari </a> </li>
-                                    <li> <a href=""> kahve fincanlari</a> </li>
-                                    <li> <a href=""> pasta fincanlari</a> </li>
-                                    <li> <a href="">cay setler </a> </li>
-                                    <li> <a href=""> kupalar</a> </li>
-                                    <li> <a href=""> pasta dunum servis seti</a> </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-item">
-                                <a href="">
-                                    KAHVALTI VE SERVIS TAKIMLARI
-                                </a>
-                                <ul>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                    <li> <a href=""> kahvalti takimlari </a> </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- metbex -->
-                    <li class="nav-item ">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">MƏTBƏX AKSESUARLARI</a>
-                    </li>
-                    <!-- digerleri -->
-                    <li class="nav-item active">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">DİGƏRLƏRİ</a>
-                    </li>
-                    <!-- blog -->
-                    <li class="nav-item active">
-                        <a  onmouseover="openCategory(event)" class="nav-link fm" href="#">BLOG</a>
-                    </li>
+                   
                 </ul>
             </div>
         </nav>
