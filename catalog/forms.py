@@ -9,6 +9,20 @@ from django.utils.safestring import mark_safe
 
 User = get_user_model()
 
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+
+
+
+class RegisterForm(UserCreationForm):
+
+  email = forms.EmailField()
+
+  class Meta:
+	  model = User
+	  fields = ["username", "email", "password1", "password2"]
+
+
 
 class ContactForm(forms.Form):
     subject = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'size':'40','class': 'form-control'}))
@@ -61,8 +75,7 @@ class RegistrationForm(forms.ModelForm):
 		self.fields['first_name'].label = 'Ad'
 		self.fields['last_name'].label = 'Familya'
 		self.fields['email'].label = 'Email addresiniz'
-		self.fields['phone'].label = 'Mobil nomreniz'
-		self.fields['brity'].label = 'Dogum tarixi'
+		
 
 	def clean(self):
 		username = self.cleaned_data['username']

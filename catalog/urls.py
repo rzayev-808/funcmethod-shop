@@ -19,7 +19,7 @@ from .views import (
 	index,
 	fovarite_update,
 	filters,
-	login,
+	
 	details,
 	product_list,
 	buy,

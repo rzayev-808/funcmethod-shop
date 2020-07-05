@@ -92,7 +92,7 @@ def index(request):
     r = Product.objects.all().order_by('?')[:6]
     a = request.session.get('fovarites')
     phone = Phone.objects.get(id=1)
-    main = MainCategory.objects.all()
+    main = MainCategory.objects.all().order_by('-id')
     cat = Category.objects.all()
     #x = len(request.session.get('fovarites'))
     #fovarites = Fovarite.objects.all()
@@ -458,21 +458,21 @@ def registration_view(request):
         email = form.cleaned_data['email']
         first_name = form.cleaned_data['first_name']
         last_name = form.cleaned_data['last_name']
-        phone = form.cleaned_data['phone']
-        brity = form.cleaned_data['brity']
+        
         
         new_user.set_password(password)
         new_user.first_name = first_name
         new_user.username = username
         new_user.last_name = last_name
         new_user.email = email
-        new_user.phone = phone
-        new_user.brity = brity
+        
         new_user.save()
-        login_user = authenticate(username=username, password=password)
+        login_user = authenticate(email=email, password=password)
         if login_user:
             login(request, login_user)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('cart'))
+        
+        #return HttpResponseRedirect(reverse('account'))
     context = {
         'form': form,
         'categories': categories
@@ -482,6 +482,7 @@ def registration_view(request):
 
 def login_view(request):
     forms = LoginForm(request.POST or None)
+    form = RegistrationForm(request.POST or None)
     categories = Category.objects.all()
     if forms.is_valid():
         username = form.cleaned_data['username']
@@ -492,6 +493,7 @@ def login_view(request):
             return HttpResponseRedirect(reverse('index'))
     context = {
         'forms': forms,
+        'form':form,
         'categories': categories
     }
     return render(request, 'login.html', context)
@@ -513,8 +515,6 @@ def filters(request):
     return render(request, 'sufre.html')
 
 
-def login(request):
-    return render(request, 'login.html')
 
 def details(request):
     filter = Filters(request.GET, queryset=Product.objects.all().order_by('-id'))
@@ -802,3 +802,5 @@ def data(request):
     
     
     return render(request, 'import.html')
+
+
