@@ -44,7 +44,7 @@ class LoginForm(forms.Form):
 		username = self.cleaned_data['username']
 		password = self.cleaned_data['password']
 		if not User.objects.filter(username=username).exists():
-			raise forms.ValidationError('Bu loginle artig istifadeci muvcuddur!')
+			raise forms.ValidationError('Bu adda istifadəçi artıq mövcuddur!')
 		user = User.objects.get(username=username)
 		if user and not user.check_password(password):
 			raise forms.ValidationError('Parol yalnisdir!')
@@ -68,7 +68,7 @@ class RegistrationForm(forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super(RegistrationForm, self).__init__(*args, **kwargs)
-		self.fields['username'].label = 'Login'
+		self.fields['username'].label = 'İstifadəçi adı'
 		self.fields['password'].label = 'Şifrə'
 		self.fields['password'].help_text = 'Şifrə daxil edin'
 		self.fields['password_check'].label = 'Şifrəni təkrar edin'

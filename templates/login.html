@@ -59,22 +59,22 @@
                     <form action="{% url 'registration' %}" method="POST">
                          {% csrf_token %}
                          
-                        <input class="form-input" placeholder="Login" name="username" type="text">
+                        <input class="form-input" placeholder="İstifadəçi adı" name="username" type="text">
                         
                         
-                        <input class="form-input" placeholder="Parol" name="password" type="password">
+                        <input class="form-input" placeholder="Şifrə" name="password" type="password">
                         
                         
-                        <input class="form-input" placeholder="Parolu tekrar edin" name="password_check" type="password" required="">
+                        <input class="form-input" placeholder="Şifrəni təkrar edin" name="password_check" type="password" required="">
                         
                         
                         <input class="form-input" placeholder="Ad" name="first_name" type="text">
                         
                         
-                        <input class="form-input" placeholder="Familya" name="last_name" type="text">
+                        <input class="form-input" placeholder="Soyad" name="last_name" type="text">
                         
                         
-                        <input class="form-input" placeholder="Email addresiniz" name="email" type="email" required="">
+                        <input class="form-input" placeholder="Email adresiniz" name="email" type="email" required="">
                         
                        
    
@@ -108,7 +108,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <p class="text-center">Sosial şəbəkələr vasitəsilə giriş</p>
+                       
                         
                         <div class="submit-login w-100 text-center my-5 " type="submit">
                             <button type="submit" class="btn-red lgn-btn px-4">Daxil ol</button>
