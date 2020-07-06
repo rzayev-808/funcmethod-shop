@@ -190,16 +190,40 @@ def category_view(request, category_slug):
     category = Category.objects.get(slug=category_slug)
     price_filter_type = request.GET.get('price_filter_type')
     print (price_filter_type)
-    products_of_category = Product.objects.filter(category=category)
+    main = MainCategory.objects.all().order_by('-id')
+    cat = Category.objects.all()
+    subcategory_of_category = SubCategory.objects.filter(category=category)
+    #products_of_category 
     context = {
         'category': category,
-        'products_of_category': products_of_category,
+        #'products_of_category': products_of_category,
         #'cart': cart,
-        'category_page': "active"
+        'subcategory_of_category':subcategory_of_category,
+        'category_page': "active",
+        'main':main,
+        'cat':cat
     }
     return render(request, 'base/brand.html', context)
 
 
+
+def subcategory_view(request, subcategory_slug):
+
+    
+    subcategory = SubCategory.objects.get(slug=subcategory_slug)
+    main = MainCategory.objects.all().order_by('-id')
+    cat = Category.objects.all()
+    products_of_subcategory = Product.objects.filter(category=subcategory)
+    context = {
+        'subcategory': subcategory,
+        'products_of_subcategory': products_of_subcategory,
+        #'cart': cart,
+        'category_page': "active",
+
+        'main':main,
+        'cat':cat
+    }
+    return render(request, 'category.html', context)
 
 
 def brand_view(request, brand_slug):

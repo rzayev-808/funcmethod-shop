@@ -142,12 +142,13 @@ class SubCategory(models.Model):
         self.slug = gen_slug(self.name) 
       super().save(*args, **kwargs)
 
-
+    def get_absolute_url(self):
+        return reverse('subcategory_detail', kwargs={'subcategory_slug': self.slug})
     
 
 
 class Product(models.Model):
-    category = models.ForeignKey(SubCategory,on_delete=models.CASCADE, verbose_name='Kategoriya')
+    category = models.ForeignKey(SubCategory,on_delete=models.CASCADE, related_name='pro', verbose_name='Kategoriya')
     #colors = models.ManyToManyField(Color, verbose_name='Rengi', blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand',blank=True, null=True)
     name = models.CharField(max_length=1000, verbose_name='Mehsulun Adi')

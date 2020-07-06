@@ -1,6 +1,4 @@
 
-
-
 {% load static %}
 {% include 'header.html' %}
     <!-- home -->
@@ -281,7 +279,7 @@
 
                 <div class="filter d-flex justify-content-between">
                     <div class="count">
-                       
+                        {{products_of_subcategory.count}} nəticə
                     </div>
                     <div class="sorting">
                         <div class="dropdown ">
@@ -339,8 +337,7 @@
                 <!-- products -->
                 <div class="products  my-5 infinite-container ">
                     <!-- product -->
-                    {% for b in subcategory_of_category %}
-                    {% for x in b.pro.all %}
+                    {% for x in products_of_subcategory %}
                     {% if x.active == True %}
                     <div class="product new infinite-item">
                         {% if x.sale > 0 %}
@@ -407,11 +404,9 @@
                     </div>
                     {% endif %}
                     {% endfor %}
-                    {% endfor %}
                     <!-- product -->
                    
                 </div>
-                
                 <!-- loader -->
                 <div class="loader my-5 d-flex justify-content-center">
                     <div class="lds-spinner">

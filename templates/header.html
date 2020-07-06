@@ -171,7 +171,7 @@
                             {% for b in x.post.all %}
                             <li class="dropdown-item">
                                 <!-- #first category name -->
-                                <a href="">
+                                <a href="/category/{{b.slug}}/">
                                     
                                     
                                    {{b.name}}
@@ -182,7 +182,7 @@
                                 <ul>
                                     {% for w in b.sub.all %}
                                     <li>
-                                        <a href="">
+                                        <a href="/subcategory/{{w.slug}}/">
                                            {{w.name}}
                                         </a>
                                     </li>

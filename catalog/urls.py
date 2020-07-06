@@ -35,7 +35,8 @@ from .views import (
 	color_view,
 	delete_fovarites,
 	remove_fovarites,
-	data
+	data,
+	subcategory_view,
 	
 )
 
@@ -45,6 +46,7 @@ from .views import (
 urlpatterns = [
     path('brand/<brand_slug>/', brand_view, name='brand_detail'),	
 	path('category/<category_slug>/', category_view, name='category_detail'),
+	path('subcategory/<subcategory_slug>/', subcategory_view, name='subcategory_detail'),
 	path('product/<product_slug>/', product_view, name='product_detail'),
 	path('color/<int:id>/', color_view, name='color_detail'),
 	path('xx/', product_list, name='product_list'),
