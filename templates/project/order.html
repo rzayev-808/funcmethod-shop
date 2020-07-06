@@ -17,7 +17,7 @@
 <div class="products  container ">
 	<div class="row">
 		<div class="col-sm-8">
-			<h3 class='text-center'>Sirfarisi tesdiqle</h3>
+			<h3 class='text-center'>Sifarişi təstiqlə</h3>
 <hr>
 
 <form action='{% url "make_order" %}' method="POST">
@@ -35,7 +35,7 @@
 {{ form.address|as_crispy_field }}
 {{ form.date|as_crispy_field }}
 {{ form.comments|as_crispy_field }}
-<input type='submit' class='btn btn-danger' value='Tesdiq et'>
+<input type='submit' class='btn btn-danger' value='Təstiq et'>
 </form>
 <script src="{% static 'js/jquery.js' %}"></script>
 <script>
@@ -80,6 +80,6 @@
 <br>
 <br>
 <h2 class="text-center">
-<a href="{% url 'login' %}">Davam etmek ucun sisteme daxil olun</a></h2>
+<a href="{% url 'login' %}">Davam etmək üçün sistemə daxil olun</a></h2>
 
 {% endif %}

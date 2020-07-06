@@ -22,11 +22,11 @@
 <div class='my-cart'>
 <table class='table'>
 <tr>
-	<td class='text-center'><strong>Shekil</strong></td>
-	<td class='text-center'><strong>Mehsul</strong></td>
-	<td class='text-center'><strong>Qederi</strong></td>
-	<td class='text-center'><strong>Rengi</strong></td>
-	<td class='text-center'><strong>Umumi qiymet</strong></td>
+	<td class='text-center'><strong>Şəkil</strong></td>
+	<td class='text-center'><strong>Məhsul</strong></td>
+	<td class='text-center'><strong>Miqdarı</strong></td>
+	<td class='text-center'><strong>Rəngi</strong></td>
+	<td class='text-center'><strong>Ümumi qiymət</strong></td>
 	<td class='text-center'></td>
 </tr>
 {% for item in cart.items.all %}
@@ -39,14 +39,14 @@
 			<input type='number' name='qty' class='cart-item-qty' data-id='{{ item.id }}' value='{{ item.qty }}' min='1' style='width: 50px;'>
 		</form>
 	</td>
-	<td class='text-center'>{{ item.color|default:"Qeyd olunmayib" }}</td>
+	<td class='text-center'>{{ item.color|default:"Qeyd olunmayıb" }}</td>
 	<td class='text-center' id='cart-item-total-{{ item.id }}'>{{ item.item_total }} Azn</td>
 	<td class='text-center'><a href='#' class='remove_from_cart' data-slug='{{ item.product.slug }}' data-id='{{ item.product.id }}'><button class='btn btn-danger'>Sebetden sil</button></a></td>
 </tr>
 {% endfor %}
 <tr>
 	<td></td>
-	<td class='text-center'> <strong>Cemi: </strong></td>
+	<td class='text-center'> <strong>Cəmi: </strong></td>
 	<td class='text-center' id='cart-total-price'><strong>{{ cart.cart_total }} Azn</strong></td>
 	<td class='text-center'></td>
 </tr>
@@ -54,11 +54,11 @@
 <br>
 <hr>
 <h3 class="text-center">
-<a href='{% url "checkout" %}' class='pull-right'><button class='btn btn-danger'>Tesdiqle</button></a></h3>
+<a href='{% url "checkout" %}' class='pull-right'><button class='btn btn-danger'>Təsdiqlə</button></a></h3>
 </div>
 <h3 class='cart-empty'></h3>
 {% else %}
-<h3 class='text-center'>boshdu</h3>
+<h3 class='text-center'>Boşdur</h3>
 {% endif %}
 <br>
 {% include 'footer.html' %}

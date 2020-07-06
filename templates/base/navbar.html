@@ -4,7 +4,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         {% if not request.user.is_authenticated %}
-        <a class="navbar-brand" href="{% url 'index' %}">Company</a>
+        <a class="navbar-brand" href="{% url 'index' %}">Brend</a>
         {% else %}
         <a class="navbar-brand" href="{% url 'index' %}">{{ request.user }}</a>
         {% endif %}
@@ -15,7 +15,7 @@
             </li>
             {% if not request.user.is_authenticated %}
             <li class="nav-item">
-                <a class='nav-link'>Xosh Geldin, Qonag! </a>
+                <a class='nav-link'>Xoş gəldin, Qonaq! </a>
                 </li>
                 <li class="nav-item">
                     <a class='nav-link' href='{% url "login" %}'>Daxil ol</a>
@@ -25,13 +25,13 @@
                   </li>
                             {% else %}
                             <li class="nav-item">
-                                <a class='nav-link'>Xosh Geldin, {{ request.user }}! </a>
+                                <a class='nav-link'>Xoş gəldin, {{ request.user }}! </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class='nav-link' href='{% url "account" %}'>Shexsi Kabinet</a>
+                                    <a class='nav-link' href='{% url "account" %}'>Şəxsi Kabinet</a>
                                   </li>
                                   <li class="nav-item">
-                                      <a class='nav-link' href='{% url "logout" %}'>Sistemden cix</a>
+                                      <a class='nav-link' href='{% url "logout" %}'>Sistemdən çıx</a>
                                   </li>
                                   {% endif %}
                     
@@ -43,8 +43,8 @@
                       
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li><a class='nav-link' href='{% url "cart" %}'>Sebet <span class='badge' id='cart_count'>{% if not request.session.total %} 0 {% else %} {{ request.session.total }} {% endif %}</span></a></li>
-              <li><a class='nav-link' href=''>Fovaritlerim <span class='badge' id='cart_count'>{{fovarites.count}}</span></a></li>
+              <li><a class='nav-link' href='{% url "cart" %}'>Səbət <span class='badge' id='cart_count'>{% if not request.session.total %} 0 {% else %} {{ request.session.total }} {% endif %}</span></a></li>
+              <li><a class='nav-link' href=''>Favoritlərim <span class='badge' id='cart_count'>{{fovarites.count}}</span></a></li>
             </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

@@ -32,11 +32,11 @@
                         
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Previous</span>
+                          <span class="sr-only">Əvvəlki</span>
                         </a>
                         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                           <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Next</span>
+                          <span class="sr-only">Növbəti</span>
                         </a>
                       </div>
                 
@@ -47,11 +47,11 @@
                         <tr>
                             <th class="text-center"></th>
                             <th>Product</th>
-                            <th class="th-description">Rengi</th>
+                            <th class="th-description">Rəngi</th>
                             <th class="th-description">Yaddashi</th>
-                            <th class="text-right">Qiymeti</th>
-                            <th class="text-right">Sebet</th>
-                            <th class="text-right">Cemi</th>
+                            <th class="text-right">Qiyməti</th>
+                            <th class="text-right">Səbət</th>
+                            <th class="text-right">Cəmi</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -79,10 +79,10 @@
                                 
                                 {% if not request.user.is_authenticated %}
                                 1
-                                <h6 style="color: rgb(240, 11, 11);">Sebete elave ucun <a href='{% url "login" %}' class="alert-link">Sisteme</a> daxil olun</h6>
+                                <h6 style="color: rgb(240, 11, 11);">Səbətə əlavə üçün <a href='{% url "login" %}' class="alert-link">sistemə</a> daxil olun</h6>
                                 {% else %}
                                 <div class="btn-group">
-                                    <a href='#' class='add_to_cart' data-slug='{{ product.slug }}'><button class='btn btn-danger'>Sebete elave et</button></a>
+                                    <a href='#' class='add_to_cart' data-slug='{{ product.slug }}'><button class='btn btn-danger'>Səbətə əlavə et</button></a>
                                 </div>
                             {% endif %}
                             </td>
@@ -105,9 +105,9 @@
                     <div class="row" >
                             <div class="col-md-2" >
                                 <ul class="nav nav-pills nav-pills-primary flex-column">
-                                  <li class="nav-item"><a class="nav-link active" href="#tab1" data-toggle="tab">Haqqinda</a></li>
-                                  <li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab">Video Rolik</a></li>
-                                  <li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab">Xarakteristika</a></li>
+                                  <li class="nav-item"><a class="nav-link active" href="#tab1" data-toggle="tab">Haqqında</a></li>
+                                  <li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab">Video təqdimat</a></li>
+                                  <li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab">Xüsusiyyətlər</a></li>
                                 </ul>
                             </div>
                             <div class="col-md-8">
@@ -140,7 +140,7 @@
             {% if not request.user.is_authenticated %}
 
             <div class="alert alert-danger" role="alert">
-                    Mehsulu sebete elave etmek ucun <a href='{% url "login" %}' class="alert-link">Qeydiyyatdan</a>. Kecin
+                    Məhsulu səbətə əlavə etmək üçün <a href='{% url "login" %}' class="alert-link">qeydiyyatdan </a>. keçin.
                   </div>
                   {% else %}
                   {% endif %}
