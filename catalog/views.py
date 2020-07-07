@@ -38,7 +38,7 @@ import json
 import hashlib
 import xml.etree.ElementTree as ET
 import requests
-
+from django.db.models import F
 
 
 class NumberInFilter(django_filters.BaseInFilter, django_filters.NumberFilter):
@@ -425,20 +425,27 @@ def make_order_view(request):
         com = CompanyPromoCode.objects.filter(code=promocode)
         sale = 0
         main = int(cart.cart_total)
+        print("com :",len(com))
+        amount = int(cart.cart_total) * 100
+        f = 0
+        money = 0
+        limit = 0
         for t in com:
-            sale = int(t.faiz)
-        print(sale)
-        if len(com) >= 1 :
-            dis = int(main) * int(sale) / 100
-            amount = (int(cart.cart_total) - int(dis)) * 100
-            print(dis)  
-            print(amount)
+            f = t.faiz
+            count = t.count
+            money=t.money
+            limit = t.limit
+
         #rint(sale)
         
-        else:
-            amount = int(cart.cart_total) * 100
-        print(sale)
-        
+        if int(f) > 1 and int(count) < int(limit):
+            dis = main = (int(cart.cart_total) * int(f)) / 100
+            amount = (int(cart.cart_total) - int(dis)) * 100
+            count = CompanyPromoCode.objects.update(count=F('count')+1)
+
+        elif int(money) > 1 and int(count) < int(limit):
+            amount = (int(cart.cart_total) - int(money)) * 100
+            count = CompanyPromoCode.objects.update(count=F('count')+1)
         merchantName = "schafer_az"
         authKey = "97994b5611e443fc9ed4f3c2262e463a"
         cardType = "v"
