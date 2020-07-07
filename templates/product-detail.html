@@ -13,26 +13,24 @@
         <div class="page-nav container pt-4">
             <ul class="d-flex">
                 <li>
-                    <a href="index.html">
+                    <a href="{% url 'index' %}">
 
                         Əsas Səhifə
                     </a>
                 </li>
                 <li class="divider">
-                    <img src="./images/icons/arrow.svg" alt="">
+                    <img src="{% static 'images/icons/arrow.svg' %}" alt="">
                 </li>
                 <li>
-                    <a href="./sufre.html">
-                        Süfrə Qrupu
+                    <a href="/subcategory/{{product.category.slug}}/">
+                        {{product.category.name}}
 
                     </a>
                 </li>
                 <li class="divider">
-                    <img src="./images/icons/arrow.svg" alt="">
+                    <img src="{% static 'images/icons/arrow.svg' %}" alt="">
                 </li>
-                <li>
-                    {{product.category}}
-                </li>
+                
             </ul>
         </div>
         <!-- detail -->
@@ -92,12 +90,105 @@
             <a href="/color/{{x.id}}/"><button style="background-color:{{x.color}}; color: white;" type="button" class="btn">{{x.color_name}}</button></a>
             {% endfor %}
                 <a href="">{{product.color.color_name}}</a>
+                
                 <div class="product-price d-flex ">
                     {% if product.sale > 0 %}
                     <div class="new-price mr-2">{{product.dicount}} ‎₼</div>
                     <div class="old-price">{{product.price}} ‎₼</div>
+                    {% if product.id in b %}
+                    <div class="fav">
+                    <a href="" class="delete_{{product.id}}" data-id="{{product.id}}"> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957" viewBox="0 0 28.467 24.957" class="active">
+                            <path style="fill: #ed1c24; stroke: #ed1c24;" id="heart" d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z" transform="translate(-1.049 -2.498)" fill="none" stroke="#707070" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                        </svg>
+                </a>
+                    <script>
+                        $(document).ready(function(){
+                            $('.delete_{{product.id}}').on('click', function(e){
+                                e.preventDefault()
+                                fovarites = $(this).attr('data-slug')
+                                id = $(this).attr('data-id')
+                                data = {
+                                    fovarites: fovarites,
+                                    url_from: '{{request.path}}',
+                                    id: id
+                    
+                                }
+                                $.ajax({
+                                    headers: { "X-CSRFToken": getCookie("csrftoken") },
+                                    type: "POST",
+                                    url: '{% url "remove_fovarites" x.id %}',
+                                    data: data,
+                                    success: function(data){
+                        if (data.code != 200) {
+                        top.location.href = '{{request.path}}';
+                            }
+                        $("#cart_count").html(data.cart_total)
+                    }
+                                    
+                                })
+                            })
+                        })
+                            
+                            
+                        </script>
+                    {% else %}
+                    <a href="" class="add_to_fovarite" data-id="{{product.id}}"> 
+                        <svg xmlns="http://www.w3.org/2000/svg"  width="28.467" height="24.957"
+                        viewBox="0 0 28.467 24.957"> 
+                        <path id="heart"
+                            d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z"
+                            transform="translate(-1.049 -2.498)" fill="none" stroke="#707070"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                    </svg>
+                </a>
+                     {%endif%}
                      {% else %}
                      <div class="new-price mr-2">{{product.price}} ‎₼</div>
+                     {% if product.id in b %}
+                     <a href="" class="delete_{{product.id}}" data-id="{{product.id}}">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="active" width="28.467" height="24.957"
+                         viewBox="0 0 28.467 24.957" class="active">
+                         <path style="fill: #ed1c24; stroke: #ed1c24;" id="heart" d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z" transform="translate(-1.049 -2.498)" fill="none" stroke="#707070" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                     </svg>
+                    </a>
+                     <script>
+                         $(document).ready(function(){
+                             $('.delete_{{product.id}}').on('click', function(e){
+                                 e.preventDefault()
+                                 fovarites = $(this).attr('data-slug')
+                                 id = $(this).attr('data-id')
+                                 data = {
+                                     fovarites: fovarites,
+                                     url_from: '{{request.path}}',
+                                     id: id
+                     
+                                 }
+                                 $.ajax({
+                                     headers: { "X-CSRFToken": getCookie("csrftoken") },
+                                     type: "POST",
+                                     url: '{% url "remove_fovarites" product.id %}',
+                                     data: data,
+                                     success: function(data){
+                         if (data.code != 200) {
+                         top.location.href = '{{request.path}}';
+                             }
+                         $("#cart_count").html(data.cart_total)
+                     }
+                                     
+                                 })
+                             })
+                         })
+                             
+                             
+                         </script>
+                     {% else %}
+                     <a href="" class="add_to_fovarite" data-id="{{product.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="28.467" height="24.957"
+                         viewBox="0 0 28.467 24.957"> 
+                         <path id="heart" d="M26.9,5.116a7.227,7.227,0,0,0-10.223,0L15.282,6.509,13.889,5.116A7.229,7.229,0,0,0,3.666,15.339l1.393,1.393L15.282,26.955,25.5,16.732,26.9,15.339a7.227,7.227,0,0,0,0-10.223Z" transform="translate(-1.049 -2.498)" fill="none" stroke="#707070" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                     </svg></a>
+                      {%endif%}
+                   
                      {% endif %}
                 </div>
 
@@ -118,6 +209,7 @@
                             </svg>
                             
                         </button></a>
+                        
                     </div>
                     <div class="pay">
                         <button class="btn-grey" data-toggle="modal" data-target="#exampleModalCenter">
@@ -858,6 +950,31 @@
 		});		
 });
         </script>
-
+<script>
+    $(document).ready(function(){
+      $('.add_to_fovarite').on('click', function(e){
+        e.preventDefault()
+        id = $(this).attr('data-id')
+        data = {
+            id: id,
+            
+        }
+        $.ajax({
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+          type: "POST",
+          url: '/add/'+ id + '/' ,
+          data: data,
+          success: function(data){
+                            if (data.code != 200) {
+                            top.location.href = '{{ request.path }}';
+                                }
+                            $("#cart_count").html(data.cart_total)
+                        }
+        })
+      })
+    })
+        
+        
+    </script>
 
 </html>

@@ -157,6 +157,12 @@ def product_view(request, product_slug):
     
     #his['slug'] = keys
     #print(history_products)
+    b = []
+    try:
+        for i in request.session['fovarites']:
+            b.append(i['id'])
+    except KeyError:
+        b = None
     product = Product.objects.get(slug=product_slug)
     categories = Category.objects.all()
     if request.method == 'POST':
@@ -179,6 +185,7 @@ def product_view(request, product_slug):
         'product_list': product_list,
         'history_products': history_products,
         'form':form,
+        'b':b,
         
     }
     return render(request, 'product-detail.html', context)
@@ -349,10 +356,12 @@ def checkout_view(request):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     categories = Category.objects.all()
+    promo = CompanyPromoCode.objects.all()
     context = {
         
         'categories': categories,
         'cart': cart,
+        'promo':promo
     }
     return render(request, 'project/checkout.html', context)
 
@@ -412,11 +421,29 @@ def make_order_view(request):
             buying_type=buying_type,
             comments=comments
             )
-        amount = int(cart.cart_total) * 100
+        promocode = request.POST.get('promocode')
+        com = CompanyPromoCode.objects.filter(code=promocode)
+        sale = 0
+        main = int(cart.cart_total)
+        for t in com:
+            sale = int(t.faiz)
+        print(sale)
+        if len(com) >= 1 :
+            dis = int(main) * int(sale) / 100
+            amount = (int(cart.cart_total) - int(dis)) * 100
+            print(dis)  
+            print(amount)
+        #rint(sale)
+        
+        else:
+            amount = int(cart.cart_total) * 100
+        print(sale)
+        
         merchantName = "schafer_az"
         authKey = "97994b5611e443fc9ed4f3c2262e463a"
         cardType = "v"
         
+        #print(promocode)
         description = str(cart)
         a = ("97994b5611e443fc9ed4f3c2262e463a{}{}{}{}").format(merchantName,cardType,amount,description)
         h = hashlib.md5(a.encode("utf-8")).hexdigest()
@@ -435,6 +462,7 @@ def make_order_view(request):
             "description":description
 
         }
+        print(g)
         url = "https://rest.goldenpay.az/web/service/merchant/getPaymentKey"
         l = requests.post(url, json=g)
         
@@ -622,12 +650,14 @@ class SearchProductView(ListView):
   def get_context_data(self, *args, **kwargs):
     context = super(SearchProductView, self).get_context_data(*args, **kwargs)
     context['query'] = self.request.GET.get('q')
+    context['main'] = MainCategory.objects.all().order_by('-id')
     return context
 
   def get_queryset(self, *args, **kwargs):
     request = self.request
     query = request.GET.get('q', None)
-    
+    main = MainCategory.objects.all().order_by('-id')
+    cat = Category.objects.all()
     if query is not None:
       return Product.objects.search(query)
     return Product.objects.featured()

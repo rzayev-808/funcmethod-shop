@@ -20,23 +20,290 @@
 			<h3 class='text-center'>Sifarişi təstiqlə</h3>
 <hr>
 
-<form action='{% url "make_order" %}' method="POST">
-{% csrf_token %}
-<div class='col-sm-8 ' >
-	{{ form.name|as_crispy_field }}
-</div>
-<div class='col-sm-8'>
-	{{ form.last_name|as_crispy_field }}
-</div>
-<div class='col-sm-8'>
-	{{ form.phone|as_crispy_field }}
-</div>
-{{ form.buying_type|as_crispy_field }}
-{{ form.address|as_crispy_field }}
-{{ form.date|as_crispy_field }}
-{{ form.comments|as_crispy_field }}
-<input type='submit' class='btn btn-danger' value='Təstiq et'>
-</form>
+<form action="/make_order/" method="POST">
+	{% csrf_token %}
+	<div class="col-sm-8 ">
+		<label for="id_name" class="control-label requiredField">
+			Promocod<span class="asteriskField">*</span>
+		</label>
+		<input type="text" name="promocode" class="form-input" placeholder="Promokodunuz varsa daxil edin">
+	</div>
+	<div class="col-sm-8 ">
+		
+	
+	
+		<div id="div_id_name" class="form-group">
+			
+				<label for="id_name" class="control-label requiredField">
+					Ad<span class="asteriskField"></span>
+				</label>
+			
+	
+			
+	
+			
+	
+			
+				<div class="form-group">
+					
+						<input type="text" name="name" class="form-input" required="" id="id_name">
+						
+	
+	
+		
+	
+	
+	
+	
+		
+	
+	
+	
+					
+				</div>
+			
+		</div>
+	
+	
+	</div>
+	<div class="col-sm-8">
+		
+	
+	
+		<div id="div_id_last_name" class="form-group">
+			
+				<label for="id_last_name" class="control-label ">
+					Soyad
+				</label>
+			
+	
+			
+	
+			
+	
+			
+				<div class="form-group">
+					
+						<input type="text" name="last_name" class="form-input" id="id_last_name">
+						
+	
+	
+		
+	
+	
+	
+	
+		
+	
+	
+	
+					
+				</div>
+			
+		</div>
+	
+	
+	</div>
+	<div class="col-sm-8">
+		
+	
+	
+		<div id="div_id_phone" class="form-group">
+			
+				<label for="id_phone" class="control-label requiredField">
+					Əlaqə nömrəsi<span class="asteriskField">*</span>
+				</label>
+			
+	
+			
+	
+			
+	
+			
+				<div class="form-group">
+					
+						<input type="text" placeholder="Xahiş edirik işlək nömrə qeyd edin." name="phone" class="form-input" required="" id="id_phone">
+						
+	
+	
+		
+	
+	
+	
+	
+		
+		
+		
+	
+	
+	
+	
+					
+				</div>
+			
+		</div>
+	
+	
+	</div>
+	
+	
+	
+		<div id="div_id_buying_type" class="form-group">
+			
+				<label for="id_buying_type" >
+					Məhsulu necə əldə edəcəksiniz?<span class="asteriskField">*</span>
+				</label>
+			
+	
+			
+	
+			
+	
+			
+				<div class="form-group">
+					
+						<select name="buying_type" class="form-input select" id="id_buying_type">
+	  <option value="self">Özünüz yaxınlaşacaqsınız?</option>
+	
+	  <option value="delivery">Çatdırılma</option>
+	
+	</select>
+						
+	
+	
+		
+	
+	
+	
+	
+		
+	
+	
+	
+					
+				</div>
+			
+		</div>
+	
+	
+	
+	
+	
+		<div id="div_id_address" class="form-group" style="display: none;">
+			
+				<label for="id_address" class="form-input">
+					Çatdırılma ünvanı
+				</label>
+			
+	
+			
+	
+			
+	
+			
+				<div class="form-group">
+					
+						<input type="text" name="address" class="form-input" id="id_address">
+						
+	
+	
+		
+	
+	
+	
+	
+		
+		
+			<p id="hint_id_address" class="help-block">*Şəhəri mütləq qeyd edin!</p>
+		
+	
+	
+	
+	
+					
+				</div>
+			
+		</div>
+	
+	
+	
+	
+	
+		<div id="div_id_date" class="form-group">
+			
+				<label for="id_date_day" class="control-label requiredField">
+					Çatdırılma tarixi<span class="asteriskField">*</span>
+				</label>
+			
+	
+			
+	
+			
+	
+			
+				<div class="form-group">
+					
+						<select name="date_day" required="" id="id_date_day" class="form-input" style="width: 50px; display: inline;"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7" selected="">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select><select name="date_month" required="" id="id_date_month" class="form-input" style="width: 100px; display: inline;"><option value="1">Yanvar</option><option value="2">Fevral</option><option value="3">Mart</option><option value="4">Aprel</option><option value="5">May</option><option value="6">İyun</option><option value="7" selected="">İyul</option><option value="8">Avqust</option><option value="9">Sentyabr</option><option value="10">Oktyabr</option><option value="11">Noyabr</option><option value="12">Dekabr</option></select><select name="date_year" required="" id="id_date_year" class="form-input" style="width: 100px; display: inline;"><option value="2020" selected="">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option><option value="2029">2029</option></select>
+						
+	
+	
+		
+	
+	
+	
+	
+		
+		
+			<p id="hint_id_date" class="help-block">Sifariş təstiq olunduqdan sonra 30 dəqiqə ərzində sizinlə əlaqə saxlanılacaq!</p>
+		
+	
+	
+	
+	
+					
+				</div>
+			
+		</div>
+	
+	
+	
+	
+	
+		<div id="div_id_comments" class="form-group">
+			
+				<label for="id_comments" class="control-label ">
+					Sifarişlə bağlı qeyd
+				</label>
+			
+	
+			
+	
+			
+	
+			
+				<div class="form-group">
+					
+						<textarea name="comments" cols="40" rows="10" class="form-input" id="id_comments"></textarea>
+						
+	
+	
+		
+	
+	
+	
+	
+		
+	
+	
+	
+					
+				</div>
+			
+		</div>
+	
+	
+	<input type="submit" class="btn btn-danger" value="Təstiq et">
+	</form>
 <script src="{% static 'js/jquery.js' %}"></script>
 <script>
 	$(document).ready(function(){

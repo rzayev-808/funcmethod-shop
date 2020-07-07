@@ -260,10 +260,10 @@ class CartItem(models.Model):
 class CompanyPromoCode(models.Model):
     name = models.CharField(max_length=400, verbose_name='Kampaniya Adi')
     faiz = models.IntegerField(verbose_name='Endirim Faiz Derecesi')
-    products = models.ManyToManyField(Product, verbose_name='Mehsullar', related_name='company')
+    #products = models.ManyToManyField(Product, verbose_name='Mehsullar', related_name='company')
     code = models.CharField(max_length=300, verbose_name='Code')
     limit = models.IntegerField(verbose_name='Maksimum istifade Dayi - Limit')
-    count = models.IntegerField(verbose_name='Promocoddan istifade olunub', blank=True)
+    count = models.IntegerField(verbose_name='Promocoddan istifade olunub', blank=True, null=True)
     def __str__(self):
         return self.name
 
