@@ -44,7 +44,7 @@ class LoginForm(forms.Form):
 		username = self.cleaned_data['username']
 		password = self.cleaned_data['password']
 		if not User.objects.filter(username=username).exists():
-			raise forms.ValidationError('Bu loginle artig istifadeci muvcuddur!')
+			raise forms.ValidationError('Bu adda istifadəçi artıq mövcuddur!')
 		user = User.objects.get(username=username)
 		if user and not user.check_password(password):
 			raise forms.ValidationError('Parol yalnisdir!')
@@ -68,13 +68,13 @@ class RegistrationForm(forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super(RegistrationForm, self).__init__(*args, **kwargs)
-		self.fields['username'].label = 'Login'
-		self.fields['password'].label = 'Parol'
-		self.fields['password'].help_text = 'Parol Fikirlesin'
-		self.fields['password_check'].label = 'Parolu tekrar edin'
+		self.fields['username'].label = 'İstifadəçi adı'
+		self.fields['password'].label = 'Şifrə'
+		self.fields['password'].help_text = 'Şifrə daxil edin'
+		self.fields['password_check'].label = 'Şifrəni təkrar edin'
 		self.fields['first_name'].label = 'Ad'
-		self.fields['last_name'].label = 'Familya'
-		self.fields['email'].label = 'Email addresiniz'
+		self.fields['last_name'].label = 'Soyad'
+		self.fields['email'].label = 'Email adresiniz'
 		
 
 	def clean(self):
@@ -83,11 +83,11 @@ class RegistrationForm(forms.ModelForm):
 		password_check = self.cleaned_data['password_check']
 		email = self.cleaned_data['email']
 		if User.objects.filter(username=username).exists():
-			raise forms.ValidationError('Bu loginle artig istifadeci muvcuddur!')
+			raise forms.ValidationError('Bu adda istifadəçi artıq mövcuddur!')
 		if User.objects.filter(email=email).exists():
-			raise forms.ValidationError('Bu email adresle artig istifadeci movcuddur!')
+			raise forms.ValidationError('Bu email adres ilə istifadəçi artıq mövcuddur!')
 		if password != password_check:
-			raise forms.ValidationError('Parollarin tekrarinda yalnish var . yeniden deneyin!')
+			raise forms.ValidationError('Təkrar şifrə düzgün daxil edilməyib. Yenidən yoxla!')
 
 
 
@@ -100,7 +100,7 @@ class OrderForm(forms.Form):
 	name = forms.CharField()
 	last_name = forms.CharField(required=False)
 	phone = forms.CharField()
-	buying_type = forms.ChoiceField(widget=forms.Select(), choices=([("self", "Ozunuz yaxinlashacaqsiniz?"),("delivery", "Catdirilma")]))
+	buying_type = forms.ChoiceField(widget=forms.Select(), choices=([("self", "Özünüz yaxınlaşacaqsınız?"),("delivery", "Çatdırılma")]))
 	date = forms.DateField(widget=forms.SelectDateWidget(), initial=timezone.now())
 	address = forms.CharField(required=False)
 	comments = forms.CharField(widget=forms.Textarea, required=False)
@@ -109,15 +109,15 @@ class OrderForm(forms.Form):
 	def __init__(self, *args, **kwargs):
 		super(OrderForm, self).__init__(*args, **kwargs)
 		self.fields['name'].label = 'Ad'
-		self.fields['last_name'].label = 'Familya'
-		self.fields['phone'].label = 'Elaqe nomresi'
-		self.fields['phone'].help_text = 'Xaish edirik ishlek telefon nomresi qeyd edin'
-		self.fields['buying_type'].label = 'Mehsulu nece elde edecem?'
-		self.fields['address'].label = 'Catdirilma addresi'
-		self.fields['address'].help_text = '*Seheri mutleq qeyd edin!'
-		self.fields['comments'].label = 'Sifarishle bagli comment'
-		self.fields['date'].label = 'Catdirilma tarixi'
-		self.fields['date'].help_text = 'Sifarish tesdiq olundugdan 1 gun sonra menegerler sizinle elaqe saxlayacaq!'
+		self.fields['last_name'].label = 'Soyad'
+		self.fields['phone'].label = 'Əlaqə nömrəsi'
+		self.fields['phone'].help_text = 'Xahiş edirik işlək nömrə qeyd edin.'
+		self.fields['buying_type'].label = 'Məhsulu necə əldə edəcəksiniz?'
+		self.fields['address'].label = 'Çatdırılma ünvanı'
+		self.fields['address'].help_text = '*Şəhəri mütləq qeyd edin!'
+		self.fields['comments'].label = 'Sifarişlə bağlı qeyd'
+		self.fields['date'].label = 'Çatdırılma tarixi'
+		self.fields['date'].help_text = 'Sifariş təstiq olunduqdan sonra 30 dəqiqə ərzində sizinlə əlaqə saxlanılacaq!'
 
 class ClickForms(forms.ModelForm):
 	class Meta:

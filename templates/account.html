@@ -11,7 +11,7 @@
             <ul class="d-flex">
                 <li>
                     <a href="{% url 'index' %}">
-                        Anasayfa
+                        Əsas Səhifə
                     </a>
                 </li>
                 <li class="divider">
@@ -19,7 +19,7 @@
                 </li>
                 <li>
                     <a href="{% url 'account' %}">
-                        Şəxsi kabinet
+                        Şəxsi Kabinet
                     </a>
                 </li>
                 <li class="divider">
@@ -107,7 +107,7 @@
                             <div
                                 class="col-md-6  confirm-buttons position-relative d-flex justify-content-between mx-0">
                                 <button class="btn-grey ">Şifrəni dəyiş</button>
-                                <button class="btn-green">Save</button>
+                                <button class="btn-green">Yadda saxla</button>
                             </div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="cart-number">Kart üzərindəki ad/soyad</label>
+                                        <label for="cart-number">Kart üzərindəki Ad/Soyad</label>
                                         <div class="position-relative">
                                             <input type="number" id="cart-name" class="form-input " disabled>
                                             <img src="{% static 'images/icons/edit.svg' %}" alt=""
@@ -174,7 +174,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="submit-cart position-relative">
-                                            <button class="btn-green px-5 position-absolute">Save</button>
+                                            <button class="btn-green px-5 position-absolute">Yadda saxla</button>
                                         </div>
                                     </div>
                                 </div>
@@ -198,10 +198,10 @@
                                 Çatdırılıb
                             </li>
                             <li data-id='4'>
-                                Imtina edilib
+                                İmtina edilib
                             </li>
                             <li data-id='5'>
-                                Qaytarilib
+                                Qaytarılıb
                             </li>
                         </ul>
                     </div>
@@ -222,7 +222,7 @@
                                             <div class="product-date">Tarix: {{order_item.date}}</div>
                                             <div class="product-title">{{x.product.name|truncatechars:50}}</div>
                                             <div class="product-number">
-                                                Mehsul kodu: {{x.product.code}}
+                                                Məhsul kodu: {{x.product.code}}
                                             </div>
                                         </div>
                                         <div class="right text-center d-flex  m-auto">
@@ -282,21 +282,21 @@
                                                     <ul>
 
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">1 eded:</div>
+                                                            <div class="left-side">1 ədəd:</div>
                                                             <div class="right-side">269.95 ‎₼</div>
                                                         </li>
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Guzest:</div>
+                                                            <div class="left-side">Güzəşt:</div>
                                                             <div class="right-side">0 ‎₼</div>
                                                         </li>
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Catdilima:</div>
+                                                            <div class="left-side">Çatdırılma:</div>
                                                             <div class="right-side">5 ‎₼</div>
                                                         </li>
 
                                                         <!-- total price -->
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Toplam mebleg:</div>
+                                                            <div class="left-side">Toplam məbləğ:</div>
                                                             <div class="right-side">274.95 ‎₼</div>
                                                         </li>
                                                     </ul>
@@ -338,7 +338,7 @@
                                             <div class="product-date">Tarix: {{order_item.date}}</div>
                                             <div class="product-title">{{x.product.name|truncatechars:50}}</div>
                                             <div class="product-number">
-                                                Mehsul kodu: {{x.product.code}}
+                                                Məhsul kodu: {{x.product.code}}
                                             </div>
                                         </div>
                                         <div class="right text-center d-flex  m-auto">
@@ -398,21 +398,21 @@
                                                     <ul>
 
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">1 eded:</div>
+                                                            <div class="left-side">1 ədəd:</div>
                                                             <div class="right-side">269.95 ‎₼</div>
                                                         </li>
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Guzest:</div>
+                                                            <div class="left-side">Güzəşt:</div>
                                                             <div class="right-side">0 ‎₼</div>
                                                         </li>
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Catdilima:</div>
+                                                            <div class="left-side">Çatdırılma:</div>
                                                             <div class="right-side">5 ‎₼</div>
                                                         </li>
 
                                                         <!-- total price -->
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Toplam mebleg:</div>
+                                                            <div class="left-side">Toplam məbləğ:</div>
                                                             <div class="right-side">274.95 ‎₼</div>
                                                         </li>
                                                     </ul>
@@ -452,7 +452,7 @@
                                             <div class="product-date">Tarix: {{order_item.date}}</div>
                                             <div class="product-title">{{x.product.name|truncatechars:50}}</div>
                                             <div class="product-number">
-                                                Mehsul kodu: {{x.product.code}}
+                                                Məhsul kodu: {{x.product.code}}
                                             </div>
                                         </div>
                                         <div class="right text-center d-flex  m-auto">
@@ -512,21 +512,21 @@
                                                     <ul>
 
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">1 eded:</div>
+                                                            <div class="left-side">1 ədəd:</div>
                                                             <div class="right-side">269.95 ‎₼</div>
                                                         </li>
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Guzest:</div>
+                                                            <div class="left-side">Güzəşt:</div>
                                                             <div class="right-side">0 ‎₼</div>
                                                         </li>
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Catdilima:</div>
+                                                            <div class="left-side">Çatdırılma:</div>
                                                             <div class="right-side">5 ‎₼</div>
                                                         </li>
 
                                                         <!-- total price -->
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Toplam mebleg:</div>
+                                                            <div class="left-side">Toplam məbləğ:</div>
                                                             <div class="right-side">274.95 ‎₼</div>
                                                         </li>
                                                     </ul>
@@ -565,7 +565,7 @@
                                             <div class="product-date">Tarix: {{order_item.date}}</div>
                                             <div class="product-title">{{x.product.name|truncatechars:50}}</div>
                                             <div class="product-number">
-                                                Mehsul kodu: {{x.product.code}}
+                                                Məhsul kodu: {{x.product.code}}
                                             </div>
                                         </div>
                                         <div class="right text-center d-flex  m-auto">
@@ -625,21 +625,21 @@
                                                     <ul>
 
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">1 eded:</div>
+                                                            <div class="left-side">1 ədəd:</div>
                                                             <div class="right-side">269.95 ‎₼</div>
                                                         </li>
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Guzest:</div>
+                                                            <div class="left-side">Güzəşt:</div>
                                                             <div class="right-side">0 ‎₼</div>
                                                         </li>
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Catdilima:</div>
+                                                            <div class="left-side">Çatdırılma:</div>
                                                             <div class="right-side">5 ‎₼</div>
                                                         </li>
 
                                                         <!-- total price -->
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Toplam mebleg:</div>
+                                                            <div class="left-side">Toplam məbləğ:</div>
                                                             <div class="right-side">274.95 ‎₼</div>
                                                         </li>
                                                     </ul>
@@ -677,7 +677,7 @@
                                             <div class="product-date">Tarix: {{order_item.date}}</div>
                                             <div class="product-title">{{x.product.name|truncatechars:50}}</div>
                                             <div class="product-number">
-                                                Mehsul kodu: {{x.product.code}}
+                                                Məhsul kodu: {{x.product.code}}
                                             </div>
                                         </div>
                                         <div class="right text-center d-flex  m-auto">
@@ -737,21 +737,21 @@
                                                     <ul>
 
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">1 eded:</div>
+                                                            <div class="left-side">1 ədəd:</div>
                                                             <div class="right-side">269.95 ‎₼</div>
                                                         </li>
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Guzest:</div>
+                                                            <div class="left-side">Güzəşt:</div>
                                                             <div class="right-side">0 ‎₼</div>
                                                         </li>
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Catdilima:</div>
+                                                            <div class="left-side">Çatdırılma:</div>
                                                             <div class="right-side">5 ‎₼</div>
                                                         </li>
 
                                                         <!-- total price -->
                                                         <li class="d-flex justify-content-between">
-                                                            <div class="left-side">Toplam mebleg:</div>
+                                                            <div class="left-side">Toplam məbləğ:</div>
                                                             <div class="right-side">274.95 ‎₼</div>
                                                         </li>
                                                     </ul>
@@ -917,7 +917,7 @@
                
                     {% for x in mesaj %}
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong_{{x.id}}">
-                        Gonderdi : "{{x.sender}}"      ----------   Tarix : "{{x.date}}"
+                        Göndərdi : "{{x.sender}}"      ----------   Tarix : "{{x.date}}"
                     </button>
                     {% endfor %}
                 </div> <!-- #5 -->

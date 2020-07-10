@@ -3,16 +3,16 @@
 
 {% block content %}
 
-<h3 class="text-center">Sizin shexsi kabinet. Istifadeci: {{ request.user }}</h3>
+<h3 class="text-center">Sizin şəxsi kabinet. İstifadəçi: {{ request.user }}</h3>
 <hr>
-<h4 class='text-center'>Sizin sifarishler</h4>
+<h4 class='text-center'>Sizin sifarişlər</h4>
 <table class='table'>
 <tr style='background:lightblue;'>
-	<td class='text-center'>Sifarish nomresi</td>
-	<td class='text-center'>Sifarishin tarixi</td>
-	<td class='text-center'>Sifaris statusu</td>
-	<td class='text-center'>Sifarisin umumi qiymeti</td>
-	<td class='text-center'>Sifaris haqqinda elave</td>
+	<td class='text-center'>Sifariş nömrəsi</td>
+	<td class='text-center'>Sifarişin tarixi</td>
+	<td class='text-center'>Sifariş statusu</td>
+	<td class='text-center'>Sifarişin ümumi qiyməti</td>
+	<td class='text-center'>Sifariş haqqında əlavə</td>
 	<td></td>
 </tr>
 {% for item in order %}
@@ -22,7 +22,7 @@
 	<td class='text-center' style='padding-top: 20px; padding-bottom: 20px;'>{{ item.status }}</td>
 	<td class='text-center' style='padding-top: 20px; padding-bottom: 20px;'>{{ item.total }} azn</td>
 	<td class='text-center' style='padding-top: 20px; padding-bottom: 20px;'><button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal-{{ item.id }}">
-  Sifarish haqqinda
+  Sifariş haqqında
 </button></td>
 </tr>
 {% endfor %}
@@ -36,10 +36,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Sifarish № {{ item.id }}</h4>
+        <h4 class="modal-title" id="myModalLabel">Sifariş № {{ item.id }}</h4>
       </div>
       <div class="modal-body">
-      <h3>Mehsul</h3>
+      <h3>Məhsul</h3>
         <table class='table'>
         	{% for order_item in item.items.items.all %}
 	        	<tr>
@@ -54,18 +54,18 @@
 	        		<td><strong>{{ item.items.cart_total }} Azn</strong></td>
 	        	</tr>
         </table>
-   		<h3>Sifarish verene :</h3>
-   		 <p>Adi: {{ item.first_name }}</p>
-   		 <p>Familya: {{ item.last_name }}</p>
-   		 <p>Elaqe nomresi: {{ item.phone }}</p>
-   		 <h3>Catdirilma novu</h3>
-   		 <p>{% if item.buying_type == 'self' %} Dukana yaxinlasharag {% else %}Catdirilma{% endif %}</p>
+   		<h3>Sifariş verənə :</h3>
+   		 <p>Adı: {{ item.first_name }}</p>
+   		 <p>Soyad: {{ item.last_name }}</p>
+   		 <p>Əlaqə nömrəsi: {{ item.phone }}</p>
+   		 <h3>Çatdırılma növü</h3>
+   		 <p>{% if item.buying_type == 'self' %} Mağazaya yaxınlaşmaqla {% else %}çatdırılma{% endif %}</p>
    		 <p>{% if item.buying_type == 'delivery' %} {{ item.address }}{% endif %}</p>
-   		 <h3>Sifarish haqqinda comment</h3>
+   		 <h3>Sifariş haqqında qeyd</h3>
    		 <p>{{ item.comments }}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Bagla</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Bağla</button>
       </div>
     </div>
   </div>

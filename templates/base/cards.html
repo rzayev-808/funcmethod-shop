@@ -16,13 +16,13 @@
         </div>
         <ul class="list-group list-group-flush center">
           <li class="list-group-item">Marka: {{product.brand}}</li>
-          <li class="list-group-item">Qiymet: {{product.price}}.AZN</li>
+          <li class="list-group-item">Qiymət: {{product.price}}.AZN</li>
           <hr>
           {% if not request.user.is_authenticated %}
-          <h6 style="color: rgb(240, 11, 11);">Sebete elave ucun <a href='{% url "login" %}' class="alert-link">Sisteme</a> daxil olun</h6>
+          <h6 style="color: rgb(240, 11, 11);">Səbətə əlavə üçün <a href='{% url "login" %}' class="alert-link">sistemə</a> daxil olun</h6>
           {% else %}
-          <li class="list-group-item"><a href='#' class='add_to_cart' data-slug='{{ product.slug }}'><button class='btn btn-danger'>Sebete elave et</button></a></li>
-          <li class="list-group-item"><a href='/fovarite_update/{{product.id}}/' class='add_to_fovarite'><button class='btn btn-danger'>Fovarite elave et</button></a></li>
+          <li class="list-group-item"><a href='#' class='add_to_cart' data-slug='{{ product.slug }}'><button class='btn btn-danger'>Səbətə əlavə et</button></a></li>
+          <li class="list-group-item"><a href='/fovarite_update/{{product.id}}/' class='add_to_fovarite'><button class='btn btn-danger'>Favoritə əlavə et</button></a></li>
 
           {% endif %}
         </ul>

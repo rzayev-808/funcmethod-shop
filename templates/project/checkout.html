@@ -16,33 +16,36 @@
 }
 </style>
 <div class='my-cart'>
-<h3 class='text-center'>Sifarishi tesdiqle</h3>
+<h3 class='text-center'>Sifarişi təstiqlə</h3>
 <br>
 <table class='table'>
 <tr>
-	<td class='text-center'><strong>Mehsul</strong></td>
-	<td class='text-center'><strong>Sayi</strong></td>
-	<td class='text-center'><strong>Rengi</strong></td>
-	<td class='text-center'><strong>Qiymet</strong></td>
+	<td class='text-center'><strong>Məhsul</strong></td>
+	<td class='text-center'><strong>Sayı</strong></td>
+	<td class='text-center'><strong>Rəngi</strong></td>
+	<td class='text-center'><strong>Qiymət</strong></td>
 	<td class='text-center'></td>
 </tr>
 {% for item in cart.items.all %}
 <tr>
 	<td class='text-center'>{{ item.product.name }}</td>
 	<td class="text-center">{{ item.qty }}</td>
-	<td class="text-center">{{ item.color|default:"secilmeyib" }}</td>
+	<td class="text-center">{{ item.color|default:"Seçilməyib" }}</td>
 	<td class='text-center'>{{ item.item_total }} Azn</td>
 	<td></td>
 </tr>
 {% endfor %}
 <tr>
 	<td></td>
-	<td class='text-center'> <strong>Cemi: </strong></td>
+	<td class='text-center'> <strong>Cəmi: </strong></td>
 	<td class='text-center'><strong>{{ cart.cart_total }} Azn</strong></td>
 	<td class='text-center'></td>
 </tr>
 </table>
+<form action="" method="POST">
+	{% csrf_token %}
+</form>
 <h3 class="text-center">
-<a href='{% url "create_order" %}' class='pull-right'><button class='btn btn-danger'>Tesdiqle</button></a></h3>
+<a href='{% url "create_order" %}' class='pull-right'><button  class='btn btn-danger'>Təstiqlə</button></a></h3>
 </div>
 {% endblock content %}
