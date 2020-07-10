@@ -3504,8 +3504,17 @@ footer .copyright p {
     line-height: 50px;
   }
 }
+@media (max-width: 720px){
+  section .products .col-md-4 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}}
 
 @media (max-width: 480px) {
+  section .products .col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
   .mycontainer {
     width: calc(100% - 20px);
   }
@@ -3616,7 +3625,7 @@ footer .copyright p {
     border-radius: 4px;
   }
   section .account .user-pages .products .product .prouct-photo {
-    width: 100%;
+    width: 50%;
   }
   section .account .user-pages .orders .order-nav {
     padding: 0 20px;

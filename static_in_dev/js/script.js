@@ -31,16 +31,7 @@ $('.navbar').on('mouseleave',function(){
     $(this).toggleClass('active');
     $(this).parent().children('.user-menu').toggleClass('active');
   });
-$('.navbar-toggler').on('click', function () {
-  if (!$('header .navbar-collapse').hasClass('show')) {
-    $('header').addClass('open-menu')
 
-  }
-  else {
-    $('header').removeClass('open-menu')
-
-  }
-})
 $('.fav').on('click', function (e) {
 
   $(e.target).toggleClass('active')
