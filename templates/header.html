@@ -36,8 +36,8 @@
                 <img src="{% static 'images/logo.svg' %}" alt="">
             </a>
             <div class="nav-side d-flex flex-grow-1 justify-content-between">
-                <div class="search d-flex">
-                    <form action="{% url 'query' %}">
+                <div class="search">
+                    <form action="{% url 'query' %}" class="d-flex">
 
                     
                     <input type="text" name="q" value="" placeholder="Axtaris">

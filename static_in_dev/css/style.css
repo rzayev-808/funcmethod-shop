@@ -97,8 +97,8 @@ input[type="number"] {
 .img-bg {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 [class*="btn-"] {
@@ -3515,6 +3515,24 @@ footer .copyright p {
     flex: 0 0 50%;
     max-width: 50%;
 }
+section .products .product .product-info{
+   height: 240px; 
+}
+
+section .products .product .add-to-cart{
+  width: 40px;
+  height: 40px;
+}
+
+section .products .product .product-info .product-price{
+  position: relative;
+}
+
+section .products .product .product-info .product-price .new-price{
+  position: absolute;
+  top: 50%;
+  transform: translateY(50%);
+}
   .mycontainer {
     width: calc(100% - 20px);
   }
@@ -3534,7 +3552,12 @@ footer .copyright p {
             transform: translateY(-50%);
   }
   header nav .nav-side .search {
-    display: none !important;
+    position: absolute;
+    top: 40%;
+    left: 45%;
+  }
+  header nav .nav-side .search .search-icon button{
+    left: 50%;
   }
   header nav .nav-side .user-side ul li .notifications {
     top: -8px;

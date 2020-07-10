@@ -25,7 +25,7 @@ MarkupPy==1.14
 notifications==0.3.2
 odfpy==1.4.1
 openpyxl==3.0.3
-Pillow==5.4.1
+Pillow
 pyexcel==0.6.1
 pyexcel-io==0.5.20
 pyexcel-xls==0.5.8
