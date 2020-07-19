@@ -124,6 +124,11 @@ def index(request):
     }
     return render(request, 'base/index.html', context)    
 
+def id_data(request):
+    d = Product.objects.all()
+    return render(request, 'id.html', {"d":d})
+
+
 def product_list(request):
     
     f = ProductFilter(request.GET, queryset=Product.objects.all())
