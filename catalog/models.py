@@ -110,13 +110,12 @@ class MainCategory(models.Model):
 
 class Category(models.Model):
     maincategory = models.ForeignKey(MainCategory, blank=True, null=True, on_delete=models.CASCADE, related_name='post')
-    #subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=100)
     slug = models.SlugField(blank=True, null=True)
     
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name+str(self.name))
+        self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -174,19 +173,11 @@ class Product(models.Model):
     #promo_kod = models.CharField(max_length=200, blank=True)
     slug = models.SlugField(max_length=200, blank=True)
     material = models.CharField(max_length=200, blank=True, verbose_name='Material')
-    #olcu = models.CharField(max_length=200, blank=True, verbose_name='Olculer')
-    #history = HistoricalRecords()
-    #fovarite = models.BooleanField(default=False)
+    
     objects = ProductManager()
 
     def prome_code_in(self):
        return self.codes.all().count()
-
-    #def kredit_18(self):
-     #  x = self.kredit.filter(product=self.id)
-      # for i in x:
-       #    x = i.odenis
-        #   return x
 
     def save (self, *args, **kwargs):
         if not self.slug:

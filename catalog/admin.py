@@ -81,7 +81,17 @@ class ProductAdmin(admin.ModelAdmin):
 	search_fields = ('name', 'code',)
 	
 
-
+class CartAdmin(admin.ModelAdmin):
+    	#inlines = [ProductMultiImage, ProductMultiPromoCode,ProductMultiSize, ColorssAdmin]
+	#
+	#list_display = ("category", "slug" ,"name", "active", "stock", "price", "sale", "dicount","prome_code_in",)
+	model = Cart
+	actions = [deactive_payed, active_payed]
+	#extra = 2
+	#list_filter = ('active','codes__name','brand',)
+	#readonly_fields = ['slug','reting',]
+	#fields = ['kredit',]
+	search_fields = ('id',)
 admin.site.register(MultiImage)
 #Sadmin.site.register(Fovarite)
 #n.site.register(Color)
@@ -101,6 +111,6 @@ admin.site.register(HistoryProducts)
 admin.site.register(Comment)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(CartItem)
-admin.site.register(Cart)
+admin.site.register(Cart, CartAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(MainCategory)
