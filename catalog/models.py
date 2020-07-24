@@ -181,7 +181,7 @@ class Product(models.Model):
 
     def save (self, *args, **kwargs):
         if not self.slug:
-            self.slug = gen_slug(self.name)
+            self.slug = slugify(self.name)
         if not self.dicount:
             self.dicount = self.price - (self.price * self.sale / 100)
         if not self.month_6:
@@ -201,8 +201,8 @@ class Product(models.Model):
             self.month_18 = self.month_18  / 18 
        
        
-        new_image = compress(self.image)
-        self.image = new_image
+       # new_image = compress(self.image)
+        #self.image = new_image
         super().save(*args, **kwargs)
 
     def __str__(self):

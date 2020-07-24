@@ -76,7 +76,7 @@ class ProductAdmin(admin.ModelAdmin):
 	actions = [deactive_payed, active_payed]
 	#extra = 2
 	list_filter = ('active','codes__name','brand',)
-	readonly_fields = ['slug','reting',]
+	#readonly_fields = ['slug','reting',]
 	#fields = ['kredit',]
 	search_fields = ('name', 'code',)
 	
