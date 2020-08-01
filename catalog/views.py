@@ -41,6 +41,44 @@ import requests
 from django.db.models import F
 
 
+import pyexcel as pe
+def data(request):
+    xlsxfile = "2f.xlsx"
+    with open(xlsxfile, "rb") as f:
+        content = f.read()
+        r = pe.get_book(file_type="xlsx", file_content=content)
+        # for x in r[3]:
+        #     create = Product.objects.update_or_create(
+        #         barcode=x[0],
+        #         #brand_id=1,
+        #         category_name=x[1],
+        #         #code=x[1],
+        #         image = 'bg.jpg',
+        #         name=x[2],
+        #         price=x[3],
+        #         sale=x[4],
+        #         title=x[5],
+        #     )
+        for x in r[0]:
+            create = Product.objects.update_or_create(
+                barcode=x[0],
+                brand_id=1,
+                category_name=x[2],
+                code=x[1],
+                image = 'bg.jpg',
+                name=x[3],
+                price=x[4],
+                sale=x[5],
+                title=x[6],
+            )
+    
+    
+    return render(request, 'import.html')
+
+
+
+
+
 class NumberInFilter(django_filters.BaseInFilter, django_filters.NumberFilter):
     pass
 
@@ -847,39 +885,5 @@ def remove_fovarites(request, id):
         
         request.session.modified = True
         return redirect(request.POST.get('url_from'))
-
-import pyexcel as pe
-def data(request):
-    xlsxfile = "2f.xlsx"
-    with open(xlsxfile, "rb") as f:
-        content = f.read()
-        r = pe.get_book(file_type="xlsx", file_content=content)
-        # for x in r[3]:
-        #     create = Product.objects.update_or_create(
-        #         barcode=x[0],
-        #         #brand_id=1,
-        #         category_name=x[1],
-        #         #code=x[1],
-        #         image = 'bg.jpg',
-        #         name=x[2],
-        #         price=x[3],
-        #         sale=x[4],
-        #         title=x[5],
-        #     )
-        for x in r[0]:
-            create = Product.objects.update_or_create(
-                barcode=x[0],
-                brand_id=1,
-                category_name=x[2],
-                code=x[1],
-                image = 'bg.jpg',
-                name=x[3],
-                price=x[4],
-                sale=x[5],
-                title=x[6],
-            )
-    
-    
-    return render(request, 'import.html')
 
 
