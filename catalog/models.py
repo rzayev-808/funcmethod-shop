@@ -154,7 +154,7 @@ class Product(models.Model):
     code = models.CharField(max_length=100, verbose_name='Mehsulun Kodu')
     image = models.ImageField(blank=True, null=True)
     barcode = models.CharField(max_length=100, verbose_name='Bar kod')
-    price = models.DecimalField(max_digits=9, decimal_places=0, default=0, verbose_name='Qiymeti')
+    price = models.DecimalField(max_digits=9, decimal_places=1, default=0, verbose_name='Qiymeti')
     sale = models.DecimalField(max_digits=9, decimal_places=0, default=0,  verbose_name='Endirim Faizi', blank=True, null=True)
     dicount = models.DecimalField(max_digits=9, decimal_places=0, verbose_name='Yekun Qiymeti', blank=True, null=True)
     order_price = models.DecimalField(max_digits=9, decimal_places=2,  verbose_name='Catdirilma Qiymeti', blank=True, null=True)
