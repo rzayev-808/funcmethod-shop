@@ -850,19 +850,32 @@ def remove_fovarites(request, id):
 
 import pyexcel as pe
 def data(request):
-    xlsxfile = "2.xlsx"
+    xlsxfile = "2f.xlsx"
     with open(xlsxfile, "rb") as f:
         content = f.read()
         r = pe.get_book(file_type="xlsx", file_content=content)
+        # for x in r[3]:
+        #     create = Product.objects.update_or_create(
+        #         barcode=x[0],
+        #         #brand_id=1,
+        #         category_name=x[1],
+        #         #code=x[1],
+        #         image = 'bg.jpg',
+        #         name=x[2],
+        #         price=x[3],
+        #         sale=x[4],
+        #         title=x[5],
+        #     )
         for x in r[0]:
             create = Product.objects.update_or_create(
-                barcode=x[1],
-                brand_id=13,
-                category_id=x[3],
-                code=x[2],
-                image='_schafer1s39117002krm012_.jpeg',
-                name=x[4],
-                price=x[5],
+                barcode=x[0],
+                brand_id=1,
+                category_name=x[2],
+                code=x[1],
+                image = 'bg.jpg',
+                name=x[3],
+                price=x[4],
+                sale=x[5],
                 title=x[6],
             )
     
