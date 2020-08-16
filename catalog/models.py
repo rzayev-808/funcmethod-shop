@@ -519,3 +519,13 @@ class Message(models.Model):
 
   def __str__(self):
     return self.user.email
+
+class LandingPage(models.Model):
+  title = models.CharField(max_length=400)
+  slug = models.SlugField(blank=True)
+  category = models.ForeignKey(SubCategory,on_delete=models.CASCADE,blank=True, null=True ,related_name='landing', verbose_name='Kategoriya')
+  products = models.ManyToManyField(Product, blank=True)
+
+  def __str__(self):
+      return self.title
+  
