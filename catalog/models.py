@@ -114,9 +114,9 @@ class Category(models.Model):
     slug = models.SlugField(blank=True, null=True)
     
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
+    #def save(self, *args, **kwargs):
+     #   self.slug = slugify(self.name)
+      #  super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -136,10 +136,10 @@ class SubCategory(models.Model):
 
 
 
-    def save (self, *args, **kwargs):
-      if not self.slug:
-        self.slug = gen_slug(self.name) 
-      super().save(*args, **kwargs)
+    #def save (self, *args, **kwargs):
+     # if not self.slug:
+      #  self.slug = gen_slug(self.name) 
+      #super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('subcategory_detail', kwargs={'subcategory_slug': self.slug})
@@ -151,7 +151,7 @@ class Product(models.Model):
     category_name = models.CharField(max_length=1000, verbose_name='Mehsulun categoriyasi',blank=True, null=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='Brand',blank=True, null=True)
     name = models.CharField(max_length=1000, verbose_name='Mehsulun Adi')
-    code = models.CharField(max_length=100, verbose_name='Mehsulun Kodu')
+    code = models.CharField(max_length=100, verbose_name='Mehsulun Kodu',blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
     barcode = models.CharField(max_length=100, verbose_name='Bar kod')
     price = models.DecimalField(max_digits=9, decimal_places=2, default=0, verbose_name='Qiymeti')
@@ -183,8 +183,8 @@ class Product(models.Model):
     def save (self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        if not self.dicount:
-            self.dicount = self.price - (self.price * self.sale / 100)
+        #if not self.dicount:
+         #   self.dicount = self.price - (self.price * self.sale / 100)
         if not self.month_6:
             self.month_6 = self.price + (self.price * 10 / 100)
             self.month_6 = self.month_6  / 6 
@@ -219,7 +219,7 @@ class Color(models.Model):
     color_name = models.CharField(max_length=100,blank=True, null=True)
     code = models.CharField(max_length=200, blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
-    #slug = models.SlugField(max_length=200, blank=True)
+    slug = models.SlugField(max_length=200, blank=True,null=True)
     
    
 
@@ -234,10 +234,10 @@ class MultiImage(models.Model):
     image = models.ImageField(verbose_name='Image', blank=True, null=True)
     
     
-    def save(self, *args, **kwargs):
-      new_image = compress(self.image)
-      self.image = new_image
-      super().save(*args, **kwargs)
+    #def save(self, *args, **kwargs):
+     # new_image = compress(self.image)
+      #self.image = new_image
+      #super().save(*args, **kwargs)
 
     
 class CartItem(models.Model):

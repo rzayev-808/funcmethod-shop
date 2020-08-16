@@ -7,7 +7,7 @@ from .models import *
 class ProductColor(admin.StackedInline):
 	
     model = Color
-    fields = ['color_name','color','code', 'image',]
+    fields = ['color_name','color', 'image','slug',]
 	
 	
 
@@ -27,7 +27,7 @@ class ColorssAdmin(admin.TabularInline):
     #extra = 1
 	
 	model = Color
-	fields = ['code', 'color','color_name', 'image']
+	fields = ['code','slug', 'color','color_name', 'image']
 	#show_change_link = True
 	extra = 0
 	#readonly_fields = ['odenis',]

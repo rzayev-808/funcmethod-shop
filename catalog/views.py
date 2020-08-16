@@ -59,17 +59,35 @@ def data(request):
         #         sale=x[4],
         #         title=x[5],
         #     )
-        for x in r[0]:
+        for x in r[3]:
             create = Product.objects.update_or_create(
+                #barcode=x[0],
+                #brand_id=1,
+                #category_name=x[2],
+                #code=x[1],
+                #image = 'bg.jpg',
+                #name=x[3],
+                #price=x[4],
+                #sale=x[5],
+                #title=x[6],
+                #barcode=x[0],
+                #brand_id=1,
+                #category_name=x[1],
+                #code=x[1],
+                #image = 'bg.jpg',
+                #name=x[2],
+                #price=x[3],
+                #sale=x[5],
+                #title=x[5],
                 barcode=x[0],
-                brand_id=1,
-                category_name=x[2],
-                code=x[1],
+                #brand_id=1,
+                category_name=x[1],
+                #code=x[1],
                 image = 'bg.jpg',
-                name=x[3],
-                price=x[4],
-                sale=x[5],
-                title=x[6],
+                name=x[2],
+                price=x[3],
+                sale=x[4],
+                title=x[5],
             )
     
     
