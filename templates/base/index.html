@@ -13,9 +13,40 @@
 
     <section id="home">
         <!-- topslider -->
-        <div class="homeSlider">
-            <img class="img-bg" src="{% static 'images/bg.jpg' %}" alt="">
-        </div>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    {% comment %} <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> {% endcomment %}
+  </ol>
+  <div class="carousel-inner">
+{% comment %} {% for t in banner %}
+    <div class="carousel-item {{home_page}}">
+      <img class="d-block w-100" src="{{t.image.url}}" alt="First slide">
+    </div>
+    {% endfor %}
+  </div> {% endcomment %}
+  
+  <div class="carousel-item active">
+     <a href="{{banner.0.link}}/"> <img class="d-block w-100" src="{{banner.0.image.url}}" alt="First slide"></a>
+    </div>
+    
+{% for t in banner %}
+    <div class="carousel-item ">
+     <a href="{{t.link}}/"> <img class="d-block w-100" src="{{t.image.url}}" alt="First slide"></a>
+    </div>
+    {% endfor %}
+  </div> 
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+     
 
         <!-- services --> 
         <div class="services d-flex align-items-center">

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'import_export',
     'rest_framework',
     'api',
+    'sortedm2m',
     #'favit',
     #'simple_history',
 ]

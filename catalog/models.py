@@ -18,6 +18,7 @@ from io import BytesIO
 from django.core.files import File
 from ckeditor.fields import RichTextField
 from colorful.fields import RGBColorField
+from sortedm2m.fields import SortedManyToManyField
 
 #from simple_history.models import HistoricalRecords
 import math
@@ -33,7 +34,6 @@ def compress(image):
     new_image = File(im_io, name=image.name)
     return new_image
 
-
 def gen_random_promo():
     #new_slug = slugify(s, allow_unicode=True)
 
@@ -44,6 +44,18 @@ def gen_slug(s):
     new_slug = slugify(s, allow_unicode=True)
 
     return new_slug + '_' + str(int(time()))
+
+
+class Banner(models.Model):
+      image = models.ImageField()
+      link = models.CharField(max_length=50)
+
+      def __str__(self):
+          return self.link
+      
+   
+
+
 
 class ProductQuerySet(models.query.QuerySet):
 
@@ -524,7 +536,7 @@ class LandingPage(models.Model):
   title = models.CharField(max_length=400)
   slug = models.SlugField(blank=True)
   category = models.ForeignKey(SubCategory,on_delete=models.CASCADE,blank=True, null=True ,related_name='landing', verbose_name='Kategoriya')
-  products = models.ManyToManyField(Product, blank=True)
+  products = SortedManyToManyField(Product, blank=True)
 
   def __str__(self):
       return self.title

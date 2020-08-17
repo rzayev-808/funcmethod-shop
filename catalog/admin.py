@@ -106,9 +106,10 @@ admin.site.register(User)
 admin.site.register(Color)
 admin.site.register(Phone)
 admin.site.register(Message)
-admin.site.register(MainCategory)
-
 admin.site.register(LandingPage)
+admin.site.register(Banner)
+
+admin.site.register(HistoryProducts)
 admin.site.register(Comment)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(CartItem)

@@ -150,6 +150,8 @@ def index(request):
     phone = Phone.objects.get(id=1)
     main = MainCategory.objects.all().order_by('-id')
     cat = Category.objects.all()
+    banner = Banner.objects.all()
+    
     #x = len(request.session.get('fovarites'))
     #fovarites = Fovarite.objects.all()
     b = []
@@ -175,7 +177,9 @@ def index(request):
         'b': b,
         'phone':phone,
         'main': main,
-        'cat': cat
+        'cat': cat,
+        'banner':banner,
+        #'one':Banner.objects.get
         
     }
     return render(request, 'base/index.html', context)    
@@ -905,3 +909,9 @@ def remove_fovarites(request, id):
         return redirect(request.POST.get('url_from'))
 
 
+def banner(request, link):
+    banner = Banner.objects.all()
+    context = {
+        'banner':banner,
+    }
+    return render(request, 'banner.html', context)
