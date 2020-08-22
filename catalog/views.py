@@ -809,6 +809,8 @@ from django.core.paginator import Paginator
 def filter_list(request):
     brand = Brand.objects.all()
     category = SubCategory.objects.all()
+    main = MainCategory.objects.all().order_by('-id')
+    cat = Category.objects.all()
     posts = Product.objects.all()
     filter = Filters(request.GET, queryset=Product.objects.all().order_by('?'))
     paginator = Paginator(filter.qs, 10)
@@ -821,7 +823,9 @@ def filter_list(request):
         'category': category,
         'posts': posts,
         'filter': filter,
-        'page_obj':page_obj
+        'page_obj':page_obj,
+        'main':main,
+        'cat':cat,
     }
     return render(request, 'sufre.html', context)
 
@@ -932,3 +936,23 @@ def banner(request, link):
         'cat':cat,
     }
     return render(request, 'banner.html', context)
+
+
+def category_in_products(request, category):
+    p = SubCategory.objects.all()
+    categories = SubCategory.objects.all()
+    main = MainCategory.objects.all().order_by('-id')
+    cat = Category.objects.all()
+    filter = Filters(request.GET, queryset=Product.objects.filter(category__slug=category))
+    paginator = Paginator(filter.qs, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'categories':categories,
+        'main':main,
+        'cat':cat,
+        'filter': filter,
+        'page_obj':page_obj,
+    }
+    return render(request, 'category_products.html', context)
+

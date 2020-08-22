@@ -38,6 +38,7 @@ from .views import (
 	data,
 	subcategory_view,
 	banner,
+	category_in_products,
 )
 
 
@@ -79,5 +80,6 @@ urlpatterns = [
 	path('add/<int:id>/', add_to_fovarite, name='add_to_fovarite'),
 	path('products_history/', products_history, name='products_history'),
 	path('filter/', filter_list,  name="posts"),
+	path('filter/<category>/', category_in_products,name="category_in_products"),
 	path('<link>/', banner,  name="banner"),
 ]
