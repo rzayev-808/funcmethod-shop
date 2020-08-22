@@ -132,77 +132,32 @@
             <div class="sidebar">
                 <form action="{% url 'detail' %}" method="get">
                 <!-- categories -->
-                <ul class="categories">
+               <ul class="categories">
 
                     <!-- category -->
-                    <li class="category fm">Endirimlər
-                    </li>
+                    
 
-                    <!-- category -->
-                    <li class="category active fm">Süfrə qrupu
+                    {% for x in main %}
+                    <li class="category active fm">{{x.name}}
                         <img class="ml-1" src="{% static 'images/icons/arrow.svg' %}" alt="">
 
                         <!-- subcategories -->
+                        {% for b in x.post.all %}
                         <ul class="subcategories">
 
-                            <!-- subcategory -->
+                            {% for w in b.sub.all %}
                             <li class="subcategory">
-                                12 Kişilik
+                                <a href="{{w.slug}}/">{{w.name}}</a>
                             </li>
-
+                            {%endfor%}
                             <!-- subcategory -->
-                            <li class="subcategory">
-                                6 Kişilik
-                            </li>
+                            
                         </ul>
+                        {%endfor%}
                     </li>
-
+                    {% endfor %}
                     <!-- category -->
-                    <li class="category fm active">Bişirmə qrupu
-                        <img class="ml-1" src="{% static 'images/icons/arrow.svg' %}" alt="">
-
-                        <!-- subcategories -->
-                        <ul class="subcategories">
-
-                            <!-- subcategory -->
-                            <li class="subcategory active">
-                                Çatal Kaşık Bıçak Takımları
-                                <img class="ml-1" src="{% static 'images/icons/arrow.svg' %}" alt="">
-                                <ul>
-                                    <li>
-                                        12 Kişilik
-                                    </li>
-                                    <li>
-                                        6 Kişilik
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- subcategory -->
-                            <li class="subcategory">
-                                Yemek takımları
-
-                            </li>
-
-                            <!-- subcategory -->
-                            <li class="subcategory">
-                                Çay Pasta Takımları
-                            </li>
-
-                            <!-- subcategory -->
-                            <li class="subcategory">
-                                Kahvaltı ve Servis Takımları
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- category -->
-                    <li class="category fm">Kiçik ev alətləri
-                    </li>
-
-                    <!-- category -->
-                    <li class="category fm">MƏTBƏX AKSESUARLARI
-                    </li>
+                   
 
                 </ul>
 
@@ -254,7 +209,7 @@
                 </ul>
 
                 <!-- range -->
-                <label for="" class="mt-4 fm">
+                {% comment %} <label for="" class="mt-4 fm">
                     Qiymət aralığı
                 </label>
                 <div class="range-slider pr-3">
@@ -269,7 +224,7 @@
                     </div>
                     <input type="text" class="js-range-slider" value="" />
 
-                </div>
+                </div> {% endcomment %}
                 <input style="height: 40px; width: 80px;" type="submit" />
             </form>
             </div>
