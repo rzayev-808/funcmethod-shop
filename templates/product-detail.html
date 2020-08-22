@@ -87,7 +87,7 @@
                 </div>
                 {% for x in product.color.all %}
                 
-            <a href="/color/{{x.id}}/"><button style="background-color:{{x.color}}; color: white;" type="button" class="btn">{{x.color_name}}</button></a>
+            <a href="/products/{{x.slug}}/"><button style="background-color:{{x.color}}; color: white;" type="button" class="btn">{{x.color_name}}</button></a>
             {% endfor %}
                 <a href="">{{product.color.color_name}}</a>
                 

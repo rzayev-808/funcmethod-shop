@@ -414,8 +414,9 @@
                    
                 </div>
                 {% for x in color.product.color.all %}
-                <a href="/color/{{x.id}}/"><button style="background-color:#{{x.color}}; color: white;" type="button" class="btn">{{x.color_name}}</button></a>
+                <a href="/products/{{x.slug}}/"><button style="background-color:{{x.color}}; color: white;" type="button" class="btn">{{x.color_name}}</button></a>
             {% endfor %}
+ <a href="/product/{{color.product.slug}}/"><button style="background-color:{{color.product.main_color}}; color: white;" type="button" class="btn">{{x.color_name}}</button></a>
                 <div class="product-price d-flex ">
                     {% if color.product.sale > 0 %}
                     <div class="new-price mr-2">{{color.product.dicount}} ‎₼</div>

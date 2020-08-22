@@ -27,12 +27,12 @@
     {% endfor %}
   </div> {% endcomment %}
   
-  <div class="carousel-item active">
+  <!--<div class="carousel-item active">
      <a href="{{banner.0.link}}/"> <img class="d-block w-100" src="{{banner.0.image.url}}" alt="First slide"></a>
-    </div>
+    </div> -->
     
 {% for t in banner %}
-    <div class="carousel-item ">
+    <div class="carousel-item {% if forloop.first %} active{% endif %}">
      <a href="{{t.link}}/"> <img class="d-block w-100" src="{{t.image.url}}" alt="First slide"></a>
     </div>
     {% endfor %}
@@ -193,9 +193,9 @@
                             
                             
                             
-                            {% for x in x.color.all %}
+                            {% for color in x.color.all %}
                             
-                            <a href="/color/{{x.id}}/"><button style="background-color:{{x.color}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
+                            <a href="/products/{{color.slug}}/"><button style="background-color:{{color.color}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
                             {% endfor %}
                         </div>
                         
@@ -330,7 +330,7 @@
                             </div>
                             {% for x in x.color.all %}
                             
-                            <a href="/color/{{x.id}}/"><button style="background-color:{{x.color}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
+                            <a href="/products/{{x.slug}}/"><button style="background-color:{{x.color}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
                             {% endfor %}
                         </div>
                         <a href="" class="add_to_cart" data-slug='{{ x.slug }}'> <div class="add-to-cart">
@@ -463,7 +463,7 @@
                             </div>
                             {% for x in x.color.all %}
                             
-                            <a href="/color/{{x.id}}/"><button style="background-color:{{x.color}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
+                            <a href="/products/{{x.slug}}/"><button style="background-color:{{x.color}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
                             {% endfor %}
                         </div>
                         <a href="" class="add_to_cart" data-slug='{{ x.slug }}'> <div class="add-to-cart">

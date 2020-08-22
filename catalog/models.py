@@ -233,6 +233,9 @@ class Color(models.Model):
     image = models.ImageField(blank=True, null=True)
     slug = models.SlugField(max_length=200, blank=True,null=True)
     
+    
+    def __str__(self):
+        return self.color_name
    
 
 
@@ -533,11 +536,11 @@ class Message(models.Model):
     return self.user.email
 
 class LandingPage(models.Model):
-  title = models.CharField(max_length=400)
-  slug = models.SlugField(blank=True)
+  title = RichTextField()
+  slug = models.SlugField(max_length=500 ,blank=True)
   category = models.ForeignKey(SubCategory,on_delete=models.CASCADE,blank=True, null=True ,related_name='landing', verbose_name='Kategoriya')
-  products = SortedManyToManyField(Product, blank=True)
+  products = models.ManyToManyField(Product,related_name='pr',blank=True)
 
   def __str__(self):
-      return self.title
+      return self.slug
   

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sortedm2m',
     'catalog',
     'crispy_forms',
     'django_filters',
@@ -47,7 +48,7 @@ INSTALLED_APPS = [
     'import_export',
     'rest_framework',
     'api',
-    'sortedm2m',
+    #'sortedm2m',
     #'favit',
     #'simple_history',
 ]
@@ -88,22 +89,22 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+#DATABASES = {
+ #  'default': {
+  #     'ENGINE': 'django.db.backends.sqlite3',
+   #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+   # }
+#}
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME': 'myproject2',
+         'USER': 'myprojectuser2',
+         'PASSWORD': 'password',
+         'HOST': 'localhost',
+         'PORT': '',
+     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'myproject2',
-#         'USER': 'myprojectuser2',
-#         'PASSWORD': 'password',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

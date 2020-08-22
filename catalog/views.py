@@ -825,9 +825,9 @@ def filter_list(request):
     }
     return render(request, 'sufre.html', context)
 
-def color_view(request, id):
+def color_view(request, color_slug):
     try:
-        x = request.GET.get('id')
+        x = request.GET.get('color_slug')
         product_list = request.session.get('product_list', {})
         product_list[product_slug] = x
         request.session['product_list'] = product_list
@@ -852,7 +852,7 @@ def color_view(request, id):
     
     #his['slug'] = keys
     #print(history_products)
-    color = Color.objects.get(id=id)
+    color = Color.objects.get(slug=color_slug)
     categories = Category.objects.all()
     if request.method == 'POST':
         form = ProductComment(request.POST or None)
@@ -909,9 +909,26 @@ def remove_fovarites(request, id):
         return redirect(request.POST.get('url_from'))
 
 
+#def banner(request, link):
+ #   banner = Banner.objects.all()
+  #  context = {
+   #     'banner':banner,
+    #}
+    #return render(request, 'banner.html', context)
+
+
+
 def banner(request, link):
-    banner = Banner.objects.all()
+    categories = SubCategory.objects.all()
+    main = MainCategory.objects.all().order_by('-id')
+    cat = Category.objects.all()
+    banner = LandingPage.objects.get(slug=link)
+    products = Product.objects.filter(pr=banner)
     context = {
         'banner':banner,
+        'products':products,
+        'categories':categories,
+        'main':main,
+        'cat':cat,
     }
     return render(request, 'banner.html', context)

@@ -2,7 +2,9 @@ from django.contrib import admin
 from .models import *
 #from simple_history.admin import SimpleHistoryAdmin
 
-
+class LocalAdmin(admin.ModelAdmin):
+    model = LandingPage 
+    filter_horizontal = ('products',)
 
 class ProductColor(admin.StackedInline):
 	
@@ -106,7 +108,7 @@ admin.site.register(User)
 admin.site.register(Color)
 admin.site.register(Phone)
 admin.site.register(Message)
-admin.site.register(LandingPage)
+admin.site.register(LandingPage, LocalAdmin)
 admin.site.register(Banner)
 
 admin.site.register(HistoryProducts)
