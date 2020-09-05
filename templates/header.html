@@ -185,9 +185,7 @@
 
                 
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" id="header-navbar-toggler">
                     <div class="hamburger">
                         <span></span>
                         <span></span>
@@ -195,12 +193,17 @@
                     </div>
                 </button>
             </div>
-        </nav>
+      </nav> 
 
         <!-- bottom -->
-        <nav class="navbar navbar-expand-lg">
+        <!-- <nav class="navbar navbar-expand-lg"> -->
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           
+        
+         
+                       <nav class="navbar navbar-expand-lg">
+
+            <div class="collapse navbar-collapse" data-target="header-navbar-toggler">
                 <ul class="navbar-nav justify-content-between w-100 ">
                     <!-- endirimler -->
                   
@@ -276,3 +279,9 @@
    });
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/66553861" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+<script>
+    $('#header-navbar-toggler').on('click', function(){
+        $("[data-target='header-navbar-toggler']").slideToggle();
+    });
+</script>

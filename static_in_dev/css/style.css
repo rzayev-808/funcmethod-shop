@@ -337,6 +337,10 @@ header nav .nav-side .search .search-icon {
     border-radius: 0 20px 20px 0;
 }
 
+header nav .nav-side .search .search-icon button {
+    border: none;
+}
+
 header nav .nav-side .search .search-icon svg {
     position: absolute;
     top: 50%;
@@ -3304,8 +3308,10 @@ footer .copyright p {
         position: absolute;
         width: 100%;
         left: 0;
-        top: 0;
+        top: 100% !important;
         z-index: 12;
+
+        margin-top: 0 !important; 
     }
     header nav .nav-side .search {
         width: 35%;
@@ -3423,7 +3429,8 @@ footer .copyright p {
         justify-content: center;
     }
     header nav .navbar-collapse {
-        margin-top: 45px;
+        /*margin-top: 45px;*/
+        margin-top: 0px;
     }
     .page-nav ul li {
         font-size: 13px;
@@ -3521,32 +3528,64 @@ footer .copyright p {
     section .products .col-md-4 {
         flex: 0 0 50%;
         max-width: 50%;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    section .products .product .product-status {
+        height: 33px;
+        line-height: 34px;
+        padding: 0 7px;
+        top: 10px;
     }
     section .products .product .product-info {
-        height: 240px;
+        height: 235px;
+        padding: 12px;
+    }
+    section .products .product .product-info .product-price {
+        flex-direction: column;
+        padding-bottom: 7px;
     }
     section .products .product .add-to-cart {
         width: 40px;
         height: 40px;
+        bottom: 50px;
+        right: 14px;
+    }
+    section .products .product .add-to-cart svg {
+        height: 25px;
+    }
+    section .products .product .product-photo {
+        height: 140px;
+    }
+    section .products .product .product-photo a .img-bg {
+        object-fit: cover;
+    }
+    section .products .product .fav {
+        width: 15px;
+        top: 5px;
     }
     section .products .product .product-info .product-price {
         position: relative;
     }
     section .products .product .product-info .product-price .new-price {
-        position: absolute;
-        top: 50%;
-        transform: translateY(50%);
+        /*position: absolute;*/
+        /*top: 50%;*/
+        /*transform: translateY(50%);*/
+        padding-bottom: 5px;
     }
     .mycontainer {
         width: calc(100% - 20px);
     }
     header {
-        height: 150px;
+        height: 200px;
     }
     header nav:first-of-type {
         -webkit-box-pack: start;
         -ms-flex-pack: start;
         justify-content: start;
+    }
+    header nav .nav-side {
+        flex-wrap: wrap;
     }
     header nav .nav-side button {
         position: absolute;
@@ -3556,9 +3595,11 @@ footer .copyright p {
         transform: translateY(-50%);
     }
     header nav .nav-side .search {
-        position: absolute;
+        /*position: absolute;
         top: 40%;
-        left: 45%;
+        left: 45%;*/
+        width: 100%;
+        margin-bottom: 16px;
     }
     header nav .nav-side .search .search-icon button {
         left: 50%;
@@ -3571,7 +3612,7 @@ footer .copyright p {
         margin-top: 60px;
     }
     section {
-        margin-top: 150px;
+        margin-top: 200px;
     }
     section .homeSlider {
         height: -webkit-max-content;
@@ -3791,6 +3832,15 @@ footer .copyright p {
     }
     footer .footer-nav .payment-methods ul .method {
         margin-left: 5px;
+    }
+}
+
+@media (max-width: 310px) {
+    header {
+        height: 250px;
+    }
+    section {
+        margin-top: 250px;
     }
 }
 
