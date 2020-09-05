@@ -41,6 +41,15 @@ import requests
 from django.db.models import F
 
 
+
+
+
+def get_404(request):
+    return render(request, '404.html')
+
+
+
+
 import pyexcel as pe
 def data(request):
     xlsxfile = "2f.xlsx"
@@ -876,7 +885,7 @@ def color_view(request, color_slug):
         'cart': cart,
         'product_page': "active",
         'product_list': product_list,
-        'history_products': history_products,
+#        'history_products': history_products,
         'form':form,
         
     }

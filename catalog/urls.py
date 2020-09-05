@@ -38,6 +38,7 @@ from .views import (
 	data,
 	subcategory_view,
 	banner,
+        get_404,
 	category_in_products,
 )
 
@@ -58,6 +59,7 @@ urlpatterns = [
 	path('cart/', cart_view, name='cart'),
 	path('checkout/', checkout_view, name='checkout'),
 	path('order/', order_create_view, name='create_order'),
+        path('404/', get_404, name='404'),
 	path('make_order/', make_order_view, name='make_order'),
 	path('thank_you/', TemplateView.as_view(template_name='project/thank_you.html'), name='thank_you'),
 	path('account/', account_view, name='account'),
