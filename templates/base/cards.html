@@ -16,7 +16,7 @@
         </div>
         <ul class="list-group list-group-flush center">
           <li class="list-group-item">Marka: {{product.brand}}</li>
-          <li class="list-group-item">Qiymət: {{product.price}}.AZN</li>
+          <li class="list-group-item">Qiymət: {{product.dicount}}.AZN</li>
           <hr>
           {% if not request.user.is_authenticated %}
           <h6 style="color: rgb(240, 11, 11);">Səbətə əlavə üçün <a href='{% url "login" %}' class="alert-link">sistemə</a> daxil olun</h6>

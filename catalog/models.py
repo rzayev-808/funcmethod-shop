@@ -67,9 +67,10 @@ class ProductQuerySet(models.query.QuerySet):
         return self.filter(featured=True, active=True)
 
     def search(self, query):
-        lookups = (Q(title__icontains=query) | 
-                   Q(name__icontains=query) | 
-                   #Q(description__icontains=query) |
+        lookups = (Q(title__search=query) | 
+                   Q(name__search=query) | 
+                   Q(slug__icontains=slugify(query)) |
+                   Q(category_name__icontains=query) |
                    Q(price__icontains=query) |
                    Q(tag__title__icontains=query)
         )
@@ -197,21 +198,26 @@ class Product(models.Model):
             self.slug = slugify(self.name)
         #if not self.dicount:
          #   self.dicount = self.price - (self.price * self.sale / 100)
+        iyirmi = self.price * 20 / 100
+        print(iyirmi)
+        ilkin = float(self.price) - float(iyirmi)
+        print(ilkin)
         if not self.month_6:
-            self.month_6 = self.price + (self.price * 10 / 100)
-            self.month_6 = self.month_6  / 6 
+            
+            self.month_6 = float(self.price) - float(ilkin)
+            self.month_6 = ilkin  / 6 
         if not self.month_9:
             self.month_9 = self.price + (self.price * 10 / 100)
-            self.month_9 = self.month_9  / 9 
+            self.month_9 = ilkin  / 9 
         if not self.month_12:
             self.month_12 = self.price + (self.price * 10 / 100)
-            self.month_12 = self.month_12  / 12
+            self.month_12 = ilkin  / 12
         if not self.month_15:
             self.month_15 = self.price + (self.price * 10 / 100)
-            self.month_15 = self.month_15  / 15  
+            self.month_15 = ilkin  / 15  
         if not self.month_18:
             self.month_18 = self.price + (self.price * 10 / 100)
-            self.month_18 = self.month_18  / 18 
+            self.month_18 = ilkin  / 18 
        
        
        # new_image = compress(self.image)
@@ -314,7 +320,7 @@ class Cart(models.Model):
     def add_to_cart(self, product_slug, color):
         cart = self
         product = Product.objects.get(slug=product_slug)
-        new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.price, color=color)
+        new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.dicount, color=color)
        
         cart_items = [item.product for item in cart.items.all()]
         if new_item.product not in cart_items:

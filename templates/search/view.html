@@ -122,10 +122,10 @@
                             
                             
                             
-                            {% for x in x.color.all %}
+                           <!-- {% for x in x.color.all %}
                             
                             <a href="/{{x.slug}}/"><button style="background-color:{{x.color}}; color: white; padding: .6rem 0.6rem; border-radius: 3.25rem;" type="button" class="btn"> </button></a>
-                            {% endfor %}
+                            {% endfor %}--><a href="{{x.get_absolute_url}}?id={{x.id}}">Rəng sayı: {{x.color.all.count|add:"1"}} </a>
                         </div>
                         
                         <a href="" class="add_to_cart" data-slug='{{ x.slug }}'> <div class="add-to-cart">

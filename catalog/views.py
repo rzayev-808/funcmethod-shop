@@ -39,7 +39,7 @@ import hashlib
 import xml.etree.ElementTree as ET
 import requests
 from django.db.models import F
-
+from django.utils.text import slugify
 
 
 
@@ -237,6 +237,8 @@ def product_view(request, product_slug):
             b.append(i['id'])
     except KeyError:
         b = None
+    main = MainCategory.objects.all().order_by('-id')
+    cat = Category.objects.all()
     product = Product.objects.get(slug=product_slug)
     categories = Category.objects.all()
     if request.method == 'POST':
@@ -260,6 +262,8 @@ def product_view(request, product_slug):
         'history_products': history_products,
         'form':form,
         'b':b,
+        'main':main,
+        'cat':cat,
         
     }
     return render(request, 'product-detail.html', context)
@@ -562,6 +566,7 @@ def account_view(request):
     history = HistoryProducts.objects.filter(user=request.user).order_by('-id')
     mesaj = Message.objects.filter(user=request.user)
     fovarites = request.session.get('fovarites')
+    user = User.objects.filter(username=request.user)
     pk = []
     if not fovarites:
         pass
@@ -577,7 +582,8 @@ def account_view(request):
         'categories': categories,
         'history':history,
         'mesaj':mesaj,
-        'k':k
+        'k':k,
+        'user':user
     }
     return render(request, 'account.html', context)
 
@@ -730,7 +736,8 @@ class SearchProductView(ListView):
   paginate_by = 12
   def get_context_data(self, *args, **kwargs):
     context = super(SearchProductView, self).get_context_data(*args, **kwargs)
-    context['query'] = self.request.GET.get('q')
+    context['query'] = slugify(self.request.GET.get('q'))
+    #print(context['query'])
     context['main'] = MainCategory.objects.all().order_by('-id')
     return context
 
@@ -769,7 +776,7 @@ def add_to_fovarite(request, id):
         request.session.modified = True
         #visit += 1
         #visits = int(request.session.get('visits', '1')) + 1
-    return JsonResponse({'add_data': add_data})
+    return redirect(request.POST.get('url_form'))
 
 def products_history(request):
 
@@ -965,3 +972,8 @@ def category_in_products(request, category):
     }
     return render(request, 'category_products.html', context)
 
+
+def get_logout(request):
+    print('logout', request)
+    logout(request)
+    return redirect('index')

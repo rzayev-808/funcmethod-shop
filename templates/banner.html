@@ -129,6 +129,7 @@
                 </span>
             </button>
             <div class="sidebar">
+
                 <form action="{% url 'detail' %}" method="get">
                 <!-- categories -->
                 <ul class="categories">
@@ -331,8 +332,8 @@
                                 </g>
                             </svg></div>
                     </div>
-                </div>
-              <!-- products -->
+ 
+                </div>               <!-- products -->
                <!-- products -->
                 <div class="products  my-5 infinite-container ">
                     <!-- product -->
@@ -408,7 +409,7 @@
                 </div>
                 <!-- loader -->
                 <div class="loader my-5 d-flex justify-content-center">
-                    <div class="lds-spinner">
+                    <!--<div class="lds-spinner">
                         <div></div>
                         <div></div>
                         <div></div>
@@ -421,7 +422,7 @@
                         <div></div>
                         <div></div>
                         <div></div>
-                      
+                      -->
                         <!-- product -->
                         {% if page_obj.has_next %}
                         <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>

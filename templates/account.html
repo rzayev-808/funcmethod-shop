@@ -63,7 +63,10 @@
                         Promokodlarım (0)
                     </li>
                     <li class="menu-item">
-                        Çıxış
+                        <a href='{% url 'get_logout' %}' style="font-size: 20px;
+    color: #616161;
+    cursor: pointer;
+    padding: 5px 0;">Çıxış</a>
                     </li>
 
                 </ul>
@@ -81,12 +84,12 @@
                         <div class="row">
                             <!-- username -->
                             <div class="col-md-6 position-relative">
-                                <input type="text" class="form-input" disabled value="Samir" placeholder="Ad">
+                                <input type="text" class="form-input" disabled value="{{user.first_name}}" placeholder="{{request.user.first_name}}">
                                 <img src="{% static 'images/icons/edit.svg' %}" alt="" class="position-absolute edit-input">
                             </div>
                             <!-- username -->
                             <div class="col-md-6 position-relative">
-                                <input type="text" class="form-input" disabled value="Rəhimov" placeholder="Soyad">
+                                <input type="text" class="form-input" disabled value="{{user.last_name}}" placeholder="Soyad">
                                 <img src="{% static 'images/icons/edit.svg' %}" alt="" class="position-absolute edit-input">
                             </div>
                             <!-- username -->
@@ -376,7 +379,7 @@
                                                     </li>
                                                     <li>
                                                         <span>Müştəri</span>
-                                                        <p>Samir Rehimli</p>
+                                                        <p>{{user.last_name}} {{user.first_name}}</p>
                                                     </li>
                                                     <li class="customer">
                                                         <span>E-mail</span>

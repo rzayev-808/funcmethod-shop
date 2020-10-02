@@ -319,7 +319,7 @@
                                 {% else %}
                                 <div class="new-price mr-2">{{x.price}} ‎₼</div>
                                 {%endif %}
-                            </div>
+                            </div><a href="{{x.get_absolute_url}}?id={{x.id}}">Rəng sayı: {{x.color.all.count|add:"1"}} </a>
                             <div class="d-flex flex-wrap justify-content-between">
                                 <div class="fav">
                                     <form action="{% url 'add_to_fovarite' x.id %}" method="POST">
@@ -344,13 +344,13 @@
                                             transform="translate(-17.2 0)" fill="#fff" />
                                     </svg>
                                 </div></a>
-                                <div class="product-payment">
+                                <!--<div class="product-payment">
                                     <p class="fm">
                                         Hissə-hissə ödəniş
                                     </p>
                                     <span class="month">12 ay</span>
                                     <span class="per-month"> {{x.month_12}} ‎₼ </span>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
 
@@ -659,7 +659,8 @@
         e.preventDefault()
         product_slug = $(this).attr('data-slug')
         data = {
-          product_slug: product_slug
+          product_slug: product_slug,
+          path: {{request.path}}
         }
         $.ajax({
           type: "GET",

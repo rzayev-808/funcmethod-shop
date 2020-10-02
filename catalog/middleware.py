@@ -11,7 +11,7 @@ def check_url_active(get_response):
             if response.status_code == 500:
                 return redirect('404')
         except:
-            return redirect('logins')
+            return redirect('index')
 
 
         return response
