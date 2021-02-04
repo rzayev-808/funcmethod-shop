@@ -317,10 +317,10 @@ class Cart(models.Model):
     def  __str__(self):
         return str(self.id)
 
-    def add_to_cart(self, product_slug, color):
+    def add_to_cart(self, product_slug, color, qty):
         cart = self
         product = Product.objects.get(slug=product_slug)
-        new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.dicount, color=color)
+        new_item, _ = CartItem.objects.get_or_create(product=product, item_total=product.dicount, color=color, qty=qty)
        
         cart_items = [item.product for item in cart.items.all()]
         if new_item.product not in cart_items:
@@ -343,7 +343,10 @@ class Cart(models.Model):
         cart = self
         cart_item = CartItem.objects.get(id=int(item_id))
         cart_item.qty = int(qty)
-        cart_item.item_total = int(qty) * Decimal(cart_item.product.price)
+        if cart_item.product.sale > 0:
+            cart_item.item_total = int(qty) * Decimal(cart_item.product.dicount)
+        else:
+            cart_item.item_total = int(qty) * Decimal(cart_item.product.dicount)
         cart_item.save()
         new_cart_total = 0.00
         for item in cart.items.all():

@@ -338,8 +338,10 @@ def brand_view(request, brand_slug):
     return render(request, 'base/brand.html', context)
 
 def cart_view(request):
+    
     try:
         cart_id = request.session['cart_id']
+        print(request.session['cart_id'])
         cart = Cart.objects.get(id=cart_id)
         request.session['total'] = cart.items.count()
     except:
@@ -370,11 +372,15 @@ def add_to_cart_view(request):
         cart = Cart.objects.get(id=cart_id)
     product_slug = request.GET.get('product_slug')
     color = request.GET.get('color')
+    qty = request.GET.get('qty')
+    
+    
     product = Product.objects.get(slug=product_slug)
-    cart.add_to_cart(product.slug, color)
+    cart.add_to_cart(product.slug, color, qty)
     new_cart_total = 0.00
     for item in cart.items.all():
-        new_cart_total += float(item.item_total)
+        new_cart_total += float(item.qty) * float(item.item_total)
+    print(new_cart_total)
     cart.cart_total = new_cart_total
     cart.save()
     return JsonResponse({'cart_total': cart.items.count(), 'cart_total_price': cart.cart_total})
@@ -413,6 +419,7 @@ def change_item_qty(request):
         request.session['cart_id'] = cart_id
         cart = Cart.objects.get(id=cart_id)
     qty = request.GET.get('qty')
+    print(qty)
     item_id = request.GET.get('item_id')
     cart.change_qty(qty, item_id)
     cart_item = CartItem.objects.get(id=int(item_id))
@@ -620,16 +627,29 @@ def registration_view(request):
 
 
 def login_view(request):
-    forms = LoginForm(request.POST or None)
+    
     form = RegistrationForm(request.POST or None)
     categories = Category.objects.all()
-    if forms.is_valid():
+    if form.is_valid():
+        new_user = form.save(commit=False)
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
-        login_user = authenticate(username=username, password=password)
+        email = form.cleaned_data['email']
+        first_name = form.cleaned_data['first_name']
+        last_name = form.cleaned_data['last_name']
+        
+        
+        new_user.set_password(password)
+        new_user.first_name = first_name
+        new_user.username = username
+        new_user.last_name = last_name
+        new_user.email = email
+        
+        new_user.save()
+        login_user = authenticate(email=email, password=password)
         if login_user:
             login(request, login_user)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('cart'))
     context = {
         'forms': forms,
         'form':form,
@@ -681,14 +701,14 @@ def buy(request, product_slug):
         cart = Cart.objects.get(id=cart_id)
     product_slug = product_slug
     color = request.GET.get('color')
-    print(color)
+    qty = request.GET.get('qty')
     product = Product.objects.get(slug=product_slug)
-    cart.add_to_cart(product.slug , color)
+    cart.add_to_cart(product.slug , color, qty)
     print(cart)
     new_cart_total = 0.00
     for item in cart.items.all():
         new_cart_total += float(item.item_total)
-    cart.cart_total = new_cart_total
+    cart.cart_total = float(qty) * new_cart_total
     cart.save()
     #return JsonResponse({'cart_total': cart.items.count(), 'cart_total_price': cart.cart_total})
     return HttpResponseRedirect(reverse('cart'))
@@ -760,7 +780,8 @@ def add_to_fovarite(request, id):
             request.session['visits'] = list()
         else:
             request.session['visits'] = list(request.session['visits'])
-        item_exist = next((item for item in request.session['fovarites'] if  item['id'] == id), False)
+        item_exist = next((item for item in request.session['fovarites'] if  item['id'] == id),False)
+        
     #visit = 0
     
     
@@ -770,13 +791,13 @@ def add_to_fovarite(request, id):
         'id': id,
         #'visit': visit,
     }
-    
     if not item_exist:
-        request.session['fovarites'].append(add_data)
-        request.session.modified = True
+            request.session['fovarites'].append(add_data)
+            request.session.modified = True
+        
         #visit += 1
         #visits = int(request.session.get('visits', '1')) + 1
-    return redirect(request.POST.get('url_form'))
+    return redirect('index')
 
 def products_history(request):
 

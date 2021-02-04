@@ -98,6 +98,7 @@ $('.product-count .change-count').on('click', function (e) {
   }
   else if ($(e.target).attr('data-title') == 'plus') {
     $('.product-count .count input').val(+$('.product-count .count input').val() + 1)
+    $('.buying .buy input').val(+$('.buying .buy input' ).val() + 1)
     if (+$('.product-count .count input').val() > +$('.product-count .count input').attr('max')) {
       $('.product-count .count input').val($('.product-count .count input').attr('max'))
     }

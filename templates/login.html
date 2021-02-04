@@ -12,79 +12,12 @@
     <!-- login -->
     <section id="login">
 
-        <div class="page-nav container pt-4">
-            <ul class="d-flex">
-                <li>
-                    <a href="index.html">
-                        Əsas Səhifə
-                    </a>
-                </li>
-                <li class="divider">
-                    <img src="./images/icons/arrow.svg" alt="">
-                </li>
-                <li>
-                    <a href="index.html">
-                        Şəxsi kabinet
-                    </a>
-                </li>
-                <li class="divider">
-                    <img src="./images/icons/arrow.svg" alt="">
-                </li>
-                <li>
-                    Qeydiyyat
-                </li>
-            </ul>
-        </div>
+        
 
         <div class="login-or-register container  my-5 ">
             <div class="row mx-0">
-                <div class="col-xl-6 col-md-12 register  ">
-    
-                    <h2>Qeydiyyat</h2>
-                    {% if form.errors %}
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <div class="alert alert-danger">
-                                <strong>{{ error|escape }}</strong>
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                        <div class="alert alert-danger">
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                      
-                    <form action="{% url 'registration' %}" method="POST">
-                         {% csrf_token %}
-                         
-                        <input class="form-input" placeholder="İstifadəçi adı" name="username" type="text">
-                        
-                        
-                        <input class="form-input" placeholder="Şifrə" name="password" type="password">
-                        
-                        
-                        <input class="form-input" placeholder="Şifrəni təkrar edin" name="password_check" type="password" required="">
-                        
-                        
-                        <input class="form-input" placeholder="Ad" name="first_name" type="text">
-                        
-                        
-                        <input class="form-input" placeholder="Soyad" name="last_name" type="text">
-                        
-                        
-                        <input class="form-input" placeholder="Email adresiniz" name="email" type="email" required="">
-                        
-                       
-   
-                       <div class="submit-register w-100 text-center my-5 ">
-                           <button type="submit" class="btn-red reg-btn px-4">Qeydiyyatdan keç</button>
-                       </div>
-                   </form>
-    
-                </div>
-                <div class="col-xl-6 col-md-12 login ">
+                
+                <div class="col-xl-12 col-md-12 login ">
                     <h2>Giriş</h2>
                     <form action='{% url "login" %}' method='POST'>
                         {% csrf_token %}
@@ -94,6 +27,9 @@
                         
                         <div class="forgot-password mt-3 text-center">
                             <a href="">Şifrəni unutmusunuz?</a>
+                        </div>
+                        <div class="forgot-password mt-12 text-center">
+                            <a href="{% url 'registration' %}">Qeydiyyat</a>
                         </div>
                         <ul class="sosial-links d-flex justify-content-center mt-5">
                             <li class="sosial-link google mr-3">
