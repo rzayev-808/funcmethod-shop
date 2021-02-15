@@ -678,10 +678,18 @@ def filters(request):
 def details(request):
     filter = Filters(request.GET, queryset=Product.objects.all().order_by('-id'))
     brand = Brand.objects.all()
-
+    #colors = request.GET.get('colors')
+    try:
+        colors = request.GET['colors']
+        pro = Product.objects.filter(color__in=colors)
+        print(colors)
+    except:
+        pro = None
+        # pro = None
     context = {
          'filter': filter,
          'brand': brand,
+         'pro':pro
      }
     return render(request, 'detail.html', context)
 
